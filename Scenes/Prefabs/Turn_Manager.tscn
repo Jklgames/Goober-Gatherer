@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl8kkfv02tsl8"]
+
+[ext_resource type="Script" path="res://Scenes/Prefabs/Turn_Manager.gd" id="1_j6v1p"]
+
+[node name="Turn_Manager" type="Node"]
+script = ExtResource("1_j6v1p")

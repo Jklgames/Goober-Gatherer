@@ -1,0 +1,173 @@
+[gd_scene load_steps=13 format=3 uid="uid://dlrnlm1c2vk4j"]
+
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png" id="1_ufexh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
+atlas = ExtResource("1_ufexh")
+region = Rect2(660, 0, 220, 220)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op4n1"]
+atlas = ExtResource("1_ufexh")
+region = Rect2(880, 0, 220, 220)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfevu"]
+atlas = ExtResource("1_ufexh")
+region = Rect2(220, 220, 220, 220)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42bht"]
+atlas = ExtResource("1_ufexh")
+region = Rect2(0, 0, 220, 220)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybffk"]
+atlas = ExtResource("1_ufexh")
+region = Rect2(440, 0, 220, 220)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rvyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op4n1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfevu")
+}],
+"loop": false,
+"name": &"Hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42bht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybffk")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}]
+
+[sub_resource type="Animation" id="Animation_rd1vn"]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Hurt"]
+}
+
+[sub_resource type="Animation" id="Animation_2bv0n"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 0.8, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.567223, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yovgh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite3D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.567223, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70vp6"]
+_data = {
+"Hurt": SubResource("Animation_rd1vn"),
+"Idle": SubResource("Animation_2bv0n"),
+"RESET": SubResource("Animation_yovgh")
+}
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
+
+[node name="Creature" type="Node3D"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
+sprite_frames = SubResource("SpriteFrames_8aamm")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.29848
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_70vp6")
+}
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+tree_root = SubResource("AnimationRootNode_fxsg7")
