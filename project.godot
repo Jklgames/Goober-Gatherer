@@ -12,9 +12,15 @@ config_version=5
 
 config/name="Goober Gatherer"
 config/version="-1 billion"
-run/main_scene="res://Scenes/GameScenes/Battle.tscn"
+run/main_scene="res://Scenes/Battle.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 
 [editor]
 

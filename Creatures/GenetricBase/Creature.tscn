@@ -1,26 +1,26 @@
 [gd_scene load_steps=14 format=3 uid="uid://dlrnlm1c2vk4j"]
 
-[ext_resource type="Script" path="res://Scenes/Prefabs/Creature.gd" id="1_3sgvy"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png" id="1_ufexh"]
+[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_612nd"]
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png" id="2_uje21"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("1_ufexh")
+atlas = ExtResource("2_uje21")
 region = Rect2(660, 0, 220, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_op4n1"]
-atlas = ExtResource("1_ufexh")
+atlas = ExtResource("2_uje21")
 region = Rect2(880, 0, 220, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfevu"]
-atlas = ExtResource("1_ufexh")
+atlas = ExtResource("2_uje21")
 region = Rect2(220, 220, 220, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42bht"]
-atlas = ExtResource("1_ufexh")
+atlas = ExtResource("2_uje21")
 region = Rect2(0, 0, 220, 220)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybffk"]
-atlas = ExtResource("1_ufexh")
+atlas = ExtResource("2_uje21")
 region = Rect2(440, 0, 220, 220)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
@@ -156,7 +156,7 @@ _data = {
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
 [node name="Creature" type="Node3D"]
-script = ExtResource("1_3sgvy")
+script = ExtResource("1_612nd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqjejwrwvqqbp"]
+
+[ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
+[ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turn_Manager.tscn" id="2_1yqt7"]
+[ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turn_List.tscn" id="3_ojxl6"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kmgoy"]
+height = 0.001
+radial_segments = 6
+rings = 5
+
+[node name="Battle Scene" type="Node3D" node_paths=PackedStringArray("turnManager")]
+script = ExtResource("1_yocd0")
+turnManager = NodePath("Turn_Manager")
+Waves = [[], []]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+mesh = SubResource("CylinderMesh_kmgoy")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776829, 3.27275)
+
+[node name="Turn_Manager" parent="." instance=ExtResource("2_1yqt7")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Turn_List" parent="CanvasLayer" instance=ExtResource("3_ojxl6")]
+offset_left = 78.0
+offset_top = 62.0
+offset_right = 78.0
+offset_bottom = 62.0

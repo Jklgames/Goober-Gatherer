@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=3 format=3 uid="uid://bsp8pvqd6svj2"]
+
+[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/GenetricBase/Creature.tscn" id="1_jw3fi"]
+[ext_resource type="Script" path="res://Creatures/GenetricBase/Creature_Data.gd" id="1_ln6ma"]
+
+[resource]
+script = ExtResource("1_ln6ma")
+name = "Generic"
+creatureScene = ExtResource("1_jw3fi")
+description = "PlaceHolder"
+attack = 100
+defence = 100
+gooberGuage = 100
+speed = 100
