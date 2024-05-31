@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=2 format=3 uid="uid://og77tcq48heg"]
+
+[ext_resource type="Script" path="res://Creature_Data.gd" id="1_vpkuj"]
+
+[resource]
+script = ExtResource("1_vpkuj")
+name = "WO YEAH"
+description = "WOOWOWO"
+attack = 100
+def = 100
+gooberGuage = 100
+speed = 100

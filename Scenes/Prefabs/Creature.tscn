@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dlrnlm1c2vk4j"]
+[gd_scene load_steps=14 format=3 uid="uid://dlrnlm1c2vk4j"]
 
+[ext_resource type="Script" path="res://Scenes/Prefabs/Creature.gd" id="1_3sgvy"]
 [ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png" id="1_ufexh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
@@ -155,6 +156,7 @@ _data = {
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
 [node name="Creature" type="Node3D"]
+script = ExtResource("1_3sgvy")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
