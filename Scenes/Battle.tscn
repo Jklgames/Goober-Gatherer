@@ -9,10 +9,9 @@ height = 0.001
 radial_segments = 6
 rings = 5
 
-[node name="Battle Scene" type="Node3D" node_paths=PackedStringArray("turnManager")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager")]
 script = ExtResource("1_yocd0")
 turnManager = NodePath("Turn_Manager")
-Waves = [[], []]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)

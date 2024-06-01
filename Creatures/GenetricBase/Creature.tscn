@@ -157,6 +157,8 @@ _data = {
 
 [node name="Creature" type="Node3D"]
 script = ExtResource("1_612nd")
+nickname = "Generic Creature"
+dataPath = "\"res://Creatures/GenetricBase/Generic_Creature_Data.tres\""
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)

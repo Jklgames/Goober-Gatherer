@@ -47,11 +47,11 @@ func End_Turn():
 	pass
 
 func Advance_To_Next_Turn() -> Turn:
-	var index = 0
-	for turn in turns:
-		move_child(turn,index)
-		index += 1
 	Sort_Turns()
+	var turn : Turn = turns[0]
+	var av : float = turn.actionValue
+	for t :Turn in turns:
+		t.actionValue -= av
 	return turns[0]
 
 

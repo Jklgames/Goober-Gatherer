@@ -12,13 +12,14 @@ font_size = 20
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Turn_Graphic" type="Panel"]
-anchors_preset = -1
+[node name="Turn_Graphic" type="Panel" node_paths=PackedStringArray("turnName", "av")]
 offset_right = 300.0
 offset_bottom = 100.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 script = ExtResource("1_usjbv")
+turnName = NodePath("Name")
+av = NodePath("Action Value")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 1
@@ -29,7 +30,7 @@ grow_horizontal = 2
 text = "TEST NAME"
 label_settings = SubResource("LabelSettings_alux6")
 
-[node name="Name2" type="Label" parent="."]
+[node name="Action Value" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -38,7 +39,6 @@ anchor_bottom = 1.0
 offset_top = -28.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "TEST NAME"
 label_settings = SubResource("LabelSettings_5aoc4")
 horizontal_alignment = 2
 vertical_alignment = 2

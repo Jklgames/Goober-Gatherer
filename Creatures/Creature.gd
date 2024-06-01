@@ -1,9 +1,9 @@
 extends Node3D
 class_name Creature
 
-var nickname : String
-@export var data : CreatureData
-
+@export var nickname : String
+@export var dataPath : String
+@onready var data : CreatureData = load(dataPath)
 
 func Get_Stat(statName : String) -> float:
 	var returnStat = data.get(statName.to_lower())

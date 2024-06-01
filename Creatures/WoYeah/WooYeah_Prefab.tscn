@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
-[ext_resource type="Resource" uid="uid://og77tcq48heg" path="res://Creatures/WoYeah/WOOYEAH.tres" id="2_8tvkx"]
 [ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png" id="2_b0c5k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
@@ -158,7 +157,8 @@ _data = {
 
 [node name="WooYeah" type="Node3D"]
 script = ExtResource("1_xqvbw")
-data = ExtResource("2_8tvkx")
+nickname = "WooYeah"
+dataPath = "\"res://Creatures/WoYeah/WooYeah_Data.tres\""
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
