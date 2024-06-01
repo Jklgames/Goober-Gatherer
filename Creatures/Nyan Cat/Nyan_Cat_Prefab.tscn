@@ -1,39 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=11 format=3 uid="uid://d25rcd1yetce2"]
 
-[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png" id="2_b0c5k"]
+[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_dw4cf"]
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png" id="2_h7fpm"]
+[ext_resource type="Texture2D" uid="uid://c8d1mlixsyq8i" path="res://Creatures/Nyan Cat/spr_e_019_1.png" id="3_fvods"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("2_b0c5k")
+atlas = ExtResource("2_h7fpm")
 region = Rect2(660, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op4n1"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(880, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfevu"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(220, 220, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_42bht"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(0, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ybffk"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(440, 0, 220, 220)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8rvyd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op4n1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qfevu")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -41,10 +20,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_42bht")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ybffk")
+"texture": ExtResource("3_fvods")
 }],
 "loop": true,
 "name": &"Idle",
@@ -96,7 +72,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("AnimatedSprite3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -155,12 +131,14 @@ _data = {
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
-[node name="WooYeah" type="Node3D"]
-script = ExtResource("1_xqvbw")
-dataPath = "\"res://Creatures/WoYeah/WooYeah_Data.tres\""
+[node name="Nyan_Cat" type="Node3D"]
+script = ExtResource("1_dw4cf")
+dataPath = "res://Creatures/Nyan Cat/Nyan_Cat_Data.tres"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
+pixel_size = 0.1
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"
 autoplay = "Idle"

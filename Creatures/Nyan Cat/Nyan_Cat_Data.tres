@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=3 format=3 uid="uid://d2dalanwxu6vi"]
+
+[ext_resource type="PackedScene" uid="uid://d25rcd1yetce2" path="res://Creatures/Nyan Cat/Nyan_Cat_Prefab.tscn" id="1_buui5"]
+[ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_n8n38"]
+
+[resource]
+script = ExtResource("2_n8n38")
+name = "Nyan Cat"
+creatureScene = ExtResource("1_buui5")
+description = "PlaceHolder"
+attack = 100
+defence = 100
+gooberGuage = 100
+speed = 100

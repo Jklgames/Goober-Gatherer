@@ -6,7 +6,7 @@ var allies : Array = []
 var enemies : Array = []
 @export var allyFieldSlots : Array = []
 @export var enemyFieldSlots : Array = [] 
-@export var waves : Array = [[]] 
+@export var waves : Array = [] #array of partys
 var wave : int = 0
 
 var battleState : BattleState = BattleState.Init
@@ -18,17 +18,22 @@ func _ready():
 	
 func Initialize():
 	InitAllies()
+	InitEnemies()
 	pass
 	
 func InitAllies():
 	var playerData : PlayerData = load("res://Party_Data.gd")
-	for i in range(3):
-		playerData.party[i].instatiate
+	for i in range(min(3,playerData.party.size())):
+		var char = playerData.party.creatures[i].instatiate
+		add_child(char)
+		char.position = allyFieldSlots[i].position
 	pass
 	
 func InitEnemies():
-	for i in range(3):
-		waves[0][i].instatiate
+	for i in range(min(3,waves[0].size())):
+		var char = waves[0].creatures[i].instatiate
+		add_child(char)
+		char.position = enemyFieldSlots[i].position
 	pass
 	
 enum BattleState { Init, Idle, TurnHandling, Win, Lose}

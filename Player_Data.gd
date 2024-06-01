@@ -1,12 +1,12 @@
 extends Resource
 class_name PlayerData
 
-@export var party : Array = []
+@export var party : Party
 
 
-func Add_Creature(creature : Creature):
-	party.append(creature)
+func Add_Creature(creature : CreatureInstance):
+	party.creatures.append(creature)
 	pass
 func Remove_Creature(slot : int):
-	party.remove_at(slot)
+	party.creatures.remove_at(slot)
 	pass

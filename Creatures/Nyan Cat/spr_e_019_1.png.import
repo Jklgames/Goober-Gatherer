@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdtj6w74i0lke"
-path.s3tc="res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-524cbce948d90c1adc0e2166ec0b7fcf.s3tc.ctex"
+uid="uid://c8d1mlixsyq8i"
+path="res://.godot/imported/spr_e_019_1.png-22a185b7193115bdec28e6b067b0c1e5.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Creatures/groove-battle-ezgif.com-gif-maker.png"
-dest_files=["res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-524cbce948d90c1adc0e2166ec0b7fcf.s3tc.ctex"]
+source_file="res://Creatures/Nyan Cat/spr_e_019_1.png"
+dest_files=["res://.godot/imported/spr_e_019_1.png-22a185b7193115bdec28e6b067b0c1e5.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
