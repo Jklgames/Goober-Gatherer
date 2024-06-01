@@ -12,6 +12,8 @@ rings = 5
 [node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager")]
 script = ExtResource("1_yocd0")
 turnManager = NodePath("Turn_Manager")
+allyFieldSlots = [NodePath("AllyFieldSlots/Slot 1"), NodePath("AllyFieldSlots/Slot 2"), NodePath("AllyFieldSlots/Slot 3")]
+enemyFieldSlots = [NodePath("EnemyFieldSlots/Slot 1"), NodePath("EnemyFieldSlots/Slot 2"), NodePath("EnemyFieldSlots/Slot 3")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
@@ -29,3 +31,25 @@ offset_left = 78.0
 offset_top = 62.0
 offset_right = 78.0
 offset_bottom = 62.0
+
+[node name="AllyFieldSlots" type="Node" parent="."]
+
+[node name="Slot 1" type="Node3D" parent="AllyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Slot 2" type="Node3D" parent="AllyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="Slot 3" type="Node3D" parent="AllyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+
+[node name="EnemyFieldSlots" type="Node" parent="."]
+
+[node name="Slot 1" type="Node3D" parent="EnemyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Slot 2" type="Node3D" parent="EnemyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="Slot 3" type="Node3D" parent="EnemyFieldSlots"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)

@@ -132,12 +132,13 @@ _data = {
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
 [node name="Nyan_Cat" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000868797, -0.022244, 0.00169659)
 script = ExtResource("1_dw4cf")
 dataPath = "res://Creatures/Nyan Cat/Nyan_Cat_Data.tres"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
-pixel_size = 0.1
+pixel_size = 0.05
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"
