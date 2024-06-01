@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=19 format=3 uid="uid://sfwqphjvbgx7"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png" id="2_b0c5k"]
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png" id="2_b0c5k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
 atlas = ExtResource("2_b0c5k")
@@ -53,6 +53,7 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_rd1vn"]
 resource_name = "Hurt"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -153,11 +154,34 @@ _data = {
 "RESET": SubResource("Animation_yovgh")
 }
 
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o42fb"]
+animation = &"Hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ehpy2"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o0br3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6e75d"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6d2iw"]
+states/Hurt/node = SubResource("AnimationNodeAnimation_o42fb")
+states/Hurt/position = Vector2(279, 42)
+states/Idle/node = SubResource("AnimationNodeAnimation_ehpy2")
+states/Idle/position = Vector2(308, 120)
+states/Start/position = Vector2(148, 78)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_o0br3"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_6e75d")]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a3r5o"]
+height = 0.001
+radial_segments = 6
+rings = 5
 
 [node name="WooYeah" type="Node3D"]
 script = ExtResource("1_xqvbw")
-dataPath = "\"res://Creatures/WoYeah/WooYeah_Data.tres\""
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
@@ -172,4 +196,10 @@ libraries = {
 autoplay = "Idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
-tree_root = SubResource("AnimationRootNode_fxsg7")
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_6d2iw")
+anim_player = NodePath("..")
+
+[node name="Stand" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_a3r5o")

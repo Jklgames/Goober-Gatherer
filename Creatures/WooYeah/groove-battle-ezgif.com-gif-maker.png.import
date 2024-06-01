@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdtj6w74i0lke"
-path.s3tc="res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-203333be2b97767c71adce346292b5eb.s3tc.ctex"
+path.s3tc="res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-3e184bbcd073918c362b2edecc629e56.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png"
-dest_files=["res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-203333be2b97767c71adce346292b5eb.s3tc.ctex"]
+source_file="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png"
+dest_files=["res://.godot/imported/groove-battle-ezgif.com-gif-maker.png-3e184bbcd073918c362b2edecc629e56.s3tc.ctex"]
 
 [params]
 

@@ -1,18 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://d25rcd1yetce2"]
+[gd_scene load_steps=10 format=3 uid="uid://d25rcd1yetce2"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_dw4cf"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png" id="2_h7fpm"]
 [ext_resource type="Texture2D" uid="uid://c8d1mlixsyq8i" path="res://Creatures/Nyan Cat/spr_e_019_1.png" id="3_fvods"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("2_h7fpm")
-region = Rect2(660, 0, 220, 220)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8rvyd")
+"texture": ExtResource("3_fvods")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -61,26 +56,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite3D:scale")
-tracks/1/interp = 1
+tracks/1/path = NodePath("AnimatedSprite3D:position")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 0.8, 1)]
+"values": [Vector3(0, 0.567223, 0), Vector3(-1, 0.494608, 0), Vector3(0, 0.421993, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("AnimatedSprite3D:position")
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite3D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.567223, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_yovgh"]
@@ -100,26 +95,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/path = NodePath("AnimatedSprite3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1, 1, 1)]
+"values": [Vector3(0, 0.567223, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite3D:position")
+tracks/2/path = NodePath("AnimatedSprite3D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.567223, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70vp6"]
@@ -131,14 +126,18 @@ _data = {
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_g7ati"]
+height = 0.001
+radial_segments = 6
+rings = 5
+
 [node name="Nyan_Cat" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000868797, -0.022244, 0.00169659)
 script = ExtResource("1_dw4cf")
-dataPath = "res://Creatures/Nyan Cat/Nyan_Cat_Data.tres"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
-pixel_size = 0.05
+pixel_size = 0.03
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"
@@ -151,4 +150,10 @@ libraries = {
 autoplay = "Idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+root_node = NodePath("../..")
 tree_root = SubResource("AnimationRootNode_fxsg7")
+anim_player = NodePath("..")
+
+[node name="Stand" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_g7ati")

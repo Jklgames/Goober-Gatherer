@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlrnlm1c2vk4j"]
+[gd_scene load_steps=12 format=3 uid="uid://dlrnlm1c2vk4j"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_612nd"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WoYeah/groove-battle-ezgif.com-gif-maker.png" id="2_5dx5d"]
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png" id="2_5dx5d"]
 [ext_resource type="Texture2D" uid="uid://yl0hvftleceh" path="res://Creatures/GenetricBase/1112951843396538439-ezgif.com-webp-to-png-converter.png" id="3_h5w7k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
@@ -131,12 +131,18 @@ _data = {
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_fxsg7"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_37ypx"]
+height = 0.001
+radial_segments = 6
+rings = 5
+
 [node name="Base_Creature" type="Node3D"]
 script = ExtResource("1_612nd")
-dataPath = "\"res://Creatures/GenetricBase/Generic_Creature_Data.tres\""
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
+pixel_size = 0.015
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"
 autoplay = "Idle"
@@ -148,4 +154,10 @@ libraries = {
 autoplay = "Idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
+root_node = NodePath("../..")
 tree_root = SubResource("AnimationRootNode_fxsg7")
+anim_player = NodePath("..")
+
+[node name="Stand" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CylinderMesh_37ypx")

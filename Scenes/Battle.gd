@@ -24,8 +24,10 @@ func Initialize():
 func InitAllies():
 	var playerData : PlayerData = load("res://Party_Data.gd")
 	for i in range(min(3,playerData.party.size())):
-		var char = playerData.party.creatures[i].instatiate
+		var instance : CreatureInstance = playerData.party.creatures[i]
+		var char : Creature = instance.data.creatureScene.instantiate()
 		add_child(char)
+		char.SetInstance(instance)
 		char.position = allyFieldSlots[i].position
 	pass
 	

@@ -1,8 +1,7 @@
 extends Node3D
 class_name Creature
 
-@export var dataPath : String
-@onready var data : CreatureData = load(dataPath)
+var data : CreatureData
 var instance : CreatureInstance
 
 func Get_Stat(statName : String) -> float:
@@ -12,6 +11,7 @@ func Get_Stat(statName : String) -> float:
 
 func SetInstance(newinstance : CreatureInstance):
 	instance = newinstance
+	data = instance.data
 	#Other Initialization stuff maybe
 	pass
 
