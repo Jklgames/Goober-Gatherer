@@ -29,6 +29,7 @@ func InitAllies():
 		add_child(char)
 		char.SetInstance(instance)
 		char.position = allyFieldSlots[i].position
+		pass
 	pass
 	
 func InitEnemies():
@@ -36,6 +37,11 @@ func InitEnemies():
 		var char = waves[0].creatures[i].instatiate
 		add_child(char)
 		char.position = enemyFieldSlots[i].position
+		pass
+	pass
+	
+func SlotInCreature(isAlly:bool,creature:Creature,slot : int):
+	
 	pass
 	
 enum BattleState { Init, Idle, TurnHandling, Win, Lose}
