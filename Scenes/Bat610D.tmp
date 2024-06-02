@@ -12,12 +12,12 @@ script = ExtResource("4_47hsa")
 initalized = false
 creatureDatas = [ExtResource("2_hf83q"), ExtResource("3_qu86o"), ExtResource("3_qu86o")]
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager", "allyFieldSlots", "enemyFieldSlots")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager")]
 script = ExtResource("1_yocd0")
 turnManager = NodePath("CanvasLayer/Turn_List/Turn_Manager")
 allyFieldSlots = [NodePath("AllyFieldSlots/Slot 1"), NodePath("AllyFieldSlots/Slot 2"), NodePath("AllyFieldSlots/Slot 3")]
 enemyFieldSlots = [NodePath("EnemyFieldSlots/Slot 1"), NodePath("EnemyFieldSlots/Slot 2"), NodePath("EnemyFieldSlots/Slot 3")]
-waves = Array[ExtResource("4_47hsa")]([SubResource("Resource_c5qk1")])
+waves = [SubResource("Resource_c5qk1")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776829, 4.78752)
@@ -32,8 +32,7 @@ offset_right = 78.0
 offset_bottom = 62.0
 turnManager = NodePath("Turn_Manager")
 
-[node name="Turn_Manager" parent="CanvasLayer/Turn_List" node_paths=PackedStringArray("battle", "turnList") instance=ExtResource("2_1yqt7")]
-battle = NodePath("../../..")
+[node name="Turn_Manager" parent="CanvasLayer/Turn_List" node_paths=PackedStringArray("turnList") instance=ExtResource("2_1yqt7")]
 turnList = NodePath("..")
 
 [node name="AllyFieldSlots" type="Node" parent="."]

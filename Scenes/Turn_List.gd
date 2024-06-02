@@ -2,7 +2,7 @@ extends Control
 class_name  TurnList
 
 @export var turnManager : TurnManager
-var turngraphics : Array = []
+var turngraphics : Array[TurnGraphic] = []
 @export var TurnGraphicPreFab : PackedScene 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,18 +26,16 @@ func New_Turn(turn : Turn) -> TurnGraphic:
 	return newTG
 
 func Update_Turns():
-	var index : int = 0
-	for turn : Turn in turnManager.turns:
+	for i in range(turnManager.turns.size()):
+		var turn = turnManager.turns[i]
 		var graphic : TurnGraphic = turn.turnGraphic
-		graphic.av.text = str(turn.actionValue)
-		graphic.position.y = CalcGraphicPosition(graphic,index)
-		index+=1
+		graphic.av.text = str(int(turn.actionValue))
+		graphic.position.y = CalcGraphicPosition(graphic,i)
 		pass
-	
 	pass
 
-func CalcGraphicPosition(_graphic :TurnGraphic,slot :int) -> float:
+func CalcGraphicPosition(graphic :TurnGraphic,slot :int) -> float:
 	const padding= 50
-	const graphicSize= 100
-	return graphicSize+padding*slot
+	var graphicSize= graphic.size.y
+	return (graphicSize+padding)*slot
 

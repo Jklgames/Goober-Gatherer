@@ -1,8 +1,8 @@
 extends Node
 class_name TurnManager
-
+@export var battle : Battle
 @export var turnPrefab : PackedScene
-var turns : Array = []
+var turns : Array[Turn] = []
 @export var turnList : TurnList
 
 signal turnOrderUpdated
@@ -12,14 +12,17 @@ func Initialize():
 	pass
 
 func Sort_Turns():
-	turns.sort()
+	turns.sort_custom(sortbyav)
 	turnOrderUpdated.emit()
 	pass # Replace with function body.
+	
+func sortbyav(a, b):
+	return a.actionValue < b.actionValue
 
 func AddCreatureTurn(creature : Creature):
 	var newTurn = turnPrefab.instantiate()
 	add_child(newTurn)
-	newTurn.data["Type"] = "creature"
+	newTurn.data["Type"] = "Creature"
 	newTurn.data["Creature"] = creature
 	newTurn.actionValue = 10000/creature.Get_Stat("speed")
 	newTurn.name = creature.instance.nickName
@@ -44,7 +47,11 @@ func EndTurn():
 	else:
 		newAV = turn.data["Speed"]
 	turn.actionValue = newAV
+	var id = turns.find(turn,0)
+	turns.remove_at(id)
+	turns.append(turn)
 	Sort_Turns()
+	battle.ChanceBattleState(Battle.BattleState.Idle)
 	pass
 
 func Advance_To_Next_Turn() -> Turn:
@@ -52,7 +59,8 @@ func Advance_To_Next_Turn() -> Turn:
 	var turn : Turn = turns[0]
 	var av : float = turn.actionValue
 	for t :Turn in turns:
-		t.actionValue -= av
+		t.actionValue = max(0,t.actionValue-av)
+	Sort_Turns()
 	return turns[0]
 
 

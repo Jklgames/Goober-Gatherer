@@ -1,9 +1,9 @@
 extends Resource
 class_name Party
 
-var creatures : Array
+var creatures : Array[CreatureInstance] = []
 @export var initalized : bool #should this party use Premade Creatures?
-@export var creatureDatas : Array
+@export var creatureDatas : Array[CreatureData] = []
 
 func InitializeParty():
 	for cData in creatureDatas:
