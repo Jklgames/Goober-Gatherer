@@ -3,38 +3,39 @@ class_name TurnManager
 
 @export var turnPrefab : PackedScene
 var turns : Array = []
-var turnList : TurnList
+@export var turnList : TurnList
 
 signal turnOrderUpdated
 
 func Initialize():
-	turnList = get_tree().root.get_node("Turn_List")
+	#turnList = get_tree().root.get_node("Turn_List")
+	pass
 
 func Sort_Turns():
 	turns.sort()
 	turnOrderUpdated.emit()
 	pass # Replace with function body.
 
-func Add_Characher_Turn(creature : Creature):
+func AddCreatureTurn(creature : Creature):
 	var newTurn = turnPrefab.instantiate()
 	add_child(newTurn)
 	newTurn.data["Type"] = "creature"
 	newTurn.data["Creature"] = creature
 	newTurn.actionValue = 10000/creature.Get_Stat("speed")
-	newTurn.name = creature.nickname +"'s Turn"
+	newTurn.name = creature.instance.nickName
 	turns.append(newTurn)
+	newTurn.turnGraphic = turnList.New_Turn(newTurn)
 	Sort_Turns()
 	pass
 
-func Add_Turn(turn : Turn):
+func AddTurn(turn : Turn):
 	add_child(turn)
 	turns.append(turn)
-	turn.actionValue
 	turn.turnGraphic = turnList.New_Turn(turn)
 	Sort_Turns()
 	pass
 
-func End_Turn():
+func EndTurn():
 	var turn : Turn = turns[0]
 	var newAV = 10000
 	if (turn.data["Type"] == "Creature"):

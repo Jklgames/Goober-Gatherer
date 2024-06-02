@@ -11,11 +11,3 @@ size_flags_vertical = 2
 script = ExtResource("1_7ngq5")
 TurnGraphicPreFab = ExtResource("1_0avie")
 metadata/_edit_use_anchors_ = true
-
-[node name="Turn_Graphic" parent="." instance=ExtResource("1_0avie")]
-layout_mode = 0
-
-[node name="Turn_Graphic2" parent="." instance=ExtResource("1_0avie")]
-layout_mode = 0
-offset_top = 150.0
-offset_bottom = 250.0

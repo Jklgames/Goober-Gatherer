@@ -1,20 +1,20 @@
-extends Panel
+extends Control
 class_name  TurnList
 
-var turnManager : TurnManager
+@export var turnManager : TurnManager
 var turngraphics : Array = []
 @export var TurnGraphicPreFab : PackedScene 
 
 # Called when the node enters the scene tree for the first time.
 func Initialize():
-	var turnManager = get_node("Turn_Manager")
-	turnManager.turnOrderUpdated.connect(Update_Turns())
+	#turnManager = get_node("Turn_Manager")
+	turnManager.turnOrderUpdated.connect(Update_Turns)
 	pass # Replace with function body.
 
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func New_Turn(turn : Turn) -> TurnGraphic:
@@ -22,20 +22,22 @@ func New_Turn(turn : Turn) -> TurnGraphic:
 	add_child(newTG)
 	turngraphics.append(newTG)
 	newTG.turn = turn
+	newTG.turnName.text = turn.name
 	return newTG
 
 func Update_Turns():
 	var index : int = 0
 	for turn : Turn in turnManager.turns:
 		var graphic : TurnGraphic = turn.turnGraphic
-		graphic.position.x = CalcGraphicPosition(graphic,index)
-		index+1
+		graphic.av.text = str(turn.actionValue)
+		graphic.position.y = CalcGraphicPosition(graphic,index)
+		index+=1
 		pass
 	
 	pass
 
-func CalcGraphicPosition(graphic :TurnGraphic,slot :int) -> float:
+func CalcGraphicPosition(_graphic :TurnGraphic,slot :int) -> float:
 	const padding= 50
 	const graphicSize= 100
-	return -(graphicSize+padding*slot)
-	pass
+	return graphicSize+padding*slot
+

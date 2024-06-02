@@ -22,26 +22,54 @@ func Initialize():
 	pass
 	
 func InitAllies():
-	var playerData : PlayerData = load("res://Party_Data.gd")
-	for i in range(min(3,playerData.party.size())):
-		var instance : CreatureInstance = playerData.party.creatures[i]
-		var char : Creature = instance.data.creatureScene.instantiate()
-		add_child(char)
-		char.SetInstance(instance)
-		char.position = allyFieldSlots[i].position
+	var playerData : PlayerData = load("res://Player_Data.tres")
+	var party :Party= playerData.party
+	
+	if !party.initalized:
+		party.InitializeParty()
+		pass
+	
+	for i in range(min(3,party.creatures.size())):
+		var instance : CreatureInstance = party.creatures[i]
+		SlotInCreature(true,instance,i)
 		pass
 	pass
-	
+
 func InitEnemies():
-	for i in range(min(3,waves[0].size())):
-		var char = waves[0].creatures[i].instatiate
-		add_child(char)
-		char.position = enemyFieldSlots[i].position
+	var party : Party = waves[0]
+	if !party.initalized:
+		party.InitializeParty()
+		pass
+
+	for i in range(min(3,party.creatures.size())):
+		var instance : CreatureInstance =  party.creatures[i]
+		SlotInCreature(false,instance,i)
 		pass
 	pass
+
+func SlotInCreature(isAlly:bool,instance:CreatureInstance,slot : int):
+	if slot > 2 || slot < 0:
+		print("Invalid Slot")
+		return
+	var parentSlot : Node
+	if isAlly:
+		parentSlot = get_node(allyFieldSlots[slot])
+		pass
+	else:
+		parentSlot = get_node(enemyFieldSlots[slot])
+		pass
+	if parentSlot.get_child_count() > 0:
+		for child in parentSlot.get_children():
+			if (child is Creature):
+				child.queue_free()
+
+		
 	
-func SlotInCreature(isAlly:bool,creature:Creature,slot : int):
-	
+	var cNode : Creature = instance.data.creatureScene.instantiate()
+	cNode.SetInstance(instance)
+	parentSlot.add_child(cNode)
+	cNode.position = Vector3.ZERO
+	turnManager.AddCreatureTurn(cNode)
 	pass
-	
+
 enum BattleState { Init, Idle, TurnHandling, Win, Lose}

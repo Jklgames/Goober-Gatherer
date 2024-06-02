@@ -1,10 +1,9 @@
-
 class_name CreatureInstance
 
-var nickname : String
+var nickName : String
 var data : CreatureData
 
 func _init(cdata : CreatureData):
-	nickname = cdata.name
+	nickName = cdata.name
 	data = cdata
 	pass
