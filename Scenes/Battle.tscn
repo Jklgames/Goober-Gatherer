@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_c5qk1"]
 script = ExtResource("4_47hsa")
 initalized = false
-creatureDatas = [ExtResource("2_hf83q"), ExtResource("3_qu86o"), ExtResource("3_qu86o")]
+creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("2_hf83q"), ExtResource("3_qu86o"), ExtResource("3_qu86o")])
 
 [node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager", "allyFieldSlots", "enemyFieldSlots")]
 script = ExtResource("1_yocd0")

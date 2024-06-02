@@ -4,6 +4,8 @@ class_name Creature
 var data : CreatureData
 var instance : CreatureInstance
 
+
+
 func Get_Stat(statName : String) -> float:
 	var returnStat = data.get(statName.to_lower())
 	#Augmented by passives and statuses

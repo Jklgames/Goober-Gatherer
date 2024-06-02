@@ -7,7 +7,7 @@ var enemies : Array[Creature] = []
 @export var allyFieldSlots : Array[Node] = []
 @export var enemyFieldSlots : Array[Node] = [] 
 
-@export var waves : Array[Party] = [] #array of partys
+@export var waves : Array[Party] = [] 
 var wave : int = 0
 
 var battleState : BattleState = BattleState.Init
@@ -76,19 +76,27 @@ func SlotInCreature(isAlly:bool,instance:CreatureInstance,slot : int):
 	turnManager.AddCreatureTurn(cNode)
 	pass
 
-func _process(delta):
+
+func _process(_delta):
 	match battleState:
 		BattleState.Idle:
-			turnManager.Advance_To_Next_Turn();
-			ChanceBattleState(BattleState.TurnHandling)
+			IdleingLoop()
 			pass
 		BattleState.TurnHandling:
-			if Input.is_action_just_pressed("generic_interact"):
-				turnManager.EndTurn()
-				pass
+			TurnHandlingLoop()
 			pass
 		_:
 			pass
+	pass
+
+func IdleingLoop():
+	turnManager.Advance_To_Next_Turn();
+	ChanceBattleState(BattleState.TurnHandling)
+	pass
+func TurnHandlingLoop():
+	if Input.is_action_just_pressed("generic_interact"):
+		turnManager.EndTurn()
+		pass
 	pass
 
 func ChanceBattleState(newState : BattleState):
