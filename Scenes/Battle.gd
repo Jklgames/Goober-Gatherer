@@ -128,7 +128,7 @@ func ChanceBattleState(newState : BattleState):
 	battleState = newState
 	match newState:
 		BattleState.TurnHandling:
-			if currentTurn.data["Type"] == "Creature" && !currentTurn.data["Creature"].allied:
+			if currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
 				#opponent.TurnLogic()
 				pass
 			pass
@@ -144,13 +144,12 @@ func SetTarget(target : Creature):
 	targetSelectionGraphic.position = target.global_position
 	targetSelectionGraphic.show()
 	pass
-func SetCurrentTurn(turn :Turn):
+func SetCurrentTurn(turn : Turn):
 	currentTurn = turn
-	if turn.data["Type"] == "Creature":
+	if turn.type == turn.Type.Creature:
 		currentTurnGraphic.show()
-		currentTurnGraphic.position = turn.data["Creature"].global_position
-		print(turn.data["Creature"].global_position)
-		if turn.data["Creature"].allied:
+		currentTurnGraphic.position = turn.creature.global_position
+		if turn.creature.allied:
 			currentTurnGraphic.scale.x *=-1
 			pass
 		else:

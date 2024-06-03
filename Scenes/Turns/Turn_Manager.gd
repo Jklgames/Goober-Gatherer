@@ -20,10 +20,10 @@ func sortbyav(a, b):
 	return a.actionValue < b.actionValue
 
 func AddCreatureTurn(creature : Creature):
-	var newTurn = turnPrefab.instantiate()
+	var newTurn : Turn = turnPrefab.instantiate()
 	add_child(newTurn)
-	newTurn.data["Type"] = "Creature"
-	newTurn.data["Creature"] = creature
+	newTurn.type = newTurn.Type.Creature
+	newTurn.creature = creature
 	newTurn.actionValue = 10000/creature.Get_Stat("speed")
 	newTurn.name = creature.instance.nickName
 	turns.append(newTurn)
@@ -41,11 +41,11 @@ func AddTurn(turn : Turn):
 func EndTurn():
 	var turn : Turn = turns[0]
 	var newAV = 10000
-	if (turn.data["Type"] == "Creature"):
-		var creature = turn.data["Creature"]
+	if (turn.type == turn.Type.Creature):
+		var creature = turn.creature
 		newAV = newAV/creature.Get_Stat("speed")
 	else:
-		newAV = turn.data["Speed"]
+		newAV = turn.speed
 	turn.actionValue = newAV
 	var id = turns.find(turn,0)
 	turns.remove_at(id)
