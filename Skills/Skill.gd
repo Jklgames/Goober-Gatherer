@@ -3,7 +3,7 @@ class_name Skill
 
 @export var power : int
 
-func possibleTargets(battle : Battle) -> Array[Creature]:
+func possibleTargets() -> Array[Creature]:
 	return []
 
 func PreformSkill(User : Creature, Target : Creature):

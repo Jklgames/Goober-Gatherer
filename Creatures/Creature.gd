@@ -3,7 +3,7 @@ class_name Creature
 
 var data : CreatureData
 var instance : CreatureInstance
-
+var allied : bool
 
 
 func Get_Stat(statName : String) -> float:

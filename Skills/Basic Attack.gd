@@ -1,7 +1,8 @@
 extends Skill
 class_name Basic_Attack
 
-func possibleTargets(battle : Battle) -> Array[Creature]:
+func possibleTargets() -> Array[Creature]:
+	var battle = Battle.instance
 	var targets : Array[Creature] = []
 	targets.append_array(battle.enemies)
 	return targets
