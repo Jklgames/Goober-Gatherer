@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://rwng7tm5qgfk"]
 
-[ext_resource type="PackedScene" uid="uid://dy3d8gwwoyvrj" path="res://Scenes/Turn_Graphic.tscn" id="1_0avie"]
-[ext_resource type="Script" path="res://Scenes/Turn_List.gd" id="1_7ngq5"]
+[ext_resource type="PackedScene" uid="uid://dy3d8gwwoyvrj" path="res://Scenes/Turns/Turn_Graphic.tscn" id="1_0avie"]
+[ext_resource type="Script" path="res://Scenes/Turns/Turn_List.gd" id="1_7ngq5"]
 
 [node name="Turn_List" type="Control"]
 layout_mode = 3

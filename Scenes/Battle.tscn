@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
-[ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turn_Manager.tscn" id="2_1yqt7"]
+[ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
 [ext_resource type="Resource" uid="uid://d2dalanwxu6vi" path="res://Creatures/Nyan Cat/Nyan_Cat_Data.tres" id="2_hf83q"]
-[ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turn_List.tscn" id="3_ojxl6"]
+[ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turns/Turn_List.tscn" id="3_ojxl6"]
 [ext_resource type="Resource" uid="uid://bsp8pvqd6svj2" path="res://Creatures/GenetricBase/Generic_Creature_Data.tres" id="3_qu86o"]
 [ext_resource type="Script" path="res://Creatures/Party.gd" id="4_47hsa"]
 [ext_resource type="Texture2D" uid="uid://ds42mfepntei3" path="res://Unsorted Assets/Icons_Essential/v1.2/Icons/Play.png" id="7_gr0tf"]
@@ -14,6 +14,9 @@
 script = ExtResource("4_47hsa")
 initalized = false
 creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("2_hf83q"), ExtResource("3_qu86o"), ExtResource("3_qu86o")])
+
+[sub_resource type="Animation" id="Animation_knuuh"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_jutoj"]
 resource_name = "Sway"
@@ -31,9 +34,6 @@ tracks/0/keys = {
 "values": [Vector3(-0.7, 0.5, 0.03), Vector3(-0.357, 0.5, 0.03)]
 }
 
-[sub_resource type="Animation" id="Animation_knuuh"]
-length = 0.001
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t7vho"]
 _data = {
 "RESET": SubResource("Animation_knuuh"),
@@ -44,6 +44,21 @@ _data = {
 height = 0.001
 radial_segments = 6
 rings = 5
+
+[sub_resource type="Animation" id="Animation_iduhb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Reticle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_sf8ec"]
 resource_name = "squash and stretch"
@@ -60,21 +75,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(1, 1, 1), Vector3(1.8, 1.8, 1.8)]
-}
-
-[sub_resource type="Animation" id="Animation_iduhb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Reticle:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5kgge"]
@@ -112,24 +112,24 @@ turnList = NodePath("..")
 [node name="AllyFieldSlots" type="Node" parent="."]
 
 [node name="Slot 1" type="Node3D" parent="AllyFieldSlots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
 
 [node name="Slot 2" type="Node3D" parent="AllyFieldSlots"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 
 [node name="Slot 3" type="Node3D" parent="AllyFieldSlots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 1)
 
 [node name="EnemyFieldSlots" type="Node" parent="."]
 
 [node name="Slot 1" type="Node3D" parent="EnemyFieldSlots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 
 [node name="Slot 2" type="Node3D" parent="EnemyFieldSlots"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 
 [node name="Slot 3" type="Node3D" parent="EnemyFieldSlots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
 
 [node name="currentTurnIndicator" type="Node3D" parent="."]
 visible = false

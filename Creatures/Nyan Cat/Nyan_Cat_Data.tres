@@ -8,6 +8,7 @@ script = ExtResource("2_n8n38")
 name = "Nyan Cat"
 creatureScene = ExtResource("1_buui5")
 description = "PlaceHolder"
+skills = Array[Resource("res://Skills/Skill.gd")]([])
 attack = 100
 defence = 100
 gooberGuage = 100

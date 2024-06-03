@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dy3d8gwwoyvrj"]
 
-[ext_resource type="Script" path="res://Scenes/Turn_Graphic.gd" id="1_usjbv"]
+[ext_resource type="Script" path="res://Scenes/Turns/Turn_Graphic.gd" id="1_usjbv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_alux6"]
 font_size = 40
