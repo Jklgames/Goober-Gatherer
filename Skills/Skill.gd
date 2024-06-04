@@ -5,8 +5,9 @@ class_name Skill
 @export_multiline var description : String = "Placeholder description"
 @export var power : int = 20	
 
-func possibleTargets(User : Creature) -> Array[Creature]:
+func PossibleTargets(User : Creature) -> Array[Creature]:
+	
 	return []
-
+	
 func PreformSkill(User : Creature, Target : Creature):
 	pass

@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://caa4gho5a5gdc"]
+[gd_scene load_steps=7 format=3 uid="uid://caa4gho5a5gdc"]
+
+[ext_resource type="Script" path="res://Bar.gd" id="1_n3f5s"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_m1pft"]
 viewport_path = NodePath("SubViewport")
@@ -19,6 +21,8 @@ bg_color = Color(1, 0, 0, 1)
 texture_filter = 0
 render_priority = 1
 texture = SubResource("ViewportTexture_m1pft")
+script = ExtResource("1_n3f5s")
+lerpRate = 0.5
 
 [node name="SubViewport" type="SubViewport" parent="."]
 own_world_3d = true

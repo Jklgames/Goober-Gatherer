@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dqjejwrwvqqbp"]
+[gd_scene load_steps=20 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
 [ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
+[ext_resource type="Script" path="res://Scripts/Opponent_AI.gd" id="2_cajqb"]
 [ext_resource type="Resource" uid="uid://d2dalanwxu6vi" path="res://Creatures/Nyan Cat/Nyan_Cat_Data.tres" id="2_hf83q"]
 [ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turns/Turn_List.tscn" id="3_ojxl6"]
 [ext_resource type="Resource" uid="uid://bsp8pvqd6svj2" path="res://Creatures/GenetricBase/Generic_Creature_Data.tres" id="3_qu86o"]
@@ -9,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://ds42mfepntei3" path="res://Unsorted Assets/Icons_Essential/v1.2/Icons/Play.png" id="7_gr0tf"]
 [ext_resource type="Texture2D" uid="uid://beofvlbpeyqck" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Select_01a1.png" id="8_wbtre"]
 [ext_resource type="Texture2D" uid="uid://cccijq7cvrect" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Scrollbar_Handle_03.png" id="9_ipcl7"]
+
+[sub_resource type="Resource" id="Resource_xvc1v"]
+script = ExtResource("2_cajqb")
+difficulty = 0
 
 [sub_resource type="Resource" id="Resource_c5qk1"]
 script = ExtResource("4_47hsa")
@@ -85,6 +90,7 @@ _data = {
 
 [node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager", "targetSelectionGraphic", "currentTurnGraphic", "allyFieldSlots", "enemyFieldSlots")]
 script = ExtResource("1_yocd0")
+opponent = SubResource("Resource_xvc1v")
 waves = Array[ExtResource("4_47hsa")]([SubResource("Resource_c5qk1")])
 turnManager = NodePath("CanvasLayer/Turn_List/Turn_Manager")
 targetSelectionGraphic = NodePath("Target Selector")

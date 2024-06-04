@@ -112,19 +112,20 @@ func IdleingLoop():
 	ChanceBattleState(BattleState.TurnHandling)
 	pass
 	
-
-
-
 func TurnHandlingLoop():
-	if Input.is_action_just_pressed("generic_interact"):
-		turnManager.EndTurn()
-		return
+
 	if (currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied):
 		PlayerTurnLoop()
 
 
 	pass
+
 func PlayerTurnLoop():
+		if Input.is_action_just_pressed("generic_interact"):
+			await currentTurn.creature.instance.skills[selectedMove].PreformSkill(currentTurn.creature,selectedTarget)
+			turnManager.EndTurn()
+			return
+
 		if (Input.is_action_just_pressed("ui_left")):
 			selectedTargetIndex -= 1
 			selectedTargetIndex %= possibleTargets.size()
@@ -142,25 +143,24 @@ var selectedTargetIndex : int = 0
 
 func SelectAndInitMove(slot : int):
 	selectedMove = slot
-	possibleTargets = currentTurn.creature.instance.skills[slot].possibleTargets(currentTurn.creature)
+	possibleTargets = currentTurn.creature.instance.skills[slot].PossibleTargets(currentTurn.creature)
 	selectedTargetIndex = 0
 	SetTarget(possibleTargets[0])
 	pass
 
 
 func ChanceBattleState(newState : BattleState):
-	print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
+	#print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
 	battleState = newState
 	match newState:
 		BattleState.TurnHandling:
 			if currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied:
-				var usableSkills = currentTurn.creature.instance.GetUseableSkills()
+				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 				if usableSkills.size() > 0:
-					var id : int =currentTurn.creature.instance.skills.find(currentTurn.creature.instance.GetUseableSkills()[0])
-					SelectAndInitMove(id)
+					SelectAndInitMove(usableSkills[0])
 				pass
 			elif currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
-				#EnemyTurn logic
+				opponent.TurnLogic()
 				pass
 			pass
 	pass
@@ -173,6 +173,7 @@ func SetTarget(target : Creature):
 	targetSelectionGraphic.position = target.global_position
 	targetSelectionGraphic.show()
 	pass
+
 func SetCurrentTurn(turn : Turn):
 	currentTurn = turn
 	if turn.type == turn.Type.Creature:
@@ -187,5 +188,6 @@ func SetCurrentTurn(turn : Turn):
 		pass
 	else:
 		currentTurnGraphic.hide()
+	SetTarget(null)
 	pass
 enum BattleState { Init=0, Idle=1, TurnHandling=2, Win=3, Lose=4}

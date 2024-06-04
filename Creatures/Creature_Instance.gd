@@ -8,12 +8,11 @@ var skills : Array [Skill] = []
 var skillFatigue : Array [int] = [0,0,0,0]
 var hp : float
 
-func GetUseableSkills() -> Array[Skill]:
-	var usableSkills : Array[Skill] = []
+func GetUseableSkillsIndexes() -> Array[int]:
+	var usableSkills : Array[int] = []
 	for i in range(skills.size()):
-		print(Battle.instance.enemies.size())
-		if skillFatigue[i] == 0 && skills[i].possibleTargets(Battle.instance.currentTurn.creature).size() > 0:
-			usableSkills.append(skills[i])
+		if skillFatigue[i] == 0 && skills[i].PossibleTargets(Battle.instance.currentTurn.creature).size() > 0:
+			usableSkills.append(i)
 	return usableSkills
 
 func _init(cdata : CreatureData):

@@ -6,6 +6,8 @@
 
 [sub_resource type="Resource" id="Resource_i72vw"]
 script = ExtResource("1_0hx6f")
+name = "Basic_Attack"
+description = "Placeholder description"
 power = 0
 
 [resource]
