@@ -2,14 +2,13 @@ extends Node3D
 class_name Battle
 
 
-@export_category("Battle Data")
-
 @export var opponent : OpponentAI
 @export var waves : Array[Party] = []
 @export_group("Refrences")
 @export var turnManager : TurnManager
 @export var targetSelectionGraphic : Node3D
 @export var currentTurnGraphic : Node3D
+@export var HPbarPrefab : Node
 @export var allyFieldSlots : Array[Node] = []
 @export var enemyFieldSlots : Array[Node] = [] 
 
@@ -22,6 +21,7 @@ var currentTurn : Turn
 var selectedTarget : Creature
 
 static var instance : Battle
+
 func _ready():
 	instance = self
 	turnManager.Initialize()
@@ -65,13 +65,16 @@ func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
 	if slot > 2 || slot < 0:
 		print("Invalid Slot")
 		return
-	
+
+	var creature : Creature = cinstance.data.creatureScene.instantiate()
 	var parentSlot : Node
 	if isAlly:
 		parentSlot = allyFieldSlots[slot]
+		allies.append(creature)
 		pass
 	else:
 		parentSlot = enemyFieldSlots[slot]
+		enemies.append(creature)
 		pass
 	
 	if parentSlot.get_child_count() > 0:
@@ -83,7 +86,7 @@ func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
 		pass
 	pass
 	
-	var creature : Creature = cinstance.data.creatureScene.instantiate()
+	
 	creature.SetInstance(cinstance)
 	creature.allied = isAlly
 	parentSlot.add_child(creature)
@@ -108,32 +111,58 @@ func IdleingLoop():
 	SetCurrentTurn(turnManager.Advance_To_Next_Turn());
 	ChanceBattleState(BattleState.TurnHandling)
 	pass
+	
 
-var selectedIndex : int = 0
+
+
 func TurnHandlingLoop():
 	if Input.is_action_just_pressed("generic_interact"):
 		turnManager.EndTurn()
 		return
-		
-	if (Input.is_action_just_pressed("ui_left")):
-		
-		pass
-	elif (Input.is_action_just_pressed("ui_right")):
-		
-		pass
+	if (currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied):
+		PlayerTurnLoop()
+
+
 	pass
+func PlayerTurnLoop():
+		if (Input.is_action_just_pressed("ui_left")):
+			selectedTargetIndex -= 1
+			selectedTargetIndex %= possibleTargets.size()
+			SetTarget(possibleTargets[selectedTargetIndex])
+			pass
+		elif (Input.is_action_just_pressed("ui_right")):
+			selectedTargetIndex += 1
+			selectedTargetIndex %= possibleTargets.size()
+			SetTarget(possibleTargets[selectedTargetIndex])
+			pass
+
+var selectedMove : int
+var possibleTargets : Array[Creature]
+var selectedTargetIndex : int = 0
+
+func SelectAndInitMove(slot : int):
+	selectedMove = slot
+	possibleTargets = currentTurn.creature.instance.skills[slot].possibleTargets(currentTurn.creature)
+	selectedTargetIndex = 0
+	SetTarget(possibleTargets[0])
+	pass
+
 
 func ChanceBattleState(newState : BattleState):
 	print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
 	battleState = newState
 	match newState:
 		BattleState.TurnHandling:
-			if currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
-				#opponent.TurnLogic()
+			if currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied:
+				var usableSkills = currentTurn.creature.instance.GetUseableSkills()
+				if usableSkills.size() > 0:
+					var id : int =currentTurn.creature.instance.skills.find(currentTurn.creature.instance.GetUseableSkills()[0])
+					SelectAndInitMove(id)
+				pass
+			elif currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
+				#EnemyTurn logic
 				pass
 			pass
-	
-	
 	pass
 
 func SetTarget(target : Creature):

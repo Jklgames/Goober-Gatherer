@@ -1,10 +1,14 @@
 extends Skill
 class_name Basic_Attack
 
-func possibleTargets() -> Array[Creature]:
+func possibleTargets(user : Creature) -> Array[Creature]:
 	var battle = Battle.instance
 	var targets : Array[Creature] = []
-	targets.append_array(battle.enemies)
+
+	if user.allied:
+		targets.append_array(battle.enemies)
+	else:
+		targets.append_array(battle.allies)
 	return targets
 
 func PreformSkill(User : Creature, Target : Creature):
