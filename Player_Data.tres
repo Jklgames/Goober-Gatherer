@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=6 format=3 uid="uid://cx8bimqd7x35u"]
+[gd_resource type="Resource" script_class="PlayerData" load_steps=7 format=3 uid="uid://cx8bimqd7x35u"]
 
 [ext_resource type="Script" path="res://Scripts/Player_Data.gd" id="1_0ae4y"]
 [ext_resource type="Resource" uid="uid://og77tcq48heg" path="res://Creatures/WooYeah/WooYeah_Data.tres" id="1_0gqfw"]
 [ext_resource type="Script" path="res://Creatures/Party.gd" id="1_1aggk"]
 [ext_resource type="Resource" uid="uid://e28qk6qwsx3j" path="res://Creatures/Yippee/Yippee_Data.tres" id="2_4tdw0"]
+[ext_resource type="Resource" uid="uid://d2dalanwxu6vi" path="res://Creatures/Nyan Cat/Nyan_Cat_Data.tres" id="3_s1184"]
 
 [sub_resource type="Resource" id="Resource_7be0m"]
 script = ExtResource("1_1aggk")
 initalized = false
-creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("1_0gqfw"), ExtResource("2_4tdw0")])
+creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("1_0gqfw"), ExtResource("2_4tdw0"), ExtResource("3_s1184")])
 
 [resource]
 script = ExtResource("1_0ae4y")

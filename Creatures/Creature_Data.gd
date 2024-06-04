@@ -8,10 +8,10 @@ class_name CreatureData
 @export var baseMoveSet : Array[Skill] = []
 @export var ultimate : Skill
 @export_group("Stats")
-@export var maxHP = 100
+@export var maxhp = 100
 @export var attack = 100
 @export var defense = 100
-@export var gooberGuage = 100 
+@export var gooberguage = 100 
 @export var speed = 100
 
 

@@ -8,7 +8,7 @@
 script = ExtResource("1_sdpsr")
 name = "Basic_Attack"
 description = "Placeholder description"
-power = 0
+power = 20
 
 [resource]
 script = ExtResource("1_njv4d")
@@ -16,8 +16,8 @@ name = "Generic"
 creatureScene = ExtResource("1_vyq41")
 description = "PlaceHolder"
 baseMoveSet = Array[Resource("res://Skills/Skill.gd")]([SubResource("Resource_rdklx")])
-maxHP = 100
+maxhp = 100
 attack = 100
-defence = 100
-gooberGuage = 100
+defense = 100
+gooberguage = 100
 speed = 100

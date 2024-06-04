@@ -19,4 +19,5 @@ func PreformSkill(User : Creature, Target : Creature):
 	damageDealt = damageDealt/(targetDefStat/100)
 	#actually do the damage here or something
 	print(User.instance.nickName+" dealt "+str(damageDealt)+" damage to "+Target.instance.nickName)
+	Battle.instance.DealDamage(User,Target,damageDealt)
 	pass

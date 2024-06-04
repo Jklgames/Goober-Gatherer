@@ -8,7 +8,7 @@ class_name Battle
 @export var turnManager : TurnManager
 @export var targetSelectionGraphic : Node3D
 @export var currentTurnGraphic : Node3D
-@export var HPbarPrefab : Node
+@export var hPBarPrefab : PackedScene
 @export var allyFieldSlots : Array[Node] = []
 @export var enemyFieldSlots : Array[Node] = [] 
 
@@ -84,16 +84,32 @@ func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
 				pass
 			pass
 		pass
-	pass
-	
-	
+
 	creature.SetInstance(cinstance)
 	creature.allied = isAlly
 	parentSlot.add_child(creature)
 	creature.position = Vector3.ZERO
 	turnManager.AddCreatureTurn(creature)
+	#Add HP Bar
+	var hpbar : Bar = hPBarPrefab.instantiate()
+	creature.hpbar = hpbar
+	creature.add_child(hpbar)
+	hpbar.position = Vector3(0,1,0)
+	hpbar.SetMax(creature.Get_Stat("maxhp"))
+	hpbar.value = cinstance.hp
+	hpbar.progressBar.value = hpbar.value
 	pass
-
+func RemoveCreature(creature : Creature):
+	if creature.allied:
+		allies.remove_at(allies.find(creature))
+		pass
+	else:
+		enemies.remove_at(enemies.find(creature))
+		pass
+	var turn = turnManager.GetCreatureTurn(creature)
+	turnManager.RemoveTurn(turn)
+	creature.queue_free()
+	
 
 func _process(_delta):
 	match battleState:
@@ -153,6 +169,13 @@ func ChanceBattleState(newState : BattleState):
 	#print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
 	battleState = newState
 	match newState:
+		BattleState.Idle:
+			if allies.size() == 0:
+				ChanceBattleState(BattleState.Lose)
+			elif enemies.size() == 0:
+				ChanceBattleState(BattleState.Win)
+				pass
+			pass
 		BattleState.TurnHandling:
 			if currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied:
 				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
@@ -162,6 +185,12 @@ func ChanceBattleState(newState : BattleState):
 			elif currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
 				opponent.TurnLogic()
 				pass
+			pass
+		BattleState.Win:
+			print("WIN")
+			pass
+		BattleState.Lose:
+			print("LOSE")
 			pass
 	pass
 
@@ -190,4 +219,14 @@ func SetCurrentTurn(turn : Turn):
 		currentTurnGraphic.hide()
 	SetTarget(null)
 	pass
+
+func DealDamage(_attacker : Creature, target : Creature, damage : float):
+	target.instance.hp -= round(damage)
+	target.instance.hp = clamp(target.instance.hp,0,target.Get_Stat("maxhp"))
+	target.hpbar.value = target.instance.hp
+	if target.instance.hp <= 0:
+		RemoveCreature(target)
+		pass
+
+
 enum BattleState { Init=0, Idle=1, TurnHandling=2, Win=3, Lose=4}

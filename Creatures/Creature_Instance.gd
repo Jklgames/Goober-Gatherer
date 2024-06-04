@@ -18,6 +18,6 @@ func GetUseableSkillsIndexes() -> Array[int]:
 func _init(cdata : CreatureData):
 	nickName = cdata.name
 	data = cdata
-	hp = cdata.maxHP
+	hp = cdata.maxhp
 	skills.append_array(cdata.baseMoveSet) 
 	pass

@@ -4,7 +4,7 @@ class_name Creature
 var data : CreatureData
 var instance : CreatureInstance
 var allied : bool
-var hpbar : Node3D
+var hpbar : Bar
 
 func Get_Stat(statName : String) -> float:
 	var returnStat = data.get(statName.to_lower())

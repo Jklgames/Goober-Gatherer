@@ -12,7 +12,7 @@ class_name  Bar
 func _ready():
 	pass # Replace with function body.
 
-func setMax(maxValue : float):
+func SetMax(maxValue : float):
 	progressBar.max_value = maxValue
 	pass
 
@@ -26,12 +26,12 @@ func _process(delta):
 		return
 
 	var diff = progressBar.value - value
-	if abs(diff) < 0.01:
+	if abs(diff) < 0.001:
 		progressBar.value = value
 		return
 
 	if timedLerp:
-		progressBar.value = lerp(value, progressBar.value, delta/timeToLerp)
+		progressBar.value = lerp(progressBar.value, value, delta/timeToLerp)
 	else:
-		progressBar.value = lerp(value, progressBar.value, lerpRate)
+		progressBar.value = lerp(progressBar.value, value, lerpRate)
 	pass

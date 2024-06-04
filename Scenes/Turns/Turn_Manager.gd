@@ -31,6 +31,26 @@ func AddCreatureTurn(creature : Creature):
 	Sort_Turns()
 	pass
 
+func RemoveTurn(turn : Turn):
+	var id = turns.find(turn)
+	turns.remove_at(id)
+
+	var turnGraphic = turn.turnGraphic
+	var gid = turnList.turngraphics.find(turnGraphic)
+	turnList.turngraphics.remove_at(gid)
+
+	turn.queue_free()
+	turnGraphic.queue_free()
+	#Sort_Turns()
+
+	pass
+
+func GetCreatureTurn(creature : Creature) -> Turn:
+	for t in turns:
+		if t.type == t.Type.Creature && t.creature == creature:
+			return t
+	return null
+
 func AddTurn(turn : Turn):
 	add_child(turn)
 	turns.append(turn)
