@@ -12,6 +12,8 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 	return targets
 
 func PreformSkill(User : Creature, Target : Creature):
+	var battle = Battle.instance
+
 	var damageDealt : float = 0
 	var userDmgStat = User.Get_Stat("attack")
 	var targetDefStat = Target.Get_Stat("defense")
@@ -19,5 +21,6 @@ func PreformSkill(User : Creature, Target : Creature):
 	damageDealt = damageDealt/(targetDefStat/100)
 	#actually do the damage here or something
 	print(User.instance.nickName+" dealt "+str(damageDealt)+" damage to "+Target.instance.nickName)
-	Battle.instance.DealDamage(User,Target,damageDealt)
+	battle.battleLog.AddTextToQueue(User.instance.nickName+" dealt "+str(damageDealt)+" damage to "+Target.instance.nickName)
+	battle.DealDamage(User,Target,damageDealt)
 	pass

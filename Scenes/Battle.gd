@@ -11,6 +11,7 @@ class_name Battle
 @export var hPBarPrefab : PackedScene
 @export var allyFieldSlots : Array[Node] = []
 @export var enemyFieldSlots : Array[Node] = [] 
+@export var battleLog : BattleLog
 
 var allies : Array[Creature] = []
 var enemies : Array[Creature] = []
@@ -112,6 +113,7 @@ func RemoveCreature(creature : Creature):
 	
 
 func _process(_delta):
+
 	match battleState:
 		BattleState.Idle:
 			IdleingLoop()
@@ -181,9 +183,19 @@ func ChanceBattleState(newState : BattleState):
 				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 				if usableSkills.size() > 0:
 					SelectAndInitMove(usableSkills[0])
+				else :
+					print("No usable skills for "+currentTurn.creature.instance.nickName)
+					battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
+					ChanceBattleState(BattleState.Idle)
 				pass
 			elif currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
-				opponent.TurnLogic()
+				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
+				if usableSkills.size() == 0:
+					print("No usable skills for "+currentTurn.creature.instance.nickName)
+					battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
+					ChanceBattleState(BattleState.Idle)
+				else:
+					opponent.TurnLogic()
 				pass
 			pass
 		BattleState.Win:

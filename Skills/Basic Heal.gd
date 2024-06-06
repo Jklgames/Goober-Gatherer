@@ -12,9 +12,13 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 	return targets
 
 func PreformSkill(User : Creature, Target : Creature):
+	var battle = Battle.instance
+
+
 	var healing : float = 0
 	var userModStat = User.Get_Stat("maxhp")
-	healing += power*(userModStat/100)
+	healing += userModStat*(power/100)
 	print(User.instance.nickName+" healed "+str(healing)+" hp to "+Target.instance.nickName)
-	Battle.instance.DealDamage(User,Target,-healing)
+	battle.battleLog.AddTextToQueue(User.instance.nickName+" healed "+str(healing)+" hp to "+Target.instance.nickName)
+	battle.DealDamage(User,Target,-healing)
 	pass
