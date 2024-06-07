@@ -19,8 +19,7 @@ func PreformSkill(User : Creature, Target : Creature):
 	var targetDefStat = Target.Get_Stat("defense")
 	damageDealt += power*(userDmgStat/100)
 	damageDealt = damageDealt/(targetDefStat/100)
-	#actually do the damage here or something
-	print(User.instance.nickName+" dealt "+str(damageDealt)+" damage to "+Target.instance.nickName)
-	battle.battleLog.AddTextToQueue(User.instance.nickName+" dealt "+str(damageDealt)+" damage to "+Target.instance.nickName)
+	print(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
+	battle.battleLog.AddTextToQueue(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
 	battle.DealDamage(User,Target,damageDealt)
 	pass

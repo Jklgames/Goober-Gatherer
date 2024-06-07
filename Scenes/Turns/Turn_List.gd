@@ -35,7 +35,7 @@ func Update_Turns():
 	pass
 
 func CalcGraphicPosition(graphic :TurnGraphic,slot :int) -> float:
-	const padding= 50
+	const padding = 25
 	var graphicSize= graphic.size.y
 	return (graphicSize+padding)*slot
 

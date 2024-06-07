@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dqjejwrwvqqbp"]
+[gd_scene load_steps=24 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
 [ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
@@ -19,19 +19,15 @@ difficulty = 0
 
 [sub_resource type="Resource" id="Resource_c5qk1"]
 script = ExtResource("4_47hsa")
+creatures = Array[Resource("res://Creatures/Creature_Instance.gd")]([])
 initalized = false
 creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("3_qu86o"), ExtResource("3_qu86o"), ExtResource("3_qu86o")])
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bv3of"]
 texture = ExtResource("8_paiww")
 
-[sub_resource type="SystemFont" id="SystemFont_71kff"]
+[sub_resource type="SystemFont" id="SystemFont_4de88"]
 font_names = PackedStringArray("Gorgeous Pixel")
-
-[sub_resource type="LabelSettings" id="LabelSettings_5c1o7"]
-font = SubResource("SystemFont_71kff")
-font_size = 75
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_knuuh"]
 length = 0.001
@@ -111,7 +107,7 @@ currentTurnGraphic = NodePath("currentTurnIndicator")
 hPBarPrefab = ExtResource("6_3ac68")
 allyFieldSlots = [NodePath("AllyFieldSlots/Slot 1"), NodePath("AllyFieldSlots/Slot 2"), NodePath("AllyFieldSlots/Slot 3")]
 enemyFieldSlots = [NodePath("EnemyFieldSlots/Slot 1"), NodePath("EnemyFieldSlots/Slot 2"), NodePath("EnemyFieldSlots/Slot 3")]
-battleLog = NodePath("CanvasLayer/ui/Panel/Label")
+battleLog = NodePath("CanvasLayer/ui/Panel/Log")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776829, 4.78752)
@@ -151,7 +147,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_bv3of")
 
-[node name="Label" type="Label" parent="CanvasLayer/ui/Panel"]
+[node name="Log" type="RichTextLabel" parent="CanvasLayer/ui/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -164,34 +160,11 @@ offset_right = 775.0
 offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "adausidasuds
-asipdasidasid
-lotkrerg
-odvunreno"
-label_settings = SubResource("LabelSettings_5c1o7")
-vertical_alignment = 2
-autowrap_mode = 3
-clip_text = true
-uppercase = true
-script = ExtResource("9_opio8")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/ui/Panel"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -774.5
-offset_top = -140.5
-offset_right = 774.5
-offset_bottom = 140.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_4de88")
 bbcode_enabled = true
-scroll_following = true
+text = "[color=#000000] [font_size=70
+]"
+script = ExtResource("9_opio8")
 
 [node name="AllyFieldSlots" type="Node" parent="."]
 

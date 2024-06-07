@@ -1,3 +1,4 @@
+extends Resource
 class_name CreatureInstance
 
 var nickName : String
@@ -11,7 +12,7 @@ var hp : float
 func GetUseableSkillsIndexes() -> Array[int]:
 	var usableSkills : Array[int] = []
 	for i in range(skills.size()):
-		if skillFatigue[i] == 0 && skills[i].PossibleTargets(Battle.instance.currentTurn.creature).size() > 0:
+		if skillFatigue[i] <= 0 && skills[i].PossibleTargets(Battle.instance.currentTurn.creature).size() > 0:
 			usableSkills.append(i)
 	return usableSkills
 

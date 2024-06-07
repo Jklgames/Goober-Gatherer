@@ -9,15 +9,15 @@ func TurnLogic():
 	pass
 
 func _aI():
-	await Battle.instance.get_tree().create_timer(0.2).timeout
+	await Battle.instance.get_tree().create_timer(0.5).timeout
 
 	if difficulty == 0:
 		var creature : Creature = Battle.instance.currentTurn.creature
 		var usableSkills :Array[int] = creature.instance.GetUseableSkillsIndexes()
-		var skill : Skill = creature.instance.skills[usableSkills[randi_range(0,usableSkills.size()-1)]]
+		var skillIndex : int = usableSkills[randi_range(0,usableSkills.size()-1)]
+		var skill : Skill = creature.instance.skills[skillIndex]
 		var target : Creature = skill.PossibleTargets(creature)[randi_range(0,skill.PossibleTargets(creature).size()-1)]
-
-		await skill.PreformSkill(creature,target)
+		await Battle.instance.UseSkill(creature,skillIndex,target)
 		Battle.instance.turnManager.EndTurn()
 		pass
 	pass

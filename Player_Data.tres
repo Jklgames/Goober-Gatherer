@@ -8,7 +8,8 @@
 
 [sub_resource type="Resource" id="Resource_7be0m"]
 script = ExtResource("1_1aggk")
-initalized = false
+creatures = Array[Resource("res://Creatures/Creature_Instance.gd")]([])
+initalized = null
 creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("1_0gqfw"), ExtResource("2_4tdw0"), ExtResource("3_s1184")])
 
 [resource]

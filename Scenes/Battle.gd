@@ -140,8 +140,7 @@ func TurnHandlingLoop():
 
 func PlayerTurnLoop():
 		if Input.is_action_just_pressed("generic_interact"):
-			await currentTurn.creature.instance.skills[selectedMove].PreformSkill(currentTurn.creature,selectedTarget)
-			turnManager.EndTurn()
+			await UseSkill(currentTurn.creature,selectedMove,selectedTarget)
 			return
 
 		if (Input.is_action_just_pressed("ui_left")):
@@ -162,10 +161,13 @@ var selectedTargetIndex : int = 0
 func SelectAndInitMove(slot : int):
 	selectedMove = slot
 	possibleTargets = currentTurn.creature.instance.skills[slot].PossibleTargets(currentTurn.creature)
+	possibleTargets.sort_custom(sortbyXPos)
 	selectedTargetIndex = 0
 	SetTarget(possibleTargets[0])
 	pass
 
+func sortbyXPos(a : Node3D, b : Node3D):
+	return a.global_position.x < b.global_position.x
 
 func ChanceBattleState(newState : BattleState):
 	#print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
@@ -179,31 +181,37 @@ func ChanceBattleState(newState : BattleState):
 				pass
 			pass
 		BattleState.TurnHandling:
-			if currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied:
-				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
-				if usableSkills.size() > 0:
-					SelectAndInitMove(usableSkills[0])
-				else :
-					print("No usable skills for "+currentTurn.creature.instance.nickName)
-					battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
-					ChanceBattleState(BattleState.Idle)
-				pass
-			elif currentTurn.type == currentTurn.Type.Creature && !currentTurn.creature.allied:
-				var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
-				if usableSkills.size() == 0:
-					print("No usable skills for "+currentTurn.creature.instance.nickName)
-					battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
-					ChanceBattleState(BattleState.Idle)
-				else:
-					opponent.TurnLogic()
-				pass
+			turnhandler()
 			pass
 		BattleState.Win:
 			print("WIN")
+			battleLog.AddTextToQueue("WIN")
 			pass
 		BattleState.Lose:
 			print("LOSE")
+			battleLog.AddTextToQueue("LOSE")
 			pass
+	pass
+
+func turnhandler():
+
+	if currentTurn.type == currentTurn.Type.Creature:
+		currentTurn.creature.TurnStarted.emit()
+		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
+
+		if usableSkills.size() == 0: #No Usable Skills
+			print("No usable skills for "+currentTurn.creature.instance.nickName)
+			battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
+			ChanceBattleState(BattleState.Idle)
+			return
+
+		if currentTurn.creature.allied: #Player Turn Logic
+			SelectAndInitMove(usableSkills[0])
+			pass
+		else : #Opponent Turn Logic
+			opponent.TurnLogic()
+			pass
+
 	pass
 
 func SetTarget(target : Creature):
@@ -230,6 +238,15 @@ func SetCurrentTurn(turn : Turn):
 	else:
 		currentTurnGraphic.hide()
 	SetTarget(null)
+	pass
+
+func UseSkill(user : Creature,slot : int, target : Creature):
+
+	user.UsedSkill.emit(slot,target)
+	var skill : Skill = user.instance.skills[slot]
+	await skill.PreformSkill(user,target)
+	user.instance.skillFatigue[slot] = skill.cooldown
+	turnManager.EndTurn()
 	pass
 
 func DealDamage(_attacker : Creature, target : Creature, damage : float):
