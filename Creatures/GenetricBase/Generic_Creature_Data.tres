@@ -9,6 +9,7 @@ script = ExtResource("1_sdpsr")
 name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
+cooldown = 0
 
 [resource]
 script = ExtResource("1_njv4d")

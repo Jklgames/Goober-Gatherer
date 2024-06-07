@@ -143,6 +143,11 @@ func PlayerTurnLoop():
 			await UseSkill(currentTurn.creature,selectedMove,selectedTarget)
 			return
 
+		if (Input.is_action_just_pressed("ui_down")):
+			SelectAndInitMove(selectedMove-1 % currentTurn.creature.instance.skills.size())
+		elif (Input.is_action_just_pressed("ui_up")):
+			SelectAndInitMove(selectedMove+1 % currentTurn.creature.instance.skills.size())
+
 		if (Input.is_action_just_pressed("ui_left")):
 			selectedTargetIndex -= 1
 			selectedTargetIndex %= possibleTargets.size()
@@ -159,6 +164,10 @@ var possibleTargets : Array[Creature]
 var selectedTargetIndex : int = 0
 
 func SelectAndInitMove(slot : int):
+	if currentTurn.skills.size <= slot:
+		print("Invalid Slot")
+		return
+
 	selectedMove = slot
 	possibleTargets = currentTurn.creature.instance.skills[slot].PossibleTargets(currentTurn.creature)
 	possibleTargets.sort_custom(sortbyXPos)
