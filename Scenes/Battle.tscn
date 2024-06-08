@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dqjejwrwvqqbp"]
+[gd_scene load_steps=27 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
 [ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
@@ -8,10 +8,11 @@
 [ext_resource type="Script" path="res://Creatures/Party.gd" id="4_47hsa"]
 [ext_resource type="PackedScene" uid="uid://caa4gho5a5gdc" path="res://Scenes/hp_bar.tscn" id="6_3ac68"]
 [ext_resource type="Texture2D" uid="uid://ds42mfepntei3" path="res://Unsorted Assets/Icons_Essential/v1.2/Icons/Play.png" id="7_gr0tf"]
-[ext_resource type="Texture2D" uid="uid://cr702pb8pqcrj" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Button_Large_Lock_02a4.png" id="8_paiww"]
+[ext_resource type="Texture2D" uid="uid://d8o0v6fsnt8x" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Button_Large_Lock_02a1.png" id="8_6l58i"]
 [ext_resource type="Texture2D" uid="uid://beofvlbpeyqck" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Select_01a1.png" id="8_wbtre"]
 [ext_resource type="Texture2D" uid="uid://cccijq7cvrect" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Scrollbar_Handle_03.png" id="9_ipcl7"]
 [ext_resource type="Script" path="res://Scenes/BattleLog.gd" id="9_opio8"]
+[ext_resource type="Texture2D" uid="uid://pks4x0cu84yd" path="res://Unsorted Assets/Complete_GUI_Essential_Pack_Free_Version/01_Basic_Collection/01_Flat_Theme/Sprites/UI_Flat_Fillbar_02_Hollow.png" id="10_yatn2"]
 
 [sub_resource type="Resource" id="Resource_xvc1v"]
 script = ExtResource("2_cajqb")
@@ -24,10 +25,17 @@ initalized = false
 creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("3_qu86o"), ExtResource("3_qu86o"), ExtResource("3_qu86o")])
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bv3of"]
-texture = ExtResource("8_paiww")
+texture = ExtResource("8_6l58i")
 
 [sub_resource type="SystemFont" id="SystemFont_4de88"]
 font_names = PackedStringArray("Gorgeous Pixel")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n4ok"]
+atlas = ExtResource("10_yatn2")
+region = Rect2(0, 10, 32, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2efb"]
+texture = SubResource("AtlasTexture_3n4ok")
 
 [sub_resource type="Animation" id="Animation_knuuh"]
 length = 0.001
@@ -97,7 +105,7 @@ _data = {
 "squash and stretch": SubResource("Animation_sf8ec")
 }
 
-[node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager", "targetSelectionGraphic", "currentTurnGraphic", "allyFieldSlots", "enemyFieldSlots", "battleLog")]
+[node name="Battle" type="Node3D" node_paths=PackedStringArray("turnManager", "targetSelectionGraphic", "currentTurnGraphic", "allyFieldSlots", "enemyFieldSlots", "battleLog", "skillButtons", "skillSelectionGraphic")]
 script = ExtResource("1_yocd0")
 opponent = SubResource("Resource_xvc1v")
 waves = Array[ExtResource("4_47hsa")]([SubResource("Resource_c5qk1")])
@@ -108,6 +116,8 @@ hPBarPrefab = ExtResource("6_3ac68")
 allyFieldSlots = [NodePath("AllyFieldSlots/Slot 1"), NodePath("AllyFieldSlots/Slot 2"), NodePath("AllyFieldSlots/Slot 3")]
 enemyFieldSlots = [NodePath("EnemyFieldSlots/Slot 1"), NodePath("EnemyFieldSlots/Slot 2"), NodePath("EnemyFieldSlots/Slot 3")]
 battleLog = NodePath("CanvasLayer/ui/Panel/Log")
+skillButtons = [NodePath("CanvasLayer/ui/Panel/Skill1"), NodePath("CanvasLayer/ui/Panel/Skill2"), NodePath("CanvasLayer/ui/Panel/Skill3"), NodePath("CanvasLayer/ui/Panel/Skill4")]
+skillSelectionGraphic = NodePath("CanvasLayer/ui/Panel/Selected Skill")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.776829, 4.78752)
@@ -154,10 +164,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -876.0
-offset_top = -140.5
-offset_right = -102.0
-offset_bottom = 140.5
+offset_left = -914.0
+offset_top = -174.0
+offset_right = -140.0
+offset_bottom = 107.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = SubResource("SystemFont_4de88")
@@ -166,37 +176,49 @@ text = "[color=#000000] [font_size=70
 ] Test"
 script = ExtResource("9_opio8")
 
-[node name="Skills" type="VBoxContainer" parent="CanvasLayer/ui/Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.527604
-anchor_top = 0.155
-anchor_right = 0.930729
-anchor_bottom = 0.9175
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Skill1" type="Button" parent="CanvasLayer/ui/Panel/Skills"]
-custom_minimum_size = Vector2(0, 65)
+[node name="Selected Skill" type="Panel" parent="CanvasLayer/ui/Panel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 75
+offset_left = 968.0
+offset_top = 36.0
+offset_right = 1742.0
+offset_bottom = 99.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_y2efb")
 
-[node name="Skill2" type="Button" parent="CanvasLayer/ui/Panel/Skills"]
-custom_minimum_size = Vector2(0, 65)
+[node name="Skill1" type="Button" parent="CanvasLayer/ui/Panel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 75
+offset_left = 968.0
+offset_top = 34.0
+offset_right = 1742.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 40
+text = "Move1"
 
-[node name="Skill3" type="Button" parent="CanvasLayer/ui/Panel/Skills"]
-custom_minimum_size = Vector2(0, 65)
+[node name="Skill2" type="Button" parent="CanvasLayer/ui/Panel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 75
+offset_left = 968.0
+offset_top = 101.0
+offset_right = 1742.0
+offset_bottom = 164.0
+theme_override_font_sizes/font_size = 40
+text = "Move2"
 
-[node name="Skill4" type="Button" parent="CanvasLayer/ui/Panel/Skills"]
-custom_minimum_size = Vector2(0, 65)
+[node name="Skill3" type="Button" parent="CanvasLayer/ui/Panel"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 75
+offset_left = 968.0
+offset_top = 168.0
+offset_right = 1742.0
+offset_bottom = 231.0
+theme_override_font_sizes/font_size = 40
+text = "Move3"
+
+[node name="Skill4" type="Button" parent="CanvasLayer/ui/Panel"]
+layout_mode = 2
+offset_left = 968.0
+offset_top = 235.0
+offset_right = 1742.0
+offset_bottom = 298.0
+theme_override_font_sizes/font_size = 40
+text = "Move4"
 
 [node name="AllyFieldSlots" type="Node" parent="."]
 
