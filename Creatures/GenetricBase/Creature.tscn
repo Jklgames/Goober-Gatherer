@@ -170,3 +170,6 @@ anim_player = NodePath("..")
 [node name="Stand" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("CylinderMesh_37ypx")
+
+[connection signal="TurnStarted" from="." to="." method="_on_turn_started"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]

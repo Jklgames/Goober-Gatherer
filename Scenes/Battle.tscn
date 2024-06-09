@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dqjejwrwvqqbp"]
+[gd_scene load_steps=28 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle.gd" id="1_yocd0"]
 [ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
@@ -37,8 +37,23 @@ region = Rect2(0, 10, 32, 12)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y2efb"]
 texture = SubResource("AtlasTexture_3n4ok")
 
+[sub_resource type="SystemFont" id="SystemFont_bbjqx"]
+font_names = PackedStringArray("Gorgeous Pixel")
+
 [sub_resource type="Animation" id="Animation_knuuh"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.3, 0.03)]
+}
 
 [sub_resource type="Animation" id="Animation_jutoj"]
 resource_name = "Sway"
@@ -53,7 +68,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.7, 0.5, 0.03), Vector3(-0.357, 0.5, 0.03)]
+"values": [Vector3(0, 1.7, 0.03), Vector3(0, 1.3, 0.03)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t7vho"]
@@ -111,7 +126,7 @@ opponent = SubResource("Resource_xvc1v")
 waves = Array[ExtResource("4_47hsa")]([SubResource("Resource_c5qk1")])
 turnManager = NodePath("CanvasLayer/Turn_List/Turn_Manager")
 targetSelectionGraphic = NodePath("Target Selector")
-currentTurnGraphic = NodePath("currentTurnIndicator")
+currentTurnGraphic = NodePath("CurrentTurnIndicator")
 hPBarPrefab = ExtResource("6_3ac68")
 allyFieldSlots = [NodePath("AllyFieldSlots/Slot 1"), NodePath("AllyFieldSlots/Slot 2"), NodePath("AllyFieldSlots/Slot 3")]
 enemyFieldSlots = [NodePath("EnemyFieldSlots/Slot 1"), NodePath("EnemyFieldSlots/Slot 2"), NodePath("EnemyFieldSlots/Slot 3")]
@@ -190,6 +205,7 @@ offset_left = 968.0
 offset_top = 34.0
 offset_right = 1742.0
 offset_bottom = 97.0
+theme_override_fonts/font = SubResource("SystemFont_bbjqx")
 theme_override_font_sizes/font_size = 40
 text = "Move1"
 
@@ -199,6 +215,7 @@ offset_left = 968.0
 offset_top = 101.0
 offset_right = 1742.0
 offset_bottom = 164.0
+theme_override_fonts/font = SubResource("SystemFont_bbjqx")
 theme_override_font_sizes/font_size = 40
 text = "Move2"
 
@@ -208,6 +225,7 @@ offset_left = 968.0
 offset_top = 168.0
 offset_right = 1742.0
 offset_bottom = 231.0
+theme_override_fonts/font = SubResource("SystemFont_bbjqx")
 theme_override_font_sizes/font_size = 40
 text = "Move3"
 
@@ -217,6 +235,7 @@ offset_left = 968.0
 offset_top = 235.0
 offset_right = 1742.0
 offset_bottom = 298.0
+theme_override_fonts/font = SubResource("SystemFont_bbjqx")
 theme_override_font_sizes/font_size = 40
 text = "Move4"
 
@@ -242,23 +261,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0)
 [node name="Slot 3" type="Node3D" parent="EnemyFieldSlots"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
 
-[node name="currentTurnIndicator" type="Node3D" parent="."]
+[node name="CurrentTurnIndicator" type="Node3D" parent="."]
 visible = false
 
-[node name="SelectionSprite" type="Sprite3D" parent="currentTurnIndicator"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.699689, 0.5, 0.03)
+[node name="Sprite" type="Sprite3D" parent="CurrentTurnIndicator"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.3, 0.03)
 pixel_size = 0.02
 texture_filter = 0
 render_priority = 1
 texture = ExtResource("7_gr0tf")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="currentTurnIndicator/SelectionSprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CurrentTurnIndicator/Sprite"]
 libraries = {
 "": SubResource("AnimationLibrary_t7vho")
 }
 autoplay = "Sway"
 
-[node name="Stand" type="MeshInstance3D" parent="currentTurnIndicator"]
+[node name="Stand" type="MeshInstance3D" parent="CurrentTurnIndicator"]
 visible = false
 mesh = SubResource("CylinderMesh_f3gsx")
 

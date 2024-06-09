@@ -26,6 +26,10 @@ static var instance : Battle
 
 func _ready():
 
+	for id: int in Input.get_connected_joypads():
+		InputMap.get_actions()
+		
+
 	for i in range(skillButtons.size()):
 		skillButtons[i].connect("pressed",Callable(self,"SkillButtonPressed").bind(i))
 	instance = self
@@ -147,19 +151,19 @@ func PlayerTurnLoop():
 			await UseSkill(currentTurn.creature,selectedSkill,selectedTarget)
 			return
 
-		if (Input.is_action_just_pressed("ui_down")):
+		if (Input.is_action_just_pressed("general_down")):
 			var nextSkill = (selectedSkill+1) % currentTurn.creature.instance.skills.size()
 			SelectAndInitMove(nextSkill)
-		elif (Input.is_action_just_pressed("ui_up")):
+		elif (Input.is_action_just_pressed("general_up")):
 			var nextSkill = (selectedSkill-1) % currentTurn.creature.instance.skills.size()
 			SelectAndInitMove(nextSkill)
 
-		if (Input.is_action_just_pressed("ui_left")):
+		if (Input.is_action_just_pressed("general_left")):
 			selectedTargetIndex -= 1
 			selectedTargetIndex %= possibleTargets.size()
 			SetTarget(possibleTargets[selectedTargetIndex])
 			pass
-		elif (Input.is_action_just_pressed("ui_right")):
+		elif (Input.is_action_just_pressed("general_right")):
 			selectedTargetIndex += 1
 			selectedTargetIndex %= possibleTargets.size()
 			SetTarget(possibleTargets[selectedTargetIndex])
@@ -220,6 +224,7 @@ func turnhandler():
 
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
 
+		
 		currentTurn.creature.TurnStarted.emit()
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):

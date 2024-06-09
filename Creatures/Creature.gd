@@ -6,17 +6,17 @@ var instance : CreatureInstance
 var allied : bool
 var hpbar : Bar
 
+
+
 signal TurnStarted
 signal UsedSkill(slot : int, target : Creature)
 
+@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
+
 func _ready():
-	connect("TurnStarted", _on_TurnStarted)
-	pass
-
-func _on_TurnStarted():
-	for skillFatigue in instance.skillFatigue:
-		skillFatigue = max(0,skillFatigue - 1)
-
+	animationPlayer.seek(randf_range(0,animationPlayer.current_animation_length), true)
+	print(animationPlayer.current_animation + str(animationPlayer.current_animation_position))
+	
 	pass
 
 func Get_Stat(statName : String) -> float:
@@ -30,4 +30,7 @@ func SetInstance(newinstance : CreatureInstance):
 	#Other Initialization stuff maybe
 	pass
 
-
+func _on_turn_started():
+	for skillFatigue in instance.skillFatigue:
+		skillFatigue = max(0,skillFatigue - 1)
+	pass # Replace with function body.
