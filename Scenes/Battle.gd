@@ -224,7 +224,7 @@ func turnhandler():
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
 	
 		
-		currentTurn.creature.TurnStarted.emit()
+		currentTurn.creature.turn_started.emit()
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):
 			skillButtons[i].hide()

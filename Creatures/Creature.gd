@@ -17,6 +17,7 @@ signal post_skill_used(packet : ActionPacket)#PostDamageDelt
 
 func _ready():
 	animationPlayer.advance(randf_range(0,animationPlayer.current_animation_length))
+	connect("turn_started",_on_turn_started)
 	pass
 
 func Get_Stat(statName : String) -> float:
