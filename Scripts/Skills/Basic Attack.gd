@@ -11,20 +11,15 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 		targets.append_array(battle.allies)
 	return targets
 
-func PreformSkill(user : Creature, target : Creature):
+func PreformSkill(User : Creature, Target : Creature):
 	var battle = Battle.instance
 
 	var damageDealt : float = 0
-	var userDmgStat = user.Get_Stat("attack")
-	var targetDefStat = target.Get_Stat("defense")
+	var userDmgStat = User.Get_Stat("attack")
+	var targetDefStat = Target.Get_Stat("defense")
 	damageDealt += power*(userDmgStat/100)
 	damageDealt = damageDealt/(targetDefStat/100)
-	print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-	battle.battleLog.AddTextToQueue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-	var packet :ActionPacket = ActionPacket.new()
-	packet.generalData["target"] = target
-	packet.generalData["attacker"] = user
-	packet.generalData["skill"] = self
-	packet.generalData["damage"] = damageDealt
-	battle.DealDamage(packet)
+	print(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
+	battle.battleLog.AddTextToQueue(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
+	battle.DealDamage(User,Target,damageDealt)
 	pass
