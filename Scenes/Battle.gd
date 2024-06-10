@@ -121,7 +121,7 @@ func RemoveCreature(creature : Creature):
 	
 
 func _process(_delta):
-
+	
 	match battleState:
 		BattleState.Idle:
 			IdleingLoop()
