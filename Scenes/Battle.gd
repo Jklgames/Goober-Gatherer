@@ -41,7 +41,7 @@ func Initialize():
 
 func InitAllies():
 	var playerData : PlayerData = load("res://Player_Data.tres")
-	var party : Party= playerData.party
+	var party :Party= playerData.party
 	
 	if !party.initalized:
 		party.InitializeParty()
