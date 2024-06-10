@@ -1,0 +1,10 @@
+class_name ActivationTags
+enum tags
+{
+	TURNSTART,
+	TURNEND,
+	PRETAKEDAMAGE,
+	POSTTAKEDAMAGE,
+	PREATTACK,
+	POSTATTACK,
+}
