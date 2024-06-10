@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="CreatureData" load_steps=7 format=3 uid="uid://e28qk6qwsx3j"]
 
 [ext_resource type="PackedScene" uid="uid://ddsy0jeqtwg8v" path="res://Creatures/Yippee/Yippee_Scene.tscn" id="1_7u1j5"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Heal.gd" id="1_tyxf0"]
+[ext_resource type="Script" path="res://Skills/Basic Heal.gd" id="1_tyxf0"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_ldtot"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="2_padq0"]
+[ext_resource type="Script" path="res://Skills/Basic Attack.gd" id="2_padq0"]
 
 [sub_resource type="Resource" id="Resource_g1aim"]
 script = ExtResource("1_tyxf0")

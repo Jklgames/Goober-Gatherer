@@ -25,6 +25,11 @@ var selectedTarget : Creature
 static var instance : Battle
 
 func _ready():
+
+	for id: int in Input.get_connected_joypads():
+		InputMap.get_actions()
+		
+
 	for i in range(skillButtons.size()):
 		skillButtons[i].connect("pressed",Callable(self,"SkillButtonPressed").bind(i))
 	instance = self
@@ -220,7 +225,7 @@ func turnhandler():
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
 
 		
-		currentTurn.creature.turn_started.emit()
+		currentTurn.creature.TurnStarted.emit()
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):
 			skillButtons[i].hide()
@@ -289,6 +294,7 @@ func SetCurrentTurn(turn : Turn):
 
 func UseSkill(user : Creature,slot : int, target : Creature):
 
+	user.UsedSkill.emit(slot,target)
 	var skill : Skill = user.instance.skills[slot]
 	await skill.PreformSkill(user,target)
 	user.instance.skillFatigue[slot] = skill.cooldown
