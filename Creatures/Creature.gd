@@ -8,10 +8,10 @@ var hpbar : Bar
 
 signal turn_started
 signal turn_ended
-signal being_attacked(skill :Skill, attacker : Creature, finalDamage:float)#PreDamageDelt
-signal just_attacked(skill :Skill, attacker : Creature, finalDamage:float)#PostDamageDelt
-signal using_skill(slot : int, target : Creature ,finalDamage:float)#PreDamageDelt
-signal just_used_skill(slot : int, target : Creature ,finalDamage:float)#PostDamageDelt
+signal pre_attacked(packet : ActionPacket)#PreDamageDelt
+signal post_attacked(packet : ActionPacket)#PostDamageDelt
+signal pre_skill_used(packet : ActionPacket)#PreDamageDelt
+signal post_skill_used(packet : ActionPacket)#PostDamageDelt
 
 @onready var animationPlayer : AnimationPlayer = $AnimationPlayer
 

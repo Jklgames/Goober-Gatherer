@@ -25,7 +25,6 @@ var selectedTarget : Creature
 static var instance : Battle
 
 func _ready():
-
 	for id: int in Input.get_connected_joypads():
 		InputMap.get_actions()
 		
@@ -221,24 +220,22 @@ func ChanceBattleState(newState : BattleState):
 	pass
 
 func turnhandler():
-
+	
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
-
+	
 		
 		currentTurn.creature.TurnStarted.emit()
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):
 			skillButtons[i].hide()
 			skillSelectionGraphic.hide()
-
+	
 		if usableSkills.size() == 0: #No Usable Skills
 			print("No usable skills for "+currentTurn.creature.instance.nickName)
 			battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
 			ChanceBattleState(BattleState.Idle)
 			return	
-
-
-
+	
 		if currentTurn.creature.allied: #Player Turn Logic
 			for i in range(skillButtons.size()):
 				if usableSkills.has(i):
@@ -246,15 +243,15 @@ func turnhandler():
 					skillButtons[i].text = currentTurn.creature.instance.skills[usableSkills[i]].name
 				else:
 					skillButtons[i].hide()
-
-
+	
+	
 			SelectAndInitMove(usableSkills[0])
 			pass
 		else : #Opponent Turn Logic
-
+	
 			opponent.TurnLogic()
 			pass
-
+	
 	pass
 
 func SkillButtonPressed(skillIndex : int):
@@ -263,6 +260,7 @@ func SkillButtonPressed(skillIndex : int):
 		pass
 	else :
 		SelectAndInitMove(skillIndex)
+		pass
 	
 	pass
 
@@ -293,15 +291,17 @@ func SetCurrentTurn(turn : Turn):
 	pass
 
 func UseSkill(user : Creature,slot : int, target : Creature):
-
-	user.UsedSkill.emit(slot,target)
 	var skill : Skill = user.instance.skills[slot]
 	await skill.PreformSkill(user,target)
 	user.instance.skillFatigue[slot] = skill.cooldown
 	turnManager.EndTurn()
 	pass
 
-func DealDamage(_attacker : Creature, target : Creature, damage : float):
+func DealDamage(packet : ActionPacket):
+	var damage : float = packet.generalData["damage"]
+	var target : Creature = packet.generalData ["target"]
+	var attacker : Creature = packet.generalData["attacker"]
+	
 	target.instance.hp -= round(damage)
 	target.instance.hp = clamp(target.instance.hp,0,target.Get_Stat("maxhp"))
 	target.hpbar.value = target.instance.hp
