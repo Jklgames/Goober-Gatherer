@@ -6,9 +6,9 @@ class_name Skill
 @export var power : float = 20	
 @export var cooldown : int = 0
 
-func PossibleTargets(User : Creature) -> Array[Creature]:
+func PossibleTargets(user : Creature) -> Array[Creature]:
 	
 	return []
 	
-func PreformSkill(User : Creature, Target : Creature):
+func PreformSkill(user : Creature, target : Creature):
 	pass
