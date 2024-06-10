@@ -11,15 +11,15 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 		targets.append_array(battle.allies)
 	return targets
 
-func PreformSkill(User : Creature, Target : Creature):
+func PreformSkill(user : Creature, target : Creature):
 	var battle = Battle.instance
 
 	var damageDealt : float = 0
-	var userDmgStat = User.Get_Stat("attack")
-	var targetDefStat = Target.Get_Stat("defense")
+	var userDmgStat = user.Get_Stat("attack")
+	var targetDefStat = target.Get_Stat("defense")
 	damageDealt += power*(userDmgStat/100)
 	damageDealt = damageDealt/(targetDefStat/100)
-	print(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
-	battle.battleLog.AddTextToQueue(User.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+Target.instance.nickName)
-	battle.DealDamage(User,Target,damageDealt)
+	print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+	battle.battleLog.AddTextToQueue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+	battle.DealDamage(user,target,damageDealt)
 	pass

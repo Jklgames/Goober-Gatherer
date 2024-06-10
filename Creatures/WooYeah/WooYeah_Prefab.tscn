@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
 [ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png" id="2_b0c5k"]
@@ -154,27 +154,6 @@ _data = {
 "RESET": SubResource("Animation_yovgh")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o42fb"]
-animation = &"Hurt"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ehpy2"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o0br3"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6e75d"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6d2iw"]
-states/Hurt/node = SubResource("AnimationNodeAnimation_o42fb")
-states/Hurt/position = Vector2(279, 42)
-states/Idle/node = SubResource("AnimationNodeAnimation_ehpy2")
-states/Idle/position = Vector2(308, 120)
-states/Start/position = Vector2(148, 78)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_o0br3"), "Hurt", "Idle", SubResource("AnimationNodeStateMachineTransition_6e75d")]
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_a3r5o"]
 height = 0.001
 radial_segments = 6
@@ -194,11 +173,6 @@ libraries = {
 "": SubResource("AnimationLibrary_70vp6")
 }
 autoplay = "Idle"
-
-[node name="AnimationTree" type="AnimationTree" parent="AnimationPlayer"]
-root_node = NodePath("../..")
-tree_root = SubResource("AnimationNodeStateMachine_6d2iw")
-anim_player = NodePath("..")
 
 [node name="Stand" type="MeshInstance3D" parent="."]
 visible = false

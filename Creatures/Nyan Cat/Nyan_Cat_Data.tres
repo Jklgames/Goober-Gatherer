@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CreatureData" load_steps=7 format=3 uid="uid://d2dalanwxu6vi"]
 
-[ext_resource type="Script" path="res://Skills/Basic Attack.gd" id="1_0hx6f"]
+[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_0hx6f"]
 [ext_resource type="PackedScene" uid="uid://d25rcd1yetce2" path="res://Creatures/Nyan Cat/Nyan_Cat_Prefab.tscn" id="1_buui5"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_n8n38"]
 
