@@ -19,10 +19,7 @@ func PreformSkill(user : Creature, target : Creature):
 	healing += userModStat*(power/100)
 	print(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
 	battle.battleLog.AddTextToQueue(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
-	var packet : ActionPacket = ActionPacket.new()
-	packet.generalData["target"] = target
-	packet.generalData["attacker"] = user
-	packet.generalData["skill"] = self
+	var packet : ActionPacket = ActionPacket.new(user,target,self)
 	packet.generalData["damage"] = -healing
 	battle.DealDamage(packet)
 	pass

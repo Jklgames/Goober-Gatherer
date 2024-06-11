@@ -10,7 +10,7 @@ func _turn_started():
 	if persentageHP:
 		damageToDeal = creature.Get_Stat("maxHP") * damage / 100
 		pass
-	var packet = ActionPacket.new()
+	var packet = ActionPacket.new(creature,creature,null)
 	for i in stacks:
 		Battle.instance.DealDamage(packet)
 		pass
