@@ -7,15 +7,18 @@ class_name Status
 @export var clensable : bool = true
 @export var stackable : bool = true
 @export var maxStacks : int = -1 # -1 indications no limit
+#@export var persistent : bool = false #Will this be saved to the creature's instance at battle end?
+#@export var persistentStatus : PersistantStatus #to be implimented, will be saved to the Creature Instance
 
-
+var applicant : Creature
 var creature : Creature
-var stacks : int = 1
-
-func init(newCreature : Creature):
+var stacks : int = 0
+ 
+func initForBattle(newCreature : Creature, eapplicant : Creature):
+	applicant = eapplicant
 	creature = newCreature
 	for tag in atags:
-		match atags:
+		match tag:
 			ActivationTags.tags.TURNSTART:
 				creature.connect("turn_started",turn_started)
 				pass
@@ -37,6 +40,7 @@ func init(newCreature : Creature):
 	pass
 
 func turn_started():
+	Battle.instance.battleLog.AddTextToQueue("invalid status turnstart")
 	pass
 
 func turn_ended():

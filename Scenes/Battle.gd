@@ -108,6 +108,9 @@ func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
 	hpbar.progressBar.value = hpbar.value
 	pass
 func RemoveCreature(creature : Creature):
+	if creature.dead:
+		return
+
 	if creature.allied:
 		allies.remove_at(allies.find(creature))
 		pass
@@ -116,7 +119,9 @@ func RemoveCreature(creature : Creature):
 		pass
 	var turn = turnManager.GetCreatureTurn(creature)
 	turnManager.RemoveTurn(turn)
-	creature.queue_free()
+	creature.dead = true
+	creature.hide()
+	#creature.queue_free()
 	
 
 func _process(_delta):
@@ -138,7 +143,9 @@ func IdleingLoop():
 	pass
 	
 func TurnHandlingLoop():
-
+	if !currentTurn:
+		ChanceBattleState(BattleState.Idle)
+		return
 	if (currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied):
 		PlayerTurnLoop()
 
@@ -180,16 +187,18 @@ func SelectAndInitMove(slot : int):
 		var skill : Skill = currentTurn.creature.instance.skills[slot]
 		slot = currentTurn.creature.instance.skills.find(skill)
 	
-	
-
 	skillSelectionGraphic.show()
 	skillSelectionGraphic.global_position = skillButtons[slot].global_position
 
 	selectedSkill = slot
 	possibleTargets = currentTurn.creature.instance.skills[slot].PossibleTargets(currentTurn.creature)
 	possibleTargets.sort_custom(sortbyXPos)
-	selectedTargetIndex = 0
-	SetTarget(possibleTargets[0])
+	if !possibleTargets.has(selectedTarget):
+		selectedTargetIndex = 0
+		SetTarget(possibleTargets[0])
+	else:
+		SetTarget(selectedTarget)
+		selectedTargetIndex = possibleTargets.find(selectedTarget)
 	pass
 
 func sortbyXPos(a : Node3D, b : Node3D):
@@ -222,9 +231,8 @@ func ChanceBattleState(newState : BattleState):
 func turnhandler():
 	
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
-	
-		
 		currentTurn.creature.turn_started.emit()
+		print (currentTurn.creature.statuses)
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):
 			skillButtons[i].hide()
@@ -299,6 +307,9 @@ func UseSkill(user : Creature,slot : int, target : Creature):
 
 func DealDamage(packet : ActionPacket):
 	var damage : float = packet.generalData["damage"]
+	if damage == 0:
+		return
+	
 	var target : Creature = packet.generalData ["target"]
 	var attacker : Creature = packet.generalData["attacker"]
 	
@@ -309,6 +320,17 @@ func DealDamage(packet : ActionPacket):
 		RemoveCreature(target)
 		pass
 
-
+func ApplyStatus(packet):
+	if !packet.generalData.has("status"):
+		return
+	var status : Status = packet.generalData["status"].duplicate()
+	if !status:
+		return
+	var target : Creature = packet.generalData ["target"]
+	var applicant : Creature = packet.generalData["attacker"]
+	 
+	target.statuses.append(status)
+	status.initForBattle(target,applicant)
+	pass
 
 enum BattleState { Init=0, Idle=1, TurnHandling=2, Win=3, Lose=4}

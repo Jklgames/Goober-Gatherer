@@ -9,8 +9,8 @@ var skills : Array [Skill] = []
 var skillFatigue : Array [int] = [0,0,0,0]
 var hp : float
 
-var passives: Array = []
-var persistentSatuses : Array[Status] = []
+#var passives: Array = []
+#var persistentSatuses : Array[PersistentStatus] = [] #to be added see Status
 
 func GetUseableSkillsIndexes() -> Array[int]:
 	var usableSkills : Array[int] = []

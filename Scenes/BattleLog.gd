@@ -1,8 +1,7 @@
 extends RichTextLabel
 class_name BattleLog
 
-var _baseString : String = "[color=#000000] [font_size=70
-]"
+var _baseString : String = "[color=#000000] [font_size=30]"
 
 var _queuedDialogs : Array[String] = []
 

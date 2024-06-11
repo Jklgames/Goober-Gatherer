@@ -6,6 +6,9 @@ var instance : CreatureInstance
 var allied : bool
 var hpbar : Bar
 
+var statuses : Array[Status] = []
+var dead : bool = false
+
 signal turn_started
 signal turn_ended
 signal pre_attacked(packet : ActionPacket)#PreDamageDelt

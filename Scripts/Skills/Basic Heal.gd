@@ -11,15 +11,15 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 		targets.append_array(battle.allies)
 	return targets
 
-func PreformSkill(user : Creature, target : Creature):
-	var battle = Battle.instance
 
+func _turn_logic(packet : ActionPacket):
+	var battle = Battle.instance
+	var user = packet.generalData["attacker"]
+	var target = packet.generalData["target"]
+	
 	var healing : float = 0
 	var userModStat = user.Get_Stat("maxhp")
 	healing += userModStat*(power/100)
 	print(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
 	battle.battleLog.AddTextToQueue(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
-	var packet : ActionPacket = ActionPacket.new(user,target,self)
 	packet.generalData["damage"] = -healing
-	battle.DealDamage(packet)
-	pass

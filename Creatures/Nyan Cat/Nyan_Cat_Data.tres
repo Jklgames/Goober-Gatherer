@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=7 format=3 uid="uid://d2dalanwxu6vi"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=9 format=3 uid="uid://d2dalanwxu6vi"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_0hx6f"]
 [ext_resource type="PackedScene" uid="uid://d25rcd1yetce2" path="res://Creatures/Nyan Cat/Nyan_Cat_Prefab.tscn" id="1_buui5"]
+[ext_resource type="Script" path="res://Scripts/Skills/Status Move.gd" id="2_icng5"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_n8n38"]
+[ext_resource type="Script" path="res://Scripts/Statuses/DamageOverTime.gd" id="3_hl3pi"]
 
 [sub_resource type="Resource" id="Resource_i72vw"]
 script = ExtResource("1_0hx6f")
@@ -11,18 +13,26 @@ description = "Placeholder description"
 power = 20.0
 cooldown = 0
 
-[sub_resource type="Resource" id="Resource_yv681"]
-script = ExtResource("1_0hx6f")
-name = "Basic_Attack"
-description = "Placeholder description"
-power = 20.0
-cooldown = 0
+[sub_resource type="Resource" id="Resource_obply"]
+script = ExtResource("3_hl3pi")
+damage = 10.0
+persentageHP = false
+name = "burn"
+atags = Array[int]([0])
+duration = 2
+clensable = true
+stackable = true
+maxStacks = -1
 
-[sub_resource type="Resource" id="Resource_pnf3q"]
-script = ExtResource("1_0hx6f")
-name = "Basic_Attack"
+[sub_resource type="Resource" id="Resource_ejwii"]
+script = ExtResource("2_icng5")
+status = SubResource("Resource_obply")
+applicationChance = 75.0
+damaging = false
+targetsAllies = false
+name = "Ember"
 description = "Placeholder description"
-power = 20.0
+power = 0.0
 cooldown = 0
 
 [resource]
@@ -30,7 +40,7 @@ script = ExtResource("2_n8n38")
 name = "Nyan Cat"
 creatureScene = ExtResource("1_buui5")
 description = "PlaceHolder"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_i72vw"), SubResource("Resource_yv681"), SubResource("Resource_pnf3q")])
+baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_i72vw"), SubResource("Resource_ejwii")])
 maxhp = 90
 attack = 90
 defense = 90
