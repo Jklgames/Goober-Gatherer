@@ -1,39 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=9 format=3 uid="uid://bxquvwws7pjkj"]
 
-[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/WooYeah Sprites.png" id="2_b0c5k"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(660, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_op4n1"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(880, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfevu"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(220, 220, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_42bht"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(0, 0, 220, 220)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ybffk"]
-atlas = ExtResource("2_b0c5k")
-region = Rect2(440, 0, 220, 220)
+[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_31doc"]
+[ext_resource type="Texture2D" uid="uid://c1cof1csrcrdg" path="res://Creatures/Huh/Huh Sprite.png" id="2_bh5el"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8rvyd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_op4n1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qfevu")
+"texture": ExtResource("2_bh5el")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -41,10 +15,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_42bht")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ybffk")
+"texture": ExtResource("2_bh5el")
 }],
 "loop": true,
 "name": &"Idle",
@@ -53,7 +24,6 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_rd1vn"]
 resource_name = "Hurt"
-length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -90,10 +60,10 @@ tracks/1/path = NodePath("AnimatedSprite3D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1, 0.8, 1)]
+"values": [Vector3(1, 1, 1), Vector3(0.8, 0.8, 1), Vector3(1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -154,16 +124,18 @@ _data = {
 "RESET": SubResource("Animation_yovgh")
 }
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_a3r5o"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_37ypx"]
 height = 0.001
 radial_segments = 6
 rings = 5
 
-[node name="WooYeah" type="Node3D"]
-script = ExtResource("1_xqvbw")
+[node name="Base_Creature" type="Node3D"]
+script = ExtResource("1_31doc")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
+pixel_size = 0.015
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"
 autoplay = "Idle"
@@ -176,4 +148,6 @@ autoplay = "Idle"
 
 [node name="Stand" type="MeshInstance3D" parent="."]
 visible = false
-mesh = SubResource("CylinderMesh_a3r5o")
+mesh = SubResource("CylinderMesh_37ypx")
+
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]

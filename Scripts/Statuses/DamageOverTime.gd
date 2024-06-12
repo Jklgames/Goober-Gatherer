@@ -13,16 +13,7 @@ func turn_started():
 	Battle.instance.battleLog.AddTextToQueue(creature.instance.nickName+" suffered from " + name)
 	packet.generalData["damage"] = damageToDeal
 	Battle.instance.DealDamage(packet)
-	
-	if duration>0:
-		duration -= 1
-		if duration == 0:
-			var i : int = creature.statuses.find(self)
-			creature.statuses.remove_at(i)
-			Battle.instance.battleLog.AddTextToQueue(creature.instance.nickName+" recovered from "+name)
-			#remove status effect here
-			pass
-		pass
+	super()
 	
 	pass
 

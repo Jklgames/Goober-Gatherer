@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yl0hvftleceh"
-path="res://.godot/imported/1112951843396538439-ezgif.com-webp-to-png-converter.png-3e3a3d3e3c0acc444dcb7eaf81a2aebd.ctex"
+uid="uid://cv30vucs8ofr"
+path="res://.godot/imported/Yippe Sprite.webp-d451d125bf5da0c165afb1d2ff55f948.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Creatures/GenetricBase/1112951843396538439-ezgif.com-webp-to-png-converter.png"
-dest_files=["res://.godot/imported/1112951843396538439-ezgif.com-webp-to-png-converter.png-3e3a3d3e3c0acc444dcb7eaf81a2aebd.ctex"]
+source_file="res://Creatures/Yippee/Yippe Sprite.webp"
+dest_files=["res://.godot/imported/Yippe Sprite.webp-d451d125bf5da0c165afb1d2ff55f948.ctex"]
 
 [params]
 

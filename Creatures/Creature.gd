@@ -24,7 +24,11 @@ func _ready():
 	pass
 
 func Get_Stat(statName : String) -> float:
-	var returnStat = data.get(statName.to_lower())
+	statName = statName.to_lower()
+	var returnStat : float = data.get(statName)
+	for status in statuses:
+		if status.statChanges.has(statName):
+			returnStat += status.statChanges[statName]
 	#Augmented by passives and statuses
 	return returnStat
 

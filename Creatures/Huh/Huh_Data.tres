@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CreatureData" load_steps=5 format=3 uid="uid://qfdhe1qwpj06"]
+
+[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_75yxk"]
+[ext_resource type="PackedScene" uid="uid://bxquvwws7pjkj" path="res://Creatures/Huh/Huh_Prefab.tscn" id="2_c2lfm"]
+[ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="3_xnjq0"]
+
+[sub_resource type="Resource" id="Resource_rdklx"]
+script = ExtResource("1_75yxk")
+name = "Basic_Attack"
+description = "Placeholder description"
+power = 20.0
+cooldown = 0
+
+[resource]
+script = ExtResource("3_xnjq0")
+name = "Huh"
+creatureScene = ExtResource("2_c2lfm")
+description = "PlaceHolder"
+baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_rdklx")])
+maxhp = 100
+attack = 100
+defense = 100
+gooberguage = 100
+speed = 100

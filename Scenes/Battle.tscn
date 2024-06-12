@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
 [ext_resource type="Script" path="res://Scripts/Opponent_AI.gd" id="2_cajqb"]
 [ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turns/Turn_List.tscn" id="3_ojxl6"]
-[ext_resource type="Resource" uid="uid://bsp8pvqd6svj2" path="res://Creatures/GenetricBase/Generic_Creature_Data.tres" id="3_qu86o"]
+[ext_resource type="Resource" uid="uid://qfdhe1qwpj06" path="res://Creatures/Huh/Huh_Data.tres" id="3_xa030"]
 [ext_resource type="Script" path="res://Creatures/Party.gd" id="4_47hsa"]
 [ext_resource type="PackedScene" uid="uid://caa4gho5a5gdc" path="res://Scenes/hp_bar.tscn" id="6_3ac68"]
 [ext_resource type="Texture2D" uid="uid://ds42mfepntei3" path="res://Unsorted Assets/Icons_Essential/v1.2/Icons/Play.png" id="7_gr0tf"]
@@ -22,7 +22,7 @@ difficulty = 0
 script = ExtResource("4_47hsa")
 creatures = Array[Resource("res://Creatures/Creature_Instance.gd")]([])
 initalized = false
-creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("3_qu86o"), ExtResource("3_qu86o"), ExtResource("3_qu86o")])
+creatureDatas = Array[Resource("res://Creatures/Creature_Data.gd")]([ExtResource("3_xa030"), ExtResource("3_xa030"), ExtResource("3_xa030")])
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bv3of"]
 texture = ExtResource("8_6l58i")

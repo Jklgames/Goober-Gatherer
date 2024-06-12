@@ -143,8 +143,8 @@ func IdleingLoop():
 	pass
 	
 func TurnHandlingLoop():
-	if !currentTurn:
-		ChanceBattleState(BattleState.Idle)
+	if !currentTurn || !currentTurn.creature || currentTurn.creature.dead:
+		turnManager.EndTurn()
 		return
 	if (currentTurn.type == currentTurn.Type.Creature && currentTurn.creature.allied):
 		PlayerTurnLoop()
@@ -229,10 +229,17 @@ func ChanceBattleState(newState : BattleState):
 	pass
 
 func turnhandler():
-	
+	if !currentTurn:
+		turnManager.EndTurn()
+		return
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
+		
 		currentTurn.creature.turn_started.emit()
-		print (currentTurn.creature.statuses)
+		
+		if !currentTurn || !currentTurn.creature || currentTurn.creature.dead: #checks if the creature died from startTurn signal
+			turnManager.EndTurn()
+			return
+		
 		var usableSkills : Array[int] = currentTurn.creature.instance.GetUseableSkillsIndexes()
 		for i in range(skillButtons.size()):
 			skillButtons[i].hide()

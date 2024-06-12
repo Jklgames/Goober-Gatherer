@@ -11,7 +11,7 @@ func PossibleTargets(user : Creature) -> Array[Creature]:
 	var battle = Battle.instance
 	var targets : Array[Creature] = []
 
-	if user.allied:
+	if user.allied != targetsAllies:
 		targets.append_array(battle.enemies)
 	else:
 		targets.append_array(battle.allies)
@@ -43,7 +43,7 @@ func _turn_logic(packet : ActionPacket):
 		packet.generalData["damage"] = 0
 		pass
 	
-	if (randf_range(0,100) > applicationChance):
+	if (randf_range(0,100) < applicationChance):
 		packet.generalData["status"] = status
 		battle.battleLog.AddTextToQueue(target.instance.nickName+" is inflicted with "+status.name)
 		pass

@@ -1,18 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dlrnlm1c2vk4j"]
+[gd_scene load_steps=10 format=3 uid="uid://dlrnlm1c2vk4j"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_612nd"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png" id="2_5dx5d"]
-[ext_resource type="Texture2D" uid="uid://yl0hvftleceh" path="res://Creatures/GenetricBase/1112951843396538439-ezgif.com-webp-to-png-converter.png" id="3_h5w7k"]
+[ext_resource type="Texture2D" uid="uid://clhjrjcr5rxeb" path="res://icon.svg" id="3_lvao4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("2_5dx5d")
-region = Rect2(660, 0, 220, 220)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5id7w"]
+atlas = ExtResource("3_lvao4")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8rvyd")
+"texture": ExtResource("3_lvao4")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -20,7 +19,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_h5w7k")
+"texture": SubResource("AtlasTexture_5id7w")
 }],
 "loop": true,
 "name": &"Idle",
@@ -139,7 +138,7 @@ script = ExtResource("1_612nd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
-pixel_size = 0.015
+pixel_size = 0.008
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8aamm")
 animation = &"Idle"

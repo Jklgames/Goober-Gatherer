@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d25rcd1yetce2"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_dw4cf"]
-[ext_resource type="Texture2D" uid="uid://c8d1mlixsyq8i" path="res://Creatures/Nyan Cat/spr_e_019_1.png" id="3_fvods"]
+[ext_resource type="Texture2D" uid="uid://c8d1mlixsyq8i" path="res://Creatures/Nyan Cat/Nyan Cat Sprite.png" id="3_fvods"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{

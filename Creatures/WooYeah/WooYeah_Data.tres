@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=5 format=3 uid="uid://og77tcq48heg"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=9 format=3 uid="uid://og77tcq48heg"]
 
 [ext_resource type="PackedScene" uid="uid://sfwqphjvbgx7" path="res://Creatures/WooYeah/WooYeah_Prefab.tscn" id="1_gom7u"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_6x4qo"]
+[ext_resource type="Script" path="res://Scripts/Skills/Status Move.gd" id="2_c56he"]
+[ext_resource type="Script" path="res://Scripts/Statuses/Status.gd" id="3_8ugnw"]
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="3_jvjt2"]
 
 [sub_resource type="Resource" id="Resource_darmf"]
@@ -11,14 +13,37 @@ description = "Placeholder description"
 power = 20.0
 cooldown = 0
 
+[sub_resource type="Resource" id="Resource_6xt8f"]
+script = ExtResource("3_8ugnw")
+name = "Mogged"
+atags = Array[int]([])
+duration = 3
+clensable = false
+stackable = false
+maxStacks = -1
+statChanges = {
+"defense": 999.0
+}
+
+[sub_resource type="Resource" id="Resource_ybis1"]
+script = ExtResource("2_c56he")
+status = SubResource("Resource_6xt8f")
+applicationChance = 100.0
+damaging = false
+targetsAllies = true
+name = "DEF+++"
+description = "Placeholder description"
+power = 20.0
+cooldown = 0
+
 [resource]
 script = ExtResource("2_6x4qo")
 name = "WOOYEAH"
 creatureScene = ExtResource("1_gom7u")
 description = "WOOWOWO"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_darmf")])
-maxhp = 90
+baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_darmf"), SubResource("Resource_ybis1")])
+maxhp = 80
 attack = 130
 defense = 80
 gooberguage = 100
-speed = 100
+speed = 110

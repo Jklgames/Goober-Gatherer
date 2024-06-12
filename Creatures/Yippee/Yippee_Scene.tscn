@@ -1,18 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddsy0jeqtwg8v"]
+[gd_scene load_steps=9 format=3 uid="uid://ddsy0jeqtwg8v"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_rkqgv"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/groove-battle-ezgif.com-gif-maker.png" id="2_kw6l7"]
-[ext_resource type="Texture2D" uid="uid://cv30vucs8ofr" path="res://Creatures/Yippee/i-made-a-png-of-the-tbh-creature-little-autistic-creature-v0-48oz1fkr4yx81.webp" id="3_8gtfj"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
-atlas = ExtResource("2_kw6l7")
-region = Rect2(660, 0, 220, 220)
+[ext_resource type="Texture2D" uid="uid://cv30vucs8ofr" path="res://Creatures/Yippee/Yippe Sprite.webp" id="3_8gtfj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8rvyd")
+"texture": ExtResource("3_8gtfj")
 }],
 "loop": false,
 "name": &"Hurt",

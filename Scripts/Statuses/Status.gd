@@ -6,9 +6,10 @@ class_name Status
 @export var duration : int = 1 # -1 indicates infinite duration
 @export var clensable : bool = true
 @export var stackable : bool = true
-@export var maxStacks : int = -1 # -1 indications no limit
+@export var maxStacks : int = -1 # -1 indications no limit # the last applied status of the same type will overwrite all others and incriment the stacks count
 #@export var persistent : bool = false #Will this be saved to the creature's instance at battle end?
 #@export var persistentStatus : PersistantStatus #to be implimented, will be saved to the Creature Instance
+@export var statChanges : Dictionary = {}
 
 var applicant : Creature
 var creature : Creature
@@ -40,7 +41,15 @@ func initForBattle(newCreature : Creature, eapplicant : Creature):
 	pass
 
 func turn_started():
-	Battle.instance.battleLog.AddTextToQueue("invalid status turnstart")
+	if duration>0:
+		duration -= 1
+		if duration == 0:
+			var i : int = creature.statuses.find(self)
+			creature.statuses.remove_at(i)
+			Battle.instance.battleLog.AddTextToQueue(creature.instance.nickName+" recovered from "+name)
+			#remove status effect here
+			pass
+		pass
 	pass
 
 func turn_ended():

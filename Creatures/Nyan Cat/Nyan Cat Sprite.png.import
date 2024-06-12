@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv30vucs8ofr"
-path="res://.godot/imported/i-made-a-png-of-the-tbh-creature-little-autistic-creature-v0-48oz1fkr4yx81.webp-f8ae8ff89ce4c1562728f362243df440.ctex"
+uid="uid://c8d1mlixsyq8i"
+path="res://.godot/imported/Nyan Cat Sprite.png-847b615dbe80de53c88daecaeab8470e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Creatures/Yippee/i-made-a-png-of-the-tbh-creature-little-autistic-creature-v0-48oz1fkr4yx81.webp"
-dest_files=["res://.godot/imported/i-made-a-png-of-the-tbh-creature-little-autistic-creature-v0-48oz1fkr4yx81.webp-f8ae8ff89ce4c1562728f362243df440.ctex"]
+source_file="res://Creatures/Nyan Cat/Nyan Cat Sprite.png"
+dest_files=["res://.godot/imported/Nyan Cat Sprite.png-847b615dbe80de53c88daecaeab8470e.ctex"]
 
 [params]
 
