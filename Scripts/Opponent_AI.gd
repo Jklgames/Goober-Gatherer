@@ -13,8 +13,8 @@ func _aI():
 
 	if difficulty == 0:
 		var creature : Creature = Battle.instance.currentTurn.creature
-		var usableSkills :Array[int] = creature.instance.GetUseableSkillsIndexes()
-		var skillIndex : int = usableSkills[randi_range(0,usableSkills.size()-1)]
+		var usableSkillsIndexes :Array[int] = creature.instance.GetUseableSkillsIndexes()
+		var skillIndex : int = usableSkillsIndexes[randi_range(0,usableSkillsIndexes.size()-1)]
 		var skill : Skill = creature.instance.skills[skillIndex]
 		var target : Creature = skill.PossibleTargets(creature)[randi_range(0,skill.PossibleTargets(creature).size()-1)]
 		await Battle.instance.UseSkill(creature,skillIndex,target)

@@ -39,6 +39,9 @@ func SetInstance(newinstance : CreatureInstance):
 	pass
 
 func _on_turn_started():
-	for skillFatigue in instance.skillFatigue:
-		skillFatigue = max(0,skillFatigue - 1)
+	for i in range(instance.skillFatigue.size()):
+		if instance.skillFatigue[i] > 0:
+				instance.skillFatigue[i] -= 1
+				pass
+		pass
 	pass # Replace with function body.

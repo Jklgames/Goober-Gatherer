@@ -71,7 +71,7 @@ func EndTurn():
 	turns.remove_at(id)
 	turns.append(turn)
 	Sort_Turns()
-	battle.ChanceBattleState(Battle.BattleState.Idle)
+	battle.ChangeBattleState(Battle.BattleState.Idle)
 	pass
 
 func Advance_To_Next_Turn() -> Turn:

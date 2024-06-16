@@ -23,6 +23,7 @@ duration = 2
 clensable = true
 stackable = true
 maxStacks = -1
+statChanges = {}
 
 [sub_resource type="Resource" id="Resource_ejwii"]
 script = ExtResource("2_icng5")
@@ -30,7 +31,7 @@ status = SubResource("Resource_obply")
 applicationChance = 80.0
 damaging = false
 targetsAllies = false
-name = "Status_Move"
+name = "Cringe"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0

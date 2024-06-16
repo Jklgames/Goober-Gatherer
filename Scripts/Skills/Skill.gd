@@ -18,6 +18,9 @@ func PreformSkill(user : Creature, target : Creature):
 	Battle.instance.DealDamage(packet)
 	user.post_skill_used.emit(packet)
 	target.post_attacked.emit(packet)
+	if cooldown != 0:
+		user.instance.skillFatigue[user.instance.skills.find(self)] = cooldown
+
 	pass
 
 func  _turn_logic(packet : ActionPacket):
