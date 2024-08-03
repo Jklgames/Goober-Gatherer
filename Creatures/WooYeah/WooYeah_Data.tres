@@ -12,6 +12,7 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = ""
 
 [sub_resource type="Resource" id="Resource_6xt8f"]
 script = ExtResource("3_8ugnw")
@@ -35,6 +36,7 @@ name = "Mog"
 description = "Placeholder description"
 power = 20.0
 cooldown = 3
+rawLogString = "<victem> was mogged"
 
 [sub_resource type="Resource" id="Resource_2nhye"]
 script = ExtResource("3_jvjt2")
@@ -42,6 +44,7 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = ""
 
 [resource]
 script = ExtResource("2_6x4qo")
@@ -52,5 +55,5 @@ baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Res
 maxhp = 80
 attack = 130
 defense = 80
-gooberguage = 100
+gooberGuage = 100
 speed = 110

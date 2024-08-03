@@ -7,31 +7,31 @@ var turns : Array[Turn] = []
 
 signal turnOrderUpdated
 
-func Initialize():
+func initialize():
 	#turnList = get_tree().root.get_node("Turn_List")
 	pass
 
-func Sort_Turns():
-	turns.sort_custom(sortbyav)
+func sort_turns():
+	turns.sort_custom(sort_by_action_value)
 	turnOrderUpdated.emit()
 	pass # Replace with function body.
 	
-func sortbyav(a, b):
+func sort_by_action_value(a, b):
 	return a.actionValue < b.actionValue
 
-func AddCreatureTurn(creature : Creature):
+func add_creature_turn(creature : Creature):
 	var newTurn : Turn = turnPrefab.instantiate()
 	add_child(newTurn)
 	newTurn.type = newTurn.Type.Creature
 	newTurn.creature = creature
-	newTurn.actionValue = 10000/creature.Get_Stat("speed")
+	newTurn.actionValue = 10000/creature.get_stat("speed")
 	newTurn.name = creature.instance.nickName
 	turns.append(newTurn)
 	newTurn.turnGraphic = turnList.New_Turn(newTurn)
-	Sort_Turns()
+	sort_turns()
 	pass
 
-func RemoveTurn(turn : Turn):
+func remove_turn(turn : Turn):
 	var id = turns.find(turn)
 	turns.remove_at(id)
 
@@ -41,46 +41,46 @@ func RemoveTurn(turn : Turn):
 
 	turn.queue_free()
 	turnGraphic.queue_free()
-	#Sort_Turns()
+	#sort_turns()
 
 	pass
 
-func GetCreatureTurn(creature : Creature) -> Turn:
+func get_creature_turn(creature : Creature) -> Turn:
 	for t in turns:
 		if t.type == t.Type.Creature && t.creature == creature:
 			return t
 	return null
 
-func AddTurn(turn : Turn):
+func add_turn(turn : Turn):
 	add_child(turn)
 	turns.append(turn)
 	turn.turnGraphic = turnList.New_Turn(turn)
-	Sort_Turns()
+	sort_turns()
 	pass
 
-func EndTurn():
+func end_turn():
 	var turn : Turn = turns[0]
 	var newAV = 10000
 	if (turn.type == turn.Type.Creature):
 		var creature = turn.creature
-		newAV = newAV/creature.Get_Stat("speed")
+		newAV = newAV/creature.get_stat("speed")
 	else:
 		newAV = turn.speed
 	turn.actionValue = newAV
 	var id = turns.find(turn,0)
 	turns.remove_at(id)
 	turns.append(turn)
-	Sort_Turns()
-	battle.ChangeBattleState(Battle.BattleState.Idle)
+	sort_turns()
+	battle.change_battle_state(Battle.BattleState.Idle)
 	pass
 
-func Advance_To_Next_Turn() -> Turn:
-	Sort_Turns()
+func advance_to_next_turn() -> Turn:
+	sort_turns()
 	var turn : Turn = turns[0]
 	var av : float = turn.actionValue
 	for t :Turn in turns:
 		t.actionValue = max(0,t.actionValue-av)
-	Sort_Turns()
+	sort_turns()
 	return turns[0]
 
 

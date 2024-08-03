@@ -7,12 +7,12 @@ class_name DOT
 func turn_started():
 	var damageToDeal = damage
 	if persentageHP:
-		damageToDeal = creature.Get_Stat("maxHP") * damage / 100
+		damageToDeal = creature.get_stat("maxHP") * damage / 100
 		pass
 	var packet : ActionPacket = ActionPacket.new(creature,creature,null)
-	Battle.instance.battleLog.AddTextToQueue(creature.instance.nickName+" suffered from " + name)
+	Battle.instance.battleLog.add_text_to_queue(creature.instance.nickName+" suffered from " + name)
 	packet.generalData["damage"] = damageToDeal
-	Battle.instance.DealDamage(packet)
+	Battle.instance.deal_damage(packet)
 	super()
 	
 	pass

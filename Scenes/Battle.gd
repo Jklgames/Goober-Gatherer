@@ -37,17 +37,17 @@ func _ready():
 		
 
 	for i in range(skillButtons.size()):
-		skillButtons[i].connect("pressed",Callable(self,"SkillButtonPressed").bind(i))
+		skillButtons[i].connect("pressed",Callable(self,"skill_button_pressed").bind(i))
 	instance = self
-	turnManager.Initialize()
-	turnManager.turnList.Initialize()
-	Initialize()
+	turnManager.initialize()
+	turnManager.turnList.initialize()
+	initialize()
 	pass
 
-func Initialize():
+func initialize():
 	_init_allies()
 	_init_enemies()
-	ChangeBattleState(BattleState.Idle)
+	change_battle_state(BattleState.Idle)
 	pass
 
 func _init_allies():
@@ -60,7 +60,7 @@ func _init_allies():
 	
 	for i in range(min(3,party.creatures.size())):
 		var cinstance : CreatureInstance = party.creatures[i]
-		SlotInCreature(true,cinstance,i)
+		put_creature_in_slot(true,cinstance,i)
 		pass
 	pass
 
@@ -72,14 +72,14 @@ func _init_enemies():
 	
 	for i in range(min(3,party.creatures.size())):
 		var cinstance : CreatureInstance =  party.creatures[i]
-		SlotInCreature(false,cinstance,i)
+		put_creature_in_slot(false,cinstance,i)
 		pass
 	pass
 
 #endregion
 
 #region Creature Helpers
-func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
+func put_creature_in_slot(isAlly:bool,cinstance:CreatureInstance,slot : int):
 	if slot > 2 || slot < 0:
 		print("Invalid Slot")
 		return
@@ -103,21 +103,22 @@ func SlotInCreature(isAlly:bool,cinstance:CreatureInstance,slot : int):
 			pass
 		pass
 
-	creature.SetInstance(cinstance)
+	creature.initalize_instance(cinstance)
 	creature.allied = isAlly
 	parentSlot.add_child(creature)
 	creature.position = Vector3.ZERO
-	turnManager.AddCreatureTurn(creature)
+	turnManager.add_creature_turn(creature)
 	#Add HP Bar
 	var hpbar : Bar = hPBarPrefab.instantiate()
 	creature.hpbar = hpbar
 	creature.add_child(hpbar)
 	hpbar.position = Vector3(0,1,0)
-	hpbar.SetMax(creature.Get_Stat("maxhp"))
+	hpbar.SetMax(creature.get_stat("maxhp"))
 	hpbar.value = cinstance.hp
 	hpbar.progressBar.value = hpbar.value
 	pass
-func RemoveCreature(creature : Creature):
+
+func remove_creature(creature : Creature):
 	if creature.dead:
 		return
 
@@ -127,8 +128,8 @@ func RemoveCreature(creature : Creature):
 	else:
 		enemies.remove_at(enemies.find(creature))
 		pass
-	var turn = turnManager.GetCreatureTurn(creature)
-	turnManager.RemoveTurn(turn)
+	var turn = turnManager.get_creature_turn(creature)
+	turnManager.remove_turn(turn)
 	creature.dead = true
 	creature.hide()
 	#creature.queue_free()
@@ -138,10 +139,9 @@ func RemoveCreature(creature : Creature):
 
 #region Update Loops
 func _process(_delta):
-	
 	match battleState:
 		BattleState.Idle:
-			_idlein_loop()
+			_idleing_loop()
 			pass
 		BattleState.TurnHandling:
 			_turn_handling_loop()
@@ -150,14 +150,14 @@ func _process(_delta):
 			pass
 	pass
 
-func _idlein_loop():
-	SetCurrentTurn(turnManager.Advance_To_Next_Turn());
-	ChangeBattleState(BattleState.TurnHandling)
+func _idleing_loop():
+	set_current_turn(turnManager.advance_to_next_turn());
+	change_battle_state(BattleState.TurnHandling)
 	pass
 	
 func _turn_handling_loop():
 	if !currentTurn || !currentCreature || currentCreature.dead:
-		turnManager.EndTurn()
+		turnManager.end_turn()
 		return
 	if (currentTurn.type == currentTurn.Type.Creature && currentCreature.allied):
 		_player_turn_loop()
@@ -165,39 +165,39 @@ func _turn_handling_loop():
 
 func _player_turn_loop():
 		if Input.is_action_just_pressed("generic_interact"):
-			await UseSkill(currentCreature,usableSkillsIndexes[selectedSkillIndex],selectedTarget)
+			await use_skill(currentCreature,usableSkillsIndexes[selectedSkillIndex],selectedTarget)
 			return
 
 		if (Input.is_action_just_pressed("general_down")):
 			var nextSkill = (selectedSkillIndex+1) % usableSkillsIndexes.size()
-			SelectAndInitMove(nextSkill)
+			select_and_initalize_move(nextSkill)
 		elif (Input.is_action_just_pressed("general_up")):
 			var nextSkill = (selectedSkillIndex-1) % usableSkillsIndexes.size()
-			SelectAndInitMove(nextSkill)
+			select_and_initalize_move(nextSkill)
 
 		if (Input.is_action_just_pressed("general_left")):
 			selectedTargetIndex -= 1
 			selectedTargetIndex %= possibleTargets.size()
-			SetTarget(possibleTargets[selectedTargetIndex])
+			set_target(possibleTargets[selectedTargetIndex])
 			pass
 		elif (Input.is_action_just_pressed("general_right")):
 			selectedTargetIndex += 1
 			selectedTargetIndex %= possibleTargets.size()
-			SetTarget(possibleTargets[selectedTargetIndex])
+			set_target(possibleTargets[selectedTargetIndex])
 			pass
 
 #endregion
 
 #region Battle State Logic
-func ChangeBattleState(newState : BattleState):
+func change_battle_state(newState : BattleState):
 	#print ("Switching from: "+BattleState.keys()[battleState]+" to "+BattleState.keys()[newState])
 	battleState = newState
 	match newState:
 		BattleState.Idle:
 			if allies.size() == 0:
-				ChangeBattleState(BattleState.Lose)
+				change_battle_state(BattleState.Lose)
 			elif enemies.size() == 0:
-				ChangeBattleState(BattleState.Win)
+				change_battle_state(BattleState.Win)
 				pass
 			pass
 		BattleState.TurnHandling:
@@ -205,32 +205,32 @@ func ChangeBattleState(newState : BattleState):
 			pass
 		BattleState.Win:
 			print("WIN")
-			battleLog.AddTextToQueue("WIN")
+			battleLog.add_text_to_queue("WIN")
 			pass
 		BattleState.Lose:
 			print("LOSE")
-			battleLog.AddTextToQueue("LOSE")
+			battleLog.add_text_to_queue("LOSE")
 			pass
 	pass
 
 func _turn_handler():
 	if !currentTurn:
-		turnManager.EndTurn()
+		turnManager.end_turn()
 		return
 		
 	if currentTurn.type == currentTurn.Type.Creature: # Creature Turns
 		currentTurn.creature.turn_started.emit()
 		
 		if !currentTurn || !currentTurn.creature || currentTurn.creature.dead: #checks if the creature died from startTurn signal
-			turnManager.EndTurn()
+			turnManager.end_turn()
 			return
 		
-		usableSkillsIndexes = currentTurn.creature.instance.GetUseableSkillsIndexes()
+		usableSkillsIndexes = currentTurn.creature.instance.get_useable_skill_indexes()
 		
 		if usableSkillsIndexes.size() == 0: #No Usable Skills
 			print("No usable skills for "+currentTurn.creature.instance.nickName)
 			battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
-			ChangeBattleState(BattleState.Idle)
+			change_battle_state(BattleState.Idle)
 			return	
 		if currentTurn.creature.allied: #Player Turn Logic
 			for i in range(4):
@@ -248,7 +248,7 @@ func _turn_handler():
 				else:
 					skillButtons[i].hide()
 					pass
-			SelectAndInitMove(usableSkillsIndexes[0])
+			select_and_initalize_move(usableSkillsIndexes[0])
 			pass
 		else : #Opponent Turn Logic
 			opponent.TurnLogic()
@@ -259,7 +259,7 @@ func _turn_handler():
 
 #region Misc Helpers
 
-func SetCurrentTurn(turn : Turn):
+func set_current_turn(turn : Turn):
 	currentTurn = turn
 	
 	for i in range(skillButtons.size()):
@@ -267,13 +267,13 @@ func SetCurrentTurn(turn : Turn):
 	skillSelectionGraphic.hide()
 	
 	if turn.type == turn.Type.Creature:
-		InitCreatureTurn()
+		init_creature_turn()
 	else:
 		currentTurnGraphic.hide()
-	SetTarget(null)
+	set_target(null)
 	pass
 
-func InitCreatureTurn():
+func init_creature_turn():
 	currentCreature = currentTurn.creature
 	currentTurnGraphic.show()
 	currentTurnGraphic.position = currentCreature.global_position
@@ -286,7 +286,7 @@ func InitCreatureTurn():
 	pass
 
 
-func SelectAndInitMove(usableIndex : int):
+func select_and_initalize_move(usableIndex : int):
 	if  usableIndex >= usableSkillsIndexes.size():
 		print("Invalid Slot")
 		return
@@ -298,23 +298,23 @@ func SelectAndInitMove(usableIndex : int):
 	skillSelectionGraphic.show()
 	skillSelectionGraphic.global_position = skillButtons[skillindex].global_position
 	
-	possibleTargets = currentTurn.creature.instance.skills[skillindex].PossibleTargets(currentTurn.creature)
-	possibleTargets.sort_custom(sortbyXPos)
+	possibleTargets = currentTurn.creature.instance.skills[skillindex].possible_targets(currentTurn.creature)
+	possibleTargets.sort_custom(sort_by_position_x)
 	
 	if !possibleTargets.has(selectedTarget):
 		selectedTargetIndex = 0
-		SetTarget(possibleTargets[0])
+		set_target(possibleTargets[0])
 		pass
 	else:
-		SetTarget(selectedTarget)
+		set_target(selectedTarget)
 		selectedTargetIndex = possibleTargets.find(selectedTarget)
 		pass
 	pass
 
-func sortbyXPos(a : Node3D, b : Node3D):
+func sort_by_position_x(a : Node3D, b : Node3D):
 	return a.global_position.x < b.global_position.x
 
-func SetTarget(target : Creature):
+func set_target(target : Creature):
 	if (target == null):
 		targetSelectionGraphic.hide()
 		return
@@ -328,13 +328,13 @@ func SetTarget(target : Creature):
 
 #region Action Helpers
 
-func UseSkill(user : Creature,slot : int, target : Creature):
+func use_skill(user : Creature,slot : int, target : Creature):
 	var skill : Skill = user.instance.skills[slot]
-	await skill.PreformSkill(user,target)
-	turnManager.EndTurn()
+	await skill.preform_skill(user,target)
+	turnManager.end_turn()
 	pass
 
-func DealDamage(packet : ActionPacket):
+func deal_damage(packet : ActionPacket):
 	var damage : float = packet.generalData["damage"]
 	if damage == 0:
 		return
@@ -343,13 +343,13 @@ func DealDamage(packet : ActionPacket):
 	var attacker : Creature = packet.generalData["attacker"]
 	
 	target.instance.hp -= round(damage)
-	target.instance.hp = clamp(target.instance.hp,0,target.Get_Stat("maxhp"))
+	target.instance.hp = clamp(target.instance.hp,0,target.get_stat("maxhp"))
 	target.hpbar.value = target.instance.hp
 	if target.instance.hp <= 0:
-		RemoveCreature(target)
+		remove_creature(target)
 		pass
 
-func ApplyStatus(packet):
+func apply_status(packet):
 	if !packet.generalData.has("status"):
 		return
 	var status : Status = packet.generalData["status"].duplicate()
@@ -365,20 +365,19 @@ func ApplyStatus(packet):
 #endregion
 
 #region Ui Helpers
-func SkillButtonPressed(skillIndex : int):
+func skill_button_pressed(skillIndex : int):
 	if !usableSkillsIndexes.has(skillIndex):
 		print("Skill not usable")
 		return
 	
 	var skill :Skill = currentCreature.instance.skills[skillIndex]
 	if selectedSkillIndex == usableSkillsIndexes.find(skillIndex):
-		UseSkill(currentTurn.creature,skillIndex,selectedTarget)
+		use_skill(currentTurn.creature,skillIndex,selectedTarget)
 		pass
 	else :
-		SelectAndInitMove(usableSkillsIndexes.find(skillIndex))
+		select_and_initalize_move(usableSkillsIndexes.find(skillIndex))
 		pass
 	pass
-
 #endregion
 
 enum BattleState { Init=0, Idle=1, TurnHandling=2, Win=3, Lose=4}

@@ -10,12 +10,19 @@ var _dialogueSpeed : float = 0.0056
 
 var _dialogIndex : int = 0
 
-func AddTextToQueue(newLog : String):
+func parse_text_to_queue(newLog : String,info : StringParser.StringInfo):
+	newLog = StringParser.parse_text(newLog , info)
+	add_text_to_queue(newLog)
+	pass
+
+
+
+func add_text_to_queue(newLog : String):
 	_queuedDialogs.append(newLog)
 	if _currentlyDisplaying == false:
-		DisplayQueuedText()
+		display_queued_text()
 
-func DisplayQueuedText():
+func display_queued_text():
 	_currentlyDisplaying = true
 	_dialogIndex = 0
 	while _queuedDialogs.size() != 0:

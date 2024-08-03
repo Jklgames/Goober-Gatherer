@@ -6,7 +6,7 @@ var turngraphics : Array[TurnGraphic] = []
 @export var TurnGraphicPreFab : PackedScene 
 
 # Called when the node enters the scene tree for the first time.
-func Initialize():
+func initialize():
 	#turnManager = get_node("Turn_Manager")
 	turnManager.turnOrderUpdated.connect(Update_Turns)
 	pass # Replace with function body.

@@ -10,6 +10,7 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = ""
 
 [resource]
 script = ExtResource("3_xnjq0")
@@ -20,5 +21,5 @@ baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Res
 maxhp = 100
 attack = 100
 defense = 100
-gooberguage = 100
+gooberGuage = 100
 speed = 100

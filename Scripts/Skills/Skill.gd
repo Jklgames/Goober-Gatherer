@@ -5,17 +5,18 @@ class_name Skill
 @export_multiline var description : String = "Placeholder description"
 @export var power : float = 20	
 @export var cooldown : int = 0
+@export var rawLogString : String 
 
-func PossibleTargets(user : Creature) -> Array[Creature]:
+func possible_targets(user : Creature) -> Array[Creature]:
 	
 	return []
 	
-func PreformSkill(user : Creature, target : Creature):
+func preform_skill(user : Creature, target : Creature):
 	var packet : ActionPacket = ActionPacket.new(user,target,self)
 	_turn_logic(packet)
 	user.pre_skill_used.emit(packet)
 	target.pre_attacked.emit(packet)
-	Battle.instance.DealDamage(packet)
+	Battle.instance.deal_damage(packet)
 	user.post_skill_used.emit(packet)
 	target.post_attacked.emit(packet)
 	if cooldown != 0:

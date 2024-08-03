@@ -1,7 +1,7 @@
 extends Skill
 class_name Basic_Attack
 
-func PossibleTargets(user : Creature) -> Array[Creature]:
+func possible_targets(user : Creature) -> Array[Creature]:
 	var battle = Battle.instance
 	var targets : Array[Creature] = []
 
@@ -17,11 +17,11 @@ func _turn_logic(packet : ActionPacket):
 	var target = packet.generalData["target"]
 	
 	var damageDealt : float = 0
-	var userDmgStat = user.Get_Stat("attack")
-	var targetDefStat = target.Get_Stat("defense")
+	var userDmgStat = user.get_stat("attack")
+	var targetDefStat = target.get_stat("defense")
 	damageDealt += power*(userDmgStat/100)
 	damageDealt = damageDealt/(targetDefStat/100)
 	print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-	battle.battleLog.AddTextToQueue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+	battle.battleLog.add_text_to_queue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
 	packet.generalData["damage"] = damageDealt
 	pass

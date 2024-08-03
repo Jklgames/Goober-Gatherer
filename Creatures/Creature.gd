@@ -23,16 +23,16 @@ func _ready():
 	connect("turn_started",_on_turn_started)
 	pass
 
-func Get_Stat(statName : String) -> float:
+func get_stat(statName : String) -> float:
 	statName = statName.to_lower()
-	var returnStat : float = data.get(statName)
+	var returnStat : float = instance.get_stat(statName)
 	for status in statuses:
 		if status.statChanges.has(statName):
 			returnStat += status.statChanges[statName]
 	#Augmented by passives and statuses
 	return returnStat
 
-func SetInstance(newinstance : CreatureInstance):
+func initalize_instance(newinstance : CreatureInstance):
 	instance = newinstance
 	data = instance.data
 	#Other Initialization stuff maybe
