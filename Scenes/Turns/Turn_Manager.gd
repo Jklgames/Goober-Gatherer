@@ -82,5 +82,3 @@ func advance_to_next_turn() -> Turn:
 		t.actionValue = max(0,t.actionValue-av)
 	sort_turns()
 	return turns[0]
-
-

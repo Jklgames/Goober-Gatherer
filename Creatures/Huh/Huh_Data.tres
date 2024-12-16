@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=5 format=3 uid="uid://qfdhe1qwpj06"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=6 format=3 uid="uid://qfdhe1qwpj06"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_75yxk"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_j0a07"]
 [ext_resource type="PackedScene" uid="uid://bxquvwws7pjkj" path="res://Creatures/Huh/Huh_Prefab.tscn" id="2_c2lfm"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="3_xnjq0"]
 
@@ -10,14 +11,15 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
-rawLogString = ""
+rawLogString = "%s was hit by %s for %d damage!"
+logReqestedValues = Array[String](["target.instance.nickName", "attacker.instance.nickName", "damage"])
 
 [resource]
 script = ExtResource("3_xnjq0")
-name = "Huh"
+name = "Huh? "
 creatureScene = ExtResource("2_c2lfm")
 description = "PlaceHolder"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_rdklx")])
+baseMoveSet = Array[ExtResource("1_j0a07")]([SubResource("Resource_rdklx")])
 maxhp = 100
 attack = 100
 defense = 100

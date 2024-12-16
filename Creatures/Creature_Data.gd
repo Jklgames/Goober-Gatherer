@@ -3,7 +3,7 @@ class_name CreatureData
 
 @export var name : String
 @export var creatureScene : PackedScene
-@export_multiline var description
+@export_multiline var description : String
 @export_group("Moves")
 @export var baseMoveSet : Array[Skill] = []
 @export var gooberSkill : Skill
@@ -13,5 +13,3 @@ class_name CreatureData
 @export var defense = 100
 @export var gooberGuage = 100 
 @export var speed = 100
-
-

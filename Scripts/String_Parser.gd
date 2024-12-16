@@ -53,4 +53,3 @@ static func _parseCode(currentindex : int,rawText : String, info : StringInfo) -
 
 class StringInfo:
 	var info : Dictionary = {}
-

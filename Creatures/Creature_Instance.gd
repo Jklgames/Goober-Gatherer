@@ -33,4 +33,3 @@ func _init(cdata : CreatureData):
 		skills.append(skill.duplicate())
 		skillFatigue.append(0)
 	pass
-

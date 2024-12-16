@@ -347,6 +347,8 @@ func deal_damage(packet : ActionPacket):
 	target.hpbar.value = target.instance.hp
 	if target.instance.hp <= 0:
 		remove_creature(target)
+		var logtext : String = "%s died from %s's %s" % [target.instance.nickName, attacker.instance.nickName, packet.generalData["source"]]
+		battleLog.add_text_to_queue(logtext)
 		pass
 
 func apply_status(packet):

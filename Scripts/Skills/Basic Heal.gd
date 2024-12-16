@@ -19,6 +19,7 @@ func _turn_logic(packet : ActionPacket):
 	var healing : float = 0
 	var userModStat = user.get_stat("maxhp")
 	healing += userModStat*(power/100)
-	print(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
-	battle.battleLog.add_text_to_queue(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
+	if rawLogString.is_empty():
+		print(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
+		battle.battleLog.add_text_to_queue(user.instance.nickName+" healed "+str(round(healing))+" hp to "+target.instance.nickName)
 	packet.generalData["damage"] = -healing

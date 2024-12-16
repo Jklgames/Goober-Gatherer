@@ -25,17 +25,40 @@ func New_Turn(turn : Turn) -> TurnGraphic:
 	newTG.turnName.text = turn.name
 	return newTG
 
-func Update_Turns():
+func Update_Turns() -> void:
+	#var turnPositionPairs : Dictionary = {}
+	
 	for i in range(turnManager.turns.size()):
-		var turn = turnManager.turns[i]
+		var turn : Turn = turnManager.turns[i]
 		var graphic : TurnGraphic = turn.turnGraphic
 		graphic.av.text = str(int(turn.actionValue))
-		graphic.position.y = CalcGraphicPosition(graphic,i)
+		#graphic.position.y = CalcGraphicPosition(graphic,i)
+		graphic.moving = true
+		graphic.targetHeight = CalcGraphicPosition(graphic,i)
+		#turnPositionPairs[turn] = CalcGraphicPosition(graphic,i)
 		pass
+	pass
+
+func move_turn_ui(turnPositionPairs : Dictionary):
+	var notDone = true
+	while notDone:
+		notDone = false
+		for turn : Turn in turnPositionPairs:
+			var graphic : TurnGraphic = turn.turnGraphic
+			var endPos : float = turnPositionPairs[turn]
+			graphic.position.y = lerpf(graphic.position.y,endPos,0.05)
+			if graphic.position.y != endPos:
+				notDone = true
+		await get_tree().process_frame
+	
+	for turn : Turn in turnPositionPairs:
+		var graphic : TurnGraphic = turn.turnGraphic
+		var endPos : float = turnPositionPairs[turn]
+		graphic.position.y = endPos
+
 	pass
 
 func CalcGraphicPosition(graphic :TurnGraphic,slot :int) -> float:
 	const padding = 25
 	var graphicSize= graphic.size.y
 	return (graphicSize+padding)*slot
-

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=9 format=3 uid="uid://d2dalanwxu6vi"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=10 format=3 uid="uid://d2dalanwxu6vi"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_0hx6f"]
 [ext_resource type="PackedScene" uid="uid://d25rcd1yetce2" path="res://Creatures/Nyan Cat/Nyan_Cat_Prefab.tscn" id="1_buui5"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_hp7xj"]
 [ext_resource type="Script" path="res://Scripts/Skills/Status Move.gd" id="2_icng5"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_n8n38"]
 [ext_resource type="Script" path="res://Scripts/Statuses/DamageOverTime.gd" id="3_hl3pi"]
@@ -12,11 +13,15 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = ""
+logReqestedValues = Array[String]([])
 
 [sub_resource type="Resource" id="Resource_obply"]
 script = ExtResource("3_hl3pi")
 damage = 30.0
 persentageHP = false
+rawLogStringOnProc = "%s took %d from the cringe"
+logReqestedValues = Array[String](["target.instance.nickName", "damage"])
 name = "cringe"
 atags = Array[int]([0])
 duration = 2
@@ -31,19 +36,23 @@ status = SubResource("Resource_obply")
 applicationChance = 80.0
 damaging = false
 targetsAllies = false
+failedLogString = "%s failed to make %s cringe"
+failedLogReqestedValues = Array[String](["attacker.instace.nickName", "target.instance.nickName"])
 name = "Cringe"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = "%s has caused %s to Cringe"
+logReqestedValues = Array[String](["attacker.instance.nickName", "target.instance.nickName"])
 
 [resource]
 script = ExtResource("2_n8n38")
 name = "Nyan Cat"
 creatureScene = ExtResource("1_buui5")
 description = "PlaceHolder"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_i72vw"), SubResource("Resource_ejwii")])
+baseMoveSet = Array[ExtResource("1_hp7xj")]([SubResource("Resource_i72vw"), SubResource("Resource_ejwii")])
 maxhp = 100
 attack = 90
 defense = 90
-gooberguage = 100
+gooberGuage = 100
 speed = 120

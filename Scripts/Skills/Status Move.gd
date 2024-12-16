@@ -6,7 +6,8 @@ class_name StatusMove
 @export var damaging : bool = false
 @export var targetsAllies : bool = false
 
-
+@export var failedLogString : String 
+@export var failedLogReqestedValues : Array[String] 
 
 var workingpacket : ActionPacket
 func possible_targets(user : Creature) -> Array[Creature]:
@@ -37,8 +38,9 @@ func _turn_logic(packet : ActionPacket):
 		var targetDefStat = target.get_stat("defense")
 		damageDealt += power*(userDmgStat/100)
 		damageDealt = damageDealt/(targetDefStat/100)
-		print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-		battle.battleLog.add_text_to_queue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+		if rawLogString.is_empty():
+			print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+			battle.battleLog.add_text_to_queue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
 		packet.generalData["damage"] = damageDealt
 		pass
 	else:
@@ -47,17 +49,13 @@ func _turn_logic(packet : ActionPacket):
 	
 	if (randf_range(0,100) < applicationChance):
 		packet.generalData["status"] = status
-		if (rawLogString != null):
-			var stringInfo =  StringParser.StringInfo.new()
-			stringInfo.info = {"victem":target.instance.nickName,"status":status.name}
-			battle.battleLog.parse_text_to_queue(rawLogString,stringInfo)
-			pass
-		else:
+		if rawLogString.is_empty():
 			battle.battleLog.add_text_to_queue(target.instance.nickName+" is inflicted with "+status.name)
-			pass
 		pass
 	elif !damaging:
-		battle.battleLog.add_text_to_queue(status.name +" failed")
+		if failedLogReqestedValues.is_empty():
+			battle.battleLog.add_text_to_queue(status.name +" failed")
+		
 		pass
 	
 	

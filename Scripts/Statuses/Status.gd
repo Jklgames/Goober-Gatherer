@@ -66,5 +66,3 @@ func pre_skill_used(packet : ActionPacket):
 	
 func post_skill_used(packet : ActionPacket):
 	pass
-
-
