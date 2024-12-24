@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=5 format=3 uid="uid://bsp8pvqd6svj2"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=6 format=3 uid="uid://bsp8pvqd6svj2"]
 
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="1_njv4d"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_robw6"]
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_sdpsr"]
-[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/GenetricBase/Creature.tscn" id="1_vyq41"]
+[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/BaseCreature/base_creature_prefab.tscn" id="1_vyq41"]
 
 [sub_resource type="Resource" id="Resource_rdklx"]
 script = ExtResource("1_sdpsr")
@@ -10,15 +11,18 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = ""
+logReqestedValues = Array[String]([])
+endsTurn = true
 
 [resource]
 script = ExtResource("1_njv4d")
 name = "Generic"
 creatureScene = ExtResource("1_vyq41")
 description = "PlaceHolder"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_rdklx")])
+baseMoveSet = Array[ExtResource("1_robw6")]([SubResource("Resource_rdklx")])
 maxhp = 100
 attack = 100
 defense = 100
-gooberguage = 100
+gooberGuage = 100
 speed = 100

@@ -21,9 +21,10 @@ func _turn_logic(packet : ActionPacket):
 	var targetDefStat = target.get_stat("defense")
 	damageDealt += power*(userDmgStat/100)
 	damageDealt = damageDealt/(targetDefStat/100)
-	if rawLogString.is_empty():
-		print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-		battle.battleLog.add_text_to_queue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
 	
 	packet.generalData["damage"] = damageDealt
+	
+	if rawLogString.is_empty():
+		rawLogString= "%s dealt %d damage to %s"
+		logReqestedValues= ["attacker.instance.nickname","damage","target.instance.nickname"]
 	pass

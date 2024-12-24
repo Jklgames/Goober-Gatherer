@@ -46,7 +46,7 @@ func turn_started():
 		if duration == 0:
 			var i : int = creature.statuses.find(self)
 			creature.statuses.remove_at(i)
-			Battle.instance.battleLog.add_text_to_queue(creature.instance.nickName+" recovered from "+name)
+			Battle.instance.battleLog.add_text_to_queue(creature.instance.nickname+" recovered from "+name)
 			#remove status effect here
 			pass
 		pass

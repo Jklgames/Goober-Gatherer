@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8d1mlixsyq8i"
-path="res://.godot/imported/Nyan Cat Sprite.png-847b615dbe80de53c88daecaeab8470e.ctex"
+path="res://.godot/imported/nyan_cat_sprite.png-117ac7f246c8e2acea7f684576afa80d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Creatures/Nyan Cat/Nyan Cat Sprite.png"
-dest_files=["res://.godot/imported/Nyan Cat Sprite.png-847b615dbe80de53c88daecaeab8470e.ctex"]
+source_file="res://Creatures/Nyan Cat/nyan_cat_sprite.png"
+dest_files=["res://.godot/imported/nyan_cat_sprite.png-117ac7f246c8e2acea7f684576afa80d.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=11 format=3 uid="uid://og77tcq48heg"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=10 format=3 uid="uid://og77tcq48heg"]
 
-[ext_resource type="PackedScene" uid="uid://sfwqphjvbgx7" path="res://Creatures/WooYeah/WooYeah_Prefab.tscn" id="1_gom7u"]
+[ext_resource type="PackedScene" uid="uid://sfwqphjvbgx7" path="res://Creatures/WooYeah/wooyeah_prefab.tscn" id="1_gom7u"]
 [ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_oar6q"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_6x4qo"]
 [ext_resource type="Script" path="res://Scripts/Skills/Status Move.gd" id="2_c56he"]
@@ -15,6 +15,7 @@ power = 20.0
 cooldown = 0
 rawLogString = ""
 logReqestedValues = Array[String]([])
+endsTurn = true
 
 [sub_resource type="Resource" id="Resource_6xt8f"]
 script = ExtResource("3_8ugnw")
@@ -41,25 +42,17 @@ description = "Placeholder description"
 power = 20.0
 cooldown = 3
 rawLogString = "%s mogged %s, %s felt more resilent"
-logReqestedValues = Array[String](["attacker.instance.nickName", "target.instance.nickName", "target.instance.nickName"])
-
-[sub_resource type="Resource" id="Resource_2nhye"]
-script = ExtResource("3_jvjt2")
-name = "Basic_Attack"
-description = "Placeholder description"
-power = 20.0
-cooldown = 0
-rawLogString = ""
-logReqestedValues = Array[String]([])
+logReqestedValues = Array[String](["attacker.instance.nickname", "target.instance.nickname", "target.instance.nickname"])
+endsTurn = true
 
 [resource]
 script = ExtResource("2_6x4qo")
 name = "WOOYEAH"
 creatureScene = ExtResource("1_gom7u")
 description = "WOOWOWO"
-baseMoveSet = Array[ExtResource("1_oar6q")]([SubResource("Resource_darmf"), SubResource("Resource_ybis1"), SubResource("Resource_2nhye")])
-maxhp = 80
-attack = 130
-defense = 80
+baseMoveSet = Array[ExtResource("1_oar6q")]([SubResource("Resource_darmf"), SubResource("Resource_ybis1")])
+maxhp = 110
+attack = 80
+defense = 120
 gooberGuage = 100
-speed = 110
+speed = 90

@@ -51,7 +51,7 @@ func initialize():
 	pass
 
 func _init_allies():
-	var playerData : PlayerData = load("res://Player_Data.tres")
+	var playerData : PlayerData = GameManger.playerData
 	var party :Party= playerData.party
 	
 	if !party.initalized:
@@ -166,6 +166,7 @@ func _turn_handling_loop():
 func _player_turn_loop():
 		if Input.is_action_just_pressed("generic_interact"):
 			await use_skill(currentCreature,usableSkillsIndexes[selectedSkillIndex],selectedTarget)
+			#turnManager.end_turn()
 			return
 
 		if (Input.is_action_just_pressed("general_down")):
@@ -204,11 +205,9 @@ func change_battle_state(newState : BattleState):
 			_turn_handler()
 			pass
 		BattleState.Win:
-			print("WIN")
 			battleLog.add_text_to_queue("WIN")
 			pass
 		BattleState.Lose:
-			print("LOSE")
 			battleLog.add_text_to_queue("LOSE")
 			pass
 	pass
@@ -228,8 +227,7 @@ func _turn_handler():
 		usableSkillsIndexes = currentTurn.creature.instance.get_useable_skill_indexes()
 		
 		if usableSkillsIndexes.size() == 0: #No Usable Skills
-			print("No usable skills for "+currentTurn.creature.instance.nickName)
-			battleLog.queuedDialogs.append("No usable skills for "+currentTurn.creature.instance.nickName)
+			battleLog.add_text_to_queue("No usable skills for "+currentTurn.creature.instance.nickname)
 			change_battle_state(BattleState.Idle)
 			return	
 		if currentTurn.creature.allied: #Player Turn Logic
@@ -288,7 +286,7 @@ func init_creature_turn():
 
 func select_and_initalize_move(usableIndex : int):
 	if  usableIndex >= usableSkillsIndexes.size():
-		print("Invalid Slot")
+		printerr("Invalid Slot")
 		return
 	
 	selectedSkillIndex = usableSkillsIndexes.find(usableSkillsIndexes[usableIndex])
@@ -331,23 +329,23 @@ func set_target(target : Creature):
 func use_skill(user : Creature,slot : int, target : Creature):
 	var skill : Skill = user.instance.skills[slot]
 	await skill.preform_skill(user,target)
-	turnManager.end_turn()
+	#turnManager.end_turn()
 	pass
 
-func deal_damage(packet : ActionPacket):
-	var damage : float = packet.generalData["damage"]
-	if damage == 0:
-		return
+func process_action_packet(packet : ActionPacket):
+	var pdata = packet.generalData
+	var target : Creature = pdata["target"]
+	var attacker : Creature = pdata["attacker"]
 	
-	var target : Creature = packet.generalData ["target"]
-	var attacker : Creature = packet.generalData["attacker"]
+	var damage = pdata["damage"] if pdata.has("damage") else 0
+	var healing = pdata["healing"] if pdata.has("healing") else 0
 	
-	target.instance.hp -= round(damage)
+	target.instance.hp += -damage + healing
 	target.instance.hp = clamp(target.instance.hp,0,target.get_stat("maxhp"))
 	target.hpbar.value = target.instance.hp
 	if target.instance.hp <= 0:
 		remove_creature(target)
-		var logtext : String = "%s died from %s's %s" % [target.instance.nickName, attacker.instance.nickName, packet.generalData["source"]]
+		var logtext : String = "%s died from %s's %s" % [target.instance.nickname, attacker.instance.nickname, packet.generalData["source"]]
 		battleLog.add_text_to_queue(logtext)
 		pass
 
@@ -375,6 +373,7 @@ func skill_button_pressed(skillIndex : int):
 	var skill :Skill = currentCreature.instance.skills[skillIndex]
 	if selectedSkillIndex == usableSkillsIndexes.find(skillIndex):
 		use_skill(currentTurn.creature,skillIndex,selectedTarget)
+		#turnManager.end_turn()
 		pass
 	else :
 		select_and_initalize_move(usableSkillsIndexes.find(skillIndex))

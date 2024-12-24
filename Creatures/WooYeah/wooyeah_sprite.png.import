@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1cof1csrcrdg"
-path="res://.godot/imported/Huh Sprite.png-be118dbd78b4629f42cc64271068409e.ctex"
+uid="uid://bdtj6w74i0lke"
+path.s3tc="res://.godot/imported/wooyeah_sprite.png-37524250f014a576355ac11e1f9e4d73.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Creatures/Huh/Huh Sprite.png"
-dest_files=["res://.godot/imported/Huh Sprite.png-be118dbd78b4629f42cc64271068409e.ctex"]
+source_file="res://Creatures/WooYeah/wooyeah_sprite.png"
+dest_files=["res://.godot/imported/wooyeah_sprite.png-37524250f014a576355ac11e1f9e4d73.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

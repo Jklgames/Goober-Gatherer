@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://sfwqphjvbgx7"]
+[gd_scene load_steps=12 format=3 uid="uid://sfwqphjvbgx7"]
 
-[ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_xqvbw"]
-[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/WooYeah Sprites.png" id="2_b0c5k"]
+[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/BaseCreature/base_creature_prefab.tscn" id="1_m2d26"]
+[ext_resource type="Texture2D" uid="uid://bdtj6w74i0lke" path="res://Creatures/WooYeah/wooyeah_sprite.png" id="2_b0c5k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rvyd"]
 atlas = ExtResource("2_b0c5k")
@@ -51,26 +51,9 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="Animation" id="Animation_rd1vn"]
-resource_name = "Hurt"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite3D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Hurt"]
-}
-
 [sub_resource type="Animation" id="Animation_2bv0n"]
 resource_name = "Idle"
-length = 2.0
-loop_mode = 1
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -149,31 +132,18 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70vp6"]
 _data = {
-"Hurt": SubResource("Animation_rd1vn"),
 "Idle": SubResource("Animation_2bv0n"),
 "RESET": SubResource("Animation_yovgh")
 }
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_a3r5o"]
-height = 0.001
-radial_segments = 6
-rings = 5
+[node name="WooYeah" instance=ExtResource("1_m2d26")]
 
-[node name="WooYeah" type="Node3D"]
-script = ExtResource("1_xqvbw")
-
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.567223, 0)
+[node name="AnimatedSprite3D" parent="." index="0"]
+pixel_size = 0.01
+texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_8aamm")
-animation = &"Idle"
-autoplay = "Idle"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="IdleAnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_70vp6")
 }
-autoplay = "Idle"
-
-[node name="Stand" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("CylinderMesh_a3r5o")

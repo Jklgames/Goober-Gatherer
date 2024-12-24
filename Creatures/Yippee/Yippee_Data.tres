@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=7 format=3 uid="uid://e28qk6qwsx3j"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=8 format=3 uid="uid://e28qk6qwsx3j"]
 
-[ext_resource type="PackedScene" uid="uid://ddsy0jeqtwg8v" path="res://Creatures/Yippee/Yippee_Scene.tscn" id="1_7u1j5"]
+[ext_resource type="PackedScene" uid="uid://ddsy0jeqtwg8v" path="res://Creatures/Yippee/yippee_prefab.tscn" id="1_7u1j5"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_h6yen"]
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Heal.gd" id="1_tyxf0"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_ldtot"]
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="2_padq0"]
@@ -11,6 +12,9 @@ name = "Basic_Heal"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = "%s used %s on %s"
+logReqestedValues = Array[String](["attacker.instance.nickname", "source", "target.instance.nickname"])
+endsTurn = true
 
 [sub_resource type="Resource" id="Resource_g0rdr"]
 script = ExtResource("2_padq0")
@@ -18,15 +22,18 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
+rawLogString = "%s used %s on %s"
+logReqestedValues = Array[String](["attacker.instance.nickname", "source", "target.instance.nickname"])
+endsTurn = true
 
 [resource]
 script = ExtResource("2_ldtot")
 name = "Yippee"
 creatureScene = ExtResource("1_7u1j5")
 description = "PlaceHolder"
-baseMoveSet = Array[Resource("res://Scripts/Skills/Skill.gd")]([SubResource("Resource_g1aim"), SubResource("Resource_g0rdr")])
+baseMoveSet = Array[ExtResource("1_h6yen")]([SubResource("Resource_g1aim"), SubResource("Resource_g0rdr")])
 maxhp = 150
 attack = 90
 defense = 60
-gooberguage = 100
+gooberGuage = 100
 speed = 80

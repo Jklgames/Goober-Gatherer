@@ -39,8 +39,8 @@ func _turn_logic(packet : ActionPacket):
 		damageDealt += power*(userDmgStat/100)
 		damageDealt = damageDealt/(targetDefStat/100)
 		if rawLogString.is_empty():
-			print(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
-			battle.battleLog.add_text_to_queue(user.instance.nickName+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickName)
+			print(user.instance.nickname+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickname)
+			battle.battleLog.add_text_to_queue(user.instance.nickname+" dealt "+str(round(damageDealt))+" damage to "+target.instance.nickname)
 		packet.generalData["damage"] = damageDealt
 		pass
 	else:
@@ -50,7 +50,7 @@ func _turn_logic(packet : ActionPacket):
 	if (randf_range(0,100) < applicationChance):
 		packet.generalData["status"] = status
 		if rawLogString.is_empty():
-			battle.battleLog.add_text_to_queue(target.instance.nickName+" is inflicted with "+status.name)
+			battle.battleLog.add_text_to_queue(target.instance.nickname+" is inflicted with "+status.name)
 		pass
 	elif !damaging:
 		if failedLogReqestedValues.is_empty():

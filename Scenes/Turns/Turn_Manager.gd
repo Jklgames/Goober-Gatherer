@@ -25,7 +25,7 @@ func add_creature_turn(creature : Creature):
 	newTurn.type = newTurn.Type.Creature
 	newTurn.creature = creature
 	newTurn.actionValue = 10000/creature.get_stat("speed")
-	newTurn.name = creature.instance.nickName
+	newTurn.name = creature.instance.nickname
 	turns.append(newTurn)
 	newTurn.turnGraphic = turnList.New_Turn(newTurn)
 	sort_turns()

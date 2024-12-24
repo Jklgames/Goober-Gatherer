@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=9 format=3 uid="uid://cx8bimqd7x35u"]
+
+[ext_resource type="Script" path="res://Creatures/Party.gd" id="1_1aggk"]
+[ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="1_1r38p"]
+[ext_resource type="Resource" uid="uid://e28qk6qwsx3j" path="res://Creatures/Yippee/yippee_data.tres" id="2_4tdw0"]
+[ext_resource type="Resource" uid="uid://og77tcq48heg" path="res://Creatures/WooYeah/wooyeah_data.tres" id="3_4fpjr"]
+[ext_resource type="Resource" uid="uid://d2dalanwxu6vi" path="res://Creatures/Nyan Cat/nyan_cat_data.tres" id="3_s1184"]
+[ext_resource type="Script" path="res://Creatures/Creature_Instance.gd" id="5_22j7s"]
+[ext_resource type="Script" path="res://GameManager/Player_Data.gd" id="7_gehpl"]
+
+[sub_resource type="Resource" id="Resource_7be0m"]
+script = ExtResource("1_1aggk")
+creatures = Array[ExtResource("5_22j7s")]([])
+initalized = false
+creatureDatas = Array[ExtResource("1_1r38p")]([ExtResource("3_4fpjr"), ExtResource("3_s1184"), ExtResource("2_4tdw0")])
+
+[resource]
+script = ExtResource("7_gehpl")
+party = SubResource("Resource_7be0m")

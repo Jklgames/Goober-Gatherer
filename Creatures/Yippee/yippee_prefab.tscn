@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://d25rcd1yetce2"]
+[gd_scene load_steps=7 format=3 uid="uid://ddsy0jeqtwg8v"]
 
-[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/BaseCreature/base_creature_prefab.tscn" id="1_xbfa1"]
-[ext_resource type="Texture2D" uid="uid://c8d1mlixsyq8i" path="res://Creatures/Nyan Cat/nyan_cat_sprite.png" id="3_fvods"]
+[ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/BaseCreature/base_creature_prefab.tscn" id="1_yq8fh"]
+[ext_resource type="Texture2D" uid="uid://cv30vucs8ofr" path="res://Creatures/Yippee/yippee_sprite.webp" id="3_8gtfj"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_nspf6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8aamm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_fvods")
+"texture": ExtResource("3_8gtfj")
 }],
 "loop": false,
 "name": &"Hurt",
@@ -15,7 +15,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_fvods")
+"texture": ExtResource("3_8gtfj")
 }],
 "loop": true,
 "name": &"Idle",
@@ -41,26 +41,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite3D:position")
-tracks/1/interp = 2
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0.567223, 0), Vector3(0, 0.421993, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.436769), Vector3(0, 0, 0), Vector3(0, 0, 0.436332)]
+"values": [Vector3(1, 1, 1), Vector3(0.8, 0.8, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_yovgh"]
@@ -80,26 +68,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite3D:position")
+tracks/1/path = NodePath("AnimatedSprite3D:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.567223, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_70vp6"]
@@ -108,11 +84,11 @@ _data = {
 "RESET": SubResource("Animation_yovgh")
 }
 
-[node name="NyanCat" instance=ExtResource("1_xbfa1")]
+[node name="Yippee" instance=ExtResource("1_yq8fh")]
 
 [node name="AnimatedSprite3D" parent="." index="0"]
-pixel_size = 0.03
-sprite_frames = SubResource("SpriteFrames_nspf6")
+pixel_size = 0.01
+sprite_frames = SubResource("SpriteFrames_8aamm")
 
 [node name="IdleAnimationPlayer" parent="." index="1"]
 libraries = {

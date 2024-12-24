@@ -14,13 +14,13 @@ func turn_started():
 	var packet : ActionPacket = ActionPacket.new(applicant,creature,null,name)
 	packet.generalData["damage"] = damageToDeal
 	if rawLogStringOnProc.is_empty():
-		Battle.instance.battleLog.add_text_to_queue(creature.instance.nickName+" suffered from " + name)
+		Battle.instance.battleLog.add_text_to_queue(creature.instance.nickname+" suffered from " + name)
 	else :
 		var pdata = packet.generalData
 		var formattedValues = packet.getValues(logReqestedValues)
 		var formattedString = rawLogStringOnProc % formattedValues
 		Battle.instance.battleLog.add_text_to_queue(formattedString)
-	Battle.instance.deal_damage(packet)
+	Battle.instance.process_action_packet(packet)
 	super()
 	
 	pass

@@ -9,7 +9,7 @@ func TurnLogic():
 	pass
 
 func _aI():
-	await Battle.instance.get_tree().create_timer(0.5).timeout
+	await Battle.instance.get_tree().create_timer(1).timeout
 
 	if difficulty == 0:
 		var creature : Creature = Battle.instance.currentTurn.creature
@@ -18,7 +18,7 @@ func _aI():
 		var skill : Skill = creature.instance.skills[skillIndex]
 		var target : Creature = skill.possible_targets(creature)[randi_range(0,skill.possible_targets(creature).size()-1)]
 		await Battle.instance.use_skill(creature,skillIndex,target)
-		Battle.instance.turnManager.end_turn()
+		#Battle.instance.turnManager.end_turn()
 		pass
 	pass
 

@@ -16,10 +16,11 @@ signal post_attacked(packet : ActionPacket)#PostDamageDelt
 signal pre_skill_used(packet : ActionPacket)#PreDamageDelt
 signal post_skill_used(packet : ActionPacket)#PostDamageDelt
 
-@onready var animationPlayer : AnimationPlayer = $AnimationPlayer
+@export var idleAnimationPlayer : AnimationPlayer 
+@export var ActionAnimationPlayer : AnimationPlayer 
 
 func _ready():
-	animationPlayer.advance(randf_range(0,animationPlayer.current_animation_length))
+	idleAnimationPlayer.advance(randf_range(0,idleAnimationPlayer.current_animation_length))
 	connect("turn_started",_on_turn_started)
 	pass
 

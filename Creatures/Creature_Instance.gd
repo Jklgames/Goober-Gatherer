@@ -1,7 +1,7 @@
 extends Resource
 class_name CreatureInstance
 
-var nickName : String
+var nickname : String
 var data : CreatureData
 
 var gooberCharge = 0
@@ -26,7 +26,7 @@ func get_stat(statName : String) -> float:
 
 
 func _init(cdata : CreatureData):
-	nickName = cdata.name
+	nickname = cdata.name
 	data = cdata
 	hp = cdata.maxhp
 	for skill in cdata.baseMoveSet:

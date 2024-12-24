@@ -7,11 +7,11 @@ class_name Skill
 @export var cooldown : int = 0
 @export var rawLogString : String 
 @export var logReqestedValues : Array[String] 
+@export var endsTurn :bool = true 
 
 func possible_targets(user : Creature) -> Array[Creature]:
 	
 	return []
-	
 
 func preform_skill(user : Creature, target : Creature):
 	var battle = Battle.instance
@@ -20,20 +20,21 @@ func preform_skill(user : Creature, target : Creature):
 	user.pre_skill_used.emit(packet)
 	target.pre_attacked.emit(packet)
 	
-	if !rawLogString.is_empty():
-		var pdata = packet.generalData
-		var formattedValues = packet.getValues(logReqestedValues)
-		var formattedString = rawLogString % formattedValues
-		battle.battleLog.add_text_to_queue(formattedString)
-		print(formattedString)
-	pass
-	Battle.instance.deal_damage(packet)
-	
+	if rawLogString.is_empty():
+		rawLogString = "%s used %s on %s"
+		logReqestedValues = ["attacker.instance.nickname","source","target.instance.nickname"]
+		pass
+	Battle.instance.process_action_packet(packet)
 	user.post_skill_used.emit(packet)
 	target.post_attacked.emit(packet)
 	if cooldown != 0:
 		user.instance.skillFatigue[user.instance.skills.find(self)] = cooldown
+	if endsTurn:
+		Battle.instance.turnManager.end_turn()
 
+func _printLog():
+	
+	pass
 
 func  _turn_logic(packet : ActionPacket):
 	pass

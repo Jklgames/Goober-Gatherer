@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_75yxk"]
 [ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_j0a07"]
-[ext_resource type="PackedScene" uid="uid://bxquvwws7pjkj" path="res://Creatures/Huh/Huh_Prefab.tscn" id="2_c2lfm"]
+[ext_resource type="PackedScene" uid="uid://bxquvwws7pjkj" path="res://Creatures/Huh/huh_prefab.tscn" id="2_c2lfm"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="3_xnjq0"]
 
 [sub_resource type="Resource" id="Resource_rdklx"]
@@ -11,8 +11,9 @@ name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
-rawLogString = "%s was hit by %s for %d damage!"
-logReqestedValues = Array[String](["target.instance.nickName", "attacker.instance.nickName", "damage"])
+rawLogString = ""
+logReqestedValues = Array[String]([])
+endsTurn = true
 
 [resource]
 script = ExtResource("3_xnjq0")

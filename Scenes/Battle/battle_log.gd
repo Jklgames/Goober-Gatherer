@@ -10,9 +10,11 @@ var _dialogueSpeed : float = 0.0056
 
 var _dialogIndex : int = 0
 
-func parse_text_to_queue(newLog : String,info : StringParser.StringInfo):
-	newLog = StringParser.parse_text(newLog , info)
-	add_text_to_queue(newLog)
+func parse_text_to_queue(rawLog : String,requests : Array[String],packet : ActionPacket):
+	var pdata = packet.generalData
+	var formattedValues = packet.getValues(requests)
+	var formattedString = rawLog % formattedValues
+	add_text_to_queue(formattedString)
 	pass
 
 
@@ -26,9 +28,7 @@ func display_queued_text():
 	_currentlyDisplaying = true
 	_dialogIndex = 0
 	while _queuedDialogs.size() != 0:
-
 		if _dialogIndex < _queuedDialogs[0].length():
-			
 			text += _queuedDialogs[0][_dialogIndex]
 			scroll_to_line(get_line_count()-1)
 			_dialogIndex +=1
@@ -37,10 +37,11 @@ func display_queued_text():
 		else:
 			_dialogIndex = 0
 			text += "\n"
+			print ("Log: "+ _queuedDialogs[0])
 			_queuedDialogs.remove_at(0)
 			pass
-			
-		
+		pass
+	
 	_currentlyDisplaying = false
 	pass
 
