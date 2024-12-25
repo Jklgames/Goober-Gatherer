@@ -1,9 +1,9 @@
 [gd_scene load_steps=30 format=3 uid="uid://dqjejwrwvqqbp"]
 
 [ext_resource type="Script" path="res://Scenes/Battle/battle.gd" id="1_yocd0"]
-[ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Turns/Turn_Manager.tscn" id="2_1yqt7"]
+[ext_resource type="PackedScene" uid="uid://cl8kkfv02tsl8" path="res://Scenes/Battle/Turns/Turn_Manager.tscn" id="2_1yqt7"]
 [ext_resource type="Script" path="res://Scripts/Opponent_AI.gd" id="2_cajqb"]
-[ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Turns/Turn_List.tscn" id="3_ojxl6"]
+[ext_resource type="PackedScene" uid="uid://rwng7tm5qgfk" path="res://Scenes/Battle/Turns/Turn_List.tscn" id="3_ojxl6"]
 [ext_resource type="Script" path="res://Creatures/Party.gd" id="4_47hsa"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="4_jtt13"]
 [ext_resource type="Resource" uid="uid://qfdhe1qwpj06" path="res://Creatures/Huh/huh_data.tres" id="5_254vp"]

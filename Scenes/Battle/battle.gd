@@ -31,7 +31,12 @@ var selectedTargetIndex : int = 0
 var usableSkillsIndexes : Array[int] = []
 
 #region Initializations
-func _ready():
+
+func _ready() -> void:
+	
+	pass
+
+func begin():
 	for id: int in Input.get_connected_joypads():
 		InputMap.get_actions()
 		
@@ -41,10 +46,11 @@ func _ready():
 	instance = self
 	turnManager.initialize()
 	turnManager.turnList.initialize()
-	initialize()
+	_initialize()
 	pass
 
-func initialize():
+
+func _initialize():
 	_init_allies()
 	_init_enemies()
 	change_battle_state(BattleState.Idle)

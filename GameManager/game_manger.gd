@@ -6,6 +6,7 @@ const SAVE_PATH = "user://save_data.tres"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	if playerData == null:
 		playerData = load_or_create()
 		print("Loaded player data from file")

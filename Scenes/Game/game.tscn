@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cul4avc2ayxx5"]
+
+[ext_resource type="Script" path="res://Scenes/Game/game.gd" id="1_jfikx"]
+[ext_resource type="PackedScene" uid="uid://dqjejwrwvqqbp" path="res://Scenes/Battle/battle.tscn" id="2_vyxas"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_jfikx")
+battlePrefab = ExtResource("2_vyxas")
