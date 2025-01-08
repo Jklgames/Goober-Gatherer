@@ -4,9 +4,9 @@ class_name Creature
 var data : CreatureData
 var instance : CreatureInstance
 var allied : bool
-var hpbar : Bar
+@export var hpbar : Bar
 
-var statuses : Array[Status] = []
+var statuses : Array[StatusEffect] = []
 var dead : bool = false
 
 signal turn_started
@@ -28,8 +28,8 @@ func get_stat(statName : String) -> float:
 	statName = statName.to_lower()
 	var returnStat : float = instance.get_stat(statName)
 	for status in statuses:
-		if status.statChanges.has(statName):
-			returnStat += status.statChanges[statName]
+		if status.type.statChanges.has(statName):
+			returnStat += status.type.statChanges[statName]
 	#Augmented by passives and statuses
 	return returnStat
 

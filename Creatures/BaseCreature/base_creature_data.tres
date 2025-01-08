@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="1_njv4d"]
 [ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_robw6"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="1_sdpsr"]
+[ext_resource type="Script" path="res://Scripts/Skills/Basic_Attack.gd" id="1_sdpsr"]
 [ext_resource type="PackedScene" uid="uid://dlrnlm1c2vk4j" path="res://Creatures/BaseCreature/base_creature_prefab.tscn" id="1_vyq41"]
 
 [sub_resource type="Resource" id="Resource_rdklx"]
@@ -14,6 +14,8 @@ cooldown = 0
 rawLogString = ""
 logReqestedValues = Array[String]([])
 endsTurn = true
+animateOnUser = false
+animateOnTarget = false
 
 [resource]
 script = ExtResource("1_njv4d")

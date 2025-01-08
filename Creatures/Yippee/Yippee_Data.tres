@@ -1,30 +1,46 @@
-[gd_resource type="Resource" script_class="CreatureData" load_steps=8 format=3 uid="uid://e28qk6qwsx3j"]
+[gd_resource type="Resource" script_class="CreatureData" load_steps=9 format=3 uid="uid://e28qk6qwsx3j"]
 
 [ext_resource type="PackedScene" uid="uid://ddsy0jeqtwg8v" path="res://Creatures/Yippee/yippee_prefab.tscn" id="1_7u1j5"]
 [ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_h6yen"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Heal.gd" id="1_tyxf0"]
+[ext_resource type="Script" path="res://Scripts/Skills/Basic_Heal.gd" id="2_l4scp"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="2_ldtot"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="2_padq0"]
+[ext_resource type="Script" path="res://Scripts/Skills/Basic_Attack.gd" id="3_45y6e"]
 
 [sub_resource type="Resource" id="Resource_g1aim"]
-script = ExtResource("1_tyxf0")
+script = ExtResource("2_l4scp")
 name = "Basic_Heal"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
-rawLogString = "%s used %s on %s"
-logReqestedValues = Array[String](["attacker.instance.nickname", "source", "target.instance.nickname"])
+rawLogString = ""
+logReqestedValues = Array[String]([])
 endsTurn = true
+animateOnUser = false
+animateOnTarget = false
 
 [sub_resource type="Resource" id="Resource_g0rdr"]
-script = ExtResource("2_padq0")
+script = ExtResource("3_45y6e")
 name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
-rawLogString = "%s used %s on %s"
-logReqestedValues = Array[String](["attacker.instance.nickname", "source", "target.instance.nickname"])
+rawLogString = ""
+logReqestedValues = Array[String]([])
 endsTurn = true
+animateOnUser = false
+animateOnTarget = false
+
+[sub_resource type="Resource" id="Resource_k0iyo"]
+script = ExtResource("3_45y6e")
+name = "Basic_Attack"
+description = "Placeholder description"
+power = 20.0
+cooldown = 0
+rawLogString = ""
+logReqestedValues = Array[String]([])
+endsTurn = true
+animateOnUser = false
+animateOnTarget = false
 
 [resource]
 script = ExtResource("2_ldtot")
@@ -32,6 +48,7 @@ name = "Yippee"
 creatureScene = ExtResource("1_7u1j5")
 description = "PlaceHolder"
 baseMoveSet = Array[ExtResource("1_h6yen")]([SubResource("Resource_g1aim"), SubResource("Resource_g0rdr")])
+gooberSkill = SubResource("Resource_k0iyo")
 maxhp = 150
 attack = 90
 defense = 60

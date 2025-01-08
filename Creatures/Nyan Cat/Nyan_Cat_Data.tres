@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="CreatureData" load_steps=10 format=3 uid="uid://d2dalanwxu6vi"]
 
 [ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="1_h6kh1"]
-[ext_resource type="Script" path="res://Scripts/Skills/Basic Attack.gd" id="2_j6yem"]
-[ext_resource type="Script" path="res://Scripts/Skills/Status Move.gd" id="3_pkl3k"]
-[ext_resource type="Script" path="res://Scripts/Statuses/DamageOverTime.gd" id="4_8hknp"]
+[ext_resource type="Script" path="res://Scripts/Skills/Basic_Attack.gd" id="2_rxbjl"]
+[ext_resource type="Script" path="res://Scripts/Skills/Status_Move.gd" id="3_gvhq5"]
+[ext_resource type="Script" path="res://Scripts/Statuses/Damagec_Over_Time.gd" id="4_elaca"]
 [ext_resource type="PackedScene" uid="uid://d25rcd1yetce2" path="res://Creatures/Nyan Cat/nyan_cat_prefab.tscn" id="5_jklc4"]
 [ext_resource type="Script" path="res://Creatures/Creature_Data.gd" id="6_20kmd"]
 
-[sub_resource type="Resource" id="Resource_i72vw"]
-script = ExtResource("2_j6yem")
+[sub_resource type="Resource" id="Resource_rwjib"]
+script = ExtResource("2_rxbjl")
 name = "Basic_Attack"
 description = "Placeholder description"
 power = 20.0
@@ -16,43 +16,47 @@ cooldown = 0
 rawLogString = ""
 logReqestedValues = Array[String]([])
 endsTurn = true
+animateOnUser = false
+animateOnTarget = false
 
-[sub_resource type="Resource" id="Resource_obply"]
-script = ExtResource("4_8hknp")
-damage = 30.0
-persentageHP = false
-rawLogStringOnProc = "%s took %d from the cringe"
-logReqestedValues = Array[String](["target.instance.nickname", "damage"])
-name = "cringe"
-atags = Array[int]([0])
-duration = 2
+[sub_resource type="Resource" id="Resource_rsc1w"]
+script = ExtResource("4_elaca")
+value = 10.0
+healing = false
+persentageHP = true
+rawLogStringOnProc = ""
+logReqestedValues = Array[String]([])
+name = "Status Effect"
+startDuration = 1
 clensable = true
 stackable = true
-maxStacks = -1
+maxStacks = -2
 statChanges = {}
 
-[sub_resource type="Resource" id="Resource_ejwii"]
-script = ExtResource("3_pkl3k")
-status = SubResource("Resource_obply")
-applicationChance = 80.0
+[sub_resource type="Resource" id="Resource_o0343"]
+script = ExtResource("3_gvhq5")
+status = SubResource("Resource_rsc1w")
+applicationChance = 100.0
 damaging = false
 targetsAllies = false
-failedLogString = "%s failed to make %s cringe"
-failedLogReqestedValues = Array[String](["attacker.instace.nickname", "target.instance.nickname"])
+failedLogString = ""
+failedLogReqestedValues = Array[String]([])
 name = "Cringe"
 description = "Placeholder description"
 power = 20.0
 cooldown = 0
-rawLogString = "%s has caused %s to Cringe"
-logReqestedValues = Array[String](["attacker.instance.nickName", "target.instance.nickName"])
+rawLogString = ""
+logReqestedValues = Array[String]([])
 endsTurn = true
+animateOnUser = false
+animateOnTarget = false
 
 [resource]
 script = ExtResource("6_20kmd")
 name = "Nyan Cat"
 creatureScene = ExtResource("5_jklc4")
 description = "PlaceHolder"
-baseMoveSet = Array[ExtResource("1_h6kh1")]([SubResource("Resource_i72vw"), SubResource("Resource_ejwii")])
+baseMoveSet = Array[ExtResource("1_h6kh1")]([SubResource("Resource_rwjib"), SubResource("Resource_o0343")])
 maxhp = 100
 attack = 110
 defense = 70

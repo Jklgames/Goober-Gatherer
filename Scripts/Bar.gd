@@ -1,7 +1,7 @@
-extends Sprite3D
+extends Node3D
 class_name  Bar
 
-@onready var progressBar : ProgressBar = $SubViewport/ProgressBar
+@export var progressBar : ProgressBar
 @export var value : float
 @export var shouldLerp : bool = true #false makes value be set instantly
 @export var timedLerp : bool = true #false makes lerps at a constant speed for as long as needed

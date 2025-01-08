@@ -139,6 +139,7 @@ _data = {
 [node name="WooYeah" instance=ExtResource("1_m2d26")]
 
 [node name="AnimatedSprite3D" parent="." index="0"]
+flip_h = true
 pixel_size = 0.01
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_8aamm")
@@ -147,3 +148,6 @@ sprite_frames = SubResource("SpriteFrames_8aamm")
 libraries = {
 "": SubResource("AnimationLibrary_70vp6")
 }
+
+[node name="HPBar" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)

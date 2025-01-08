@@ -32,12 +32,10 @@ func add_creature_turn(creature : Creature):
 	pass
 
 func remove_turn(turn : Turn):
-	var id = turns.find(turn)
-	turns.remove_at(id)
+	turns.erase(turn)
 
 	var turnGraphic = turn.turnGraphic
-	var gid = turnList.turngraphics.find(turnGraphic)
-	turnList.turngraphics.remove_at(gid)
+	turnList.turngraphics.erase(turnGraphic)
 
 	turn.queue_free()
 	turnGraphic.queue_free()
@@ -67,8 +65,7 @@ func end_turn():
 	else:
 		newAV = turn.speed
 	turn.actionValue = newAV
-	var id = turns.find(turn,0)
-	turns.remove_at(id)
+	turns.erase(turn)
 	turns.append(turn)
 	sort_turns()
 	battle.change_battle_state(Battle.BattleState.Idle)

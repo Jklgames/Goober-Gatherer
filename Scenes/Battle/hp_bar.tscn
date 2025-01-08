@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Bar.gd" id="1_n3f5s"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_m1pft"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("Sprite/SubViewport")
 
 [sub_resource type="Environment" id="Environment_12ymh"]
 background_mode = 1
@@ -13,24 +13,29 @@ background_color = Color(0.858824, 0, 0, 1)
 environment = SubResource("Environment_12ymh")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb7ec"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evc42"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0, 1, 0, 1)
 
-[node name="HPBar" type="Sprite3D"]
+[node name="HPBar" type="Node3D" node_paths=PackedStringArray("progressBar")]
+script = ExtResource("1_n3f5s")
+progressBar = NodePath("Sprite/SubViewport/ProgressBar")
+timeToLerp = 0.3
+
+[node name="Sprite" type="Sprite3D" parent="."]
+billboard = 1
 texture_filter = 0
 render_priority = 1
 texture = SubResource("ViewportTexture_m1pft")
-script = ExtResource("1_n3f5s")
-timeToLerp = 0.3
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="SubViewport" type="SubViewport" parent="Sprite"]
 own_world_3d = true
 world_3d = SubResource("World3D_imdbf")
 transparent_bg = true
 size = Vector2i(150, 20)
 
-[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+[node name="ProgressBar" type="ProgressBar" parent="Sprite/SubViewport"]
 offset_right = 150.0
 offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_bb7ec")

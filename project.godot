@@ -8,27 +8,42 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/fold_docks=true
+resources_spreadsheet_view/resource_cell_label_mode=1
+
 [application]
 
 config/name="Goober Gatherer"
 config/version="-1 billion"
-run/main_scene="res://Scenes/Game/game.tscn"
+run/main_scene="res://Scenes/Game/Game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManger="*res://GameManager/game_manger.tscn"
+Shaker="*res://addons/shaker/src/Shaker.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
+window/size/mode=2
+window/stretch/mode="viewport"
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SimpleTODO/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_visualstudio_debugger/plugin.cfg", "res://addons/inspector_extender/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/shaker/plugin.cfg")
 
 [importer_defaults]
 

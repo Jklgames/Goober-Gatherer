@@ -94,3 +94,6 @@ sprite_frames = SubResource("SpriteFrames_8aamm")
 libraries = {
 "": SubResource("AnimationLibrary_70vp6")
 }
+
+[node name="HPBar" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35032, 0)

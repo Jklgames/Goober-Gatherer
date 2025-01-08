@@ -59,6 +59,6 @@ func move_turn_ui(turnPositionPairs : Dictionary):
 	pass
 
 func CalcGraphicPosition(graphic :TurnGraphic,slot :int) -> float:
-	const padding = 25
+	const padding = 0
 	var graphicSize= graphic.size.y
 	return (graphicSize+padding)*slot

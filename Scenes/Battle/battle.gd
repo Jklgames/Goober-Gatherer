@@ -9,7 +9,6 @@ static var instance : Battle
 @export var turnManager : TurnManager
 @export var targetSelectionGraphic : Node3D
 @export var currentTurnGraphic : Node3D
-@export var hPBarPrefab : PackedScene
 @export var allyFieldSlots : Array[Node] = []
 @export var enemyFieldSlots : Array[Node] = [] 
 @export var battleLog : BattleLog
@@ -21,6 +20,7 @@ var enemies : Array[Creature] = []
 var battleState : BattleState = BattleState.Init
 var wave : int = 0
 var turnCount : int = 0
+var playerHasGottenATurn : bool = false
 
 var currentTurn : Turn 
 var selectedTarget : Creature
@@ -115,10 +115,8 @@ func put_creature_in_slot(isAlly:bool,cinstance:CreatureInstance,slot : int):
 	creature.position = Vector3.ZERO
 	turnManager.add_creature_turn(creature)
 	#Add HP Bar
-	var hpbar : Bar = hPBarPrefab.instantiate()
-	creature.hpbar = hpbar
-	creature.add_child(hpbar)
-	hpbar.position = Vector3(0,1,0)
+	var hpbar : Bar = creature.hpbar
+	hpbar.show()
 	hpbar.SetMax(creature.get_stat("maxhp"))
 	hpbar.value = cinstance.hp
 	hpbar.progressBar.value = hpbar.value
@@ -129,10 +127,10 @@ func remove_creature(creature : Creature):
 		return
 
 	if creature.allied:
-		allies.remove_at(allies.find(creature))
+		allies.erase(creature)
 		pass
 	else:
-		enemies.remove_at(enemies.find(creature))
+		enemies.erase(creature)
 		pass
 	var turn = turnManager.get_creature_turn(creature)
 	turnManager.remove_turn(turn)
@@ -237,6 +235,7 @@ func _turn_handler():
 			change_battle_state(BattleState.Idle)
 			return	
 		if currentTurn.creature.allied: #Player Turn Logic
+			playerHasGottenATurn = true
 			for i in range(4):
 				
 				if usableSkillsIndexes.has(i):
@@ -255,6 +254,10 @@ func _turn_handler():
 			select_and_initalize_move(usableSkillsIndexes[0])
 			pass
 		else : #Opponent Turn Logic
+			if !playerHasGottenATurn:
+				print("skipped opponent turn so player moves first")
+				turnManager.end_turn()
+
 			opponent.TurnLogic()
 			pass
 	pass
@@ -343,9 +346,12 @@ func process_action_packet(packet : ActionPacket):
 	var target : Creature = pdata["target"]
 	var attacker : Creature = pdata["attacker"]
 	
+	var packetLog = packet.generalData["log"]
+	battleLog.add_text_to_queue(packetLog)
+
+	#Deal damage
 	var damage = pdata["damage"] if pdata.has("damage") else 0
 	var healing = pdata["healing"] if pdata.has("healing") else 0
-	
 	target.instance.hp += -damage + healing
 	target.instance.hp = clamp(target.instance.hp,0,target.get_stat("maxhp"))
 	target.hpbar.value = target.instance.hp
@@ -354,19 +360,51 @@ func process_action_packet(packet : ActionPacket):
 		var logtext : String = "%s died from %s's %s" % [target.instance.nickname, attacker.instance.nickname, packet.generalData["source"]]
 		battleLog.add_text_to_queue(logtext)
 		pass
+	else : #Creature still alive
+		Battle.instance.apply_status(packet)
+		pass
+
+	pass 
 
 func apply_status(packet):
 	if !packet.generalData.has("status"):
 		return
-	var status : Status = packet.generalData["status"].duplicate()
-	if !status:
-		return
 	var target : Creature = packet.generalData ["target"]
 	var applicant : Creature = packet.generalData["attacker"]
-	 
-	target.statuses.append(status)
-	status.initForBattle(target,applicant)
-	pass
+	var type : StatusType = packet.generalData["status"]
+
+	var newStatus : = StatusEffect.new(type,target,applicant) 
+	#check if creature has a statuseffect with same type
+
+	var matchingStatuses : Array[StatusEffect] = target.statuses.filter(func(x): return x.type == type)
+	if matchingStatuses.size() > 0:
+		if !type.stackable:
+			packet["log"] += "\nbut %s already has %s" % [target.instance.nickname, type.name]
+		elif type.maxStacks == -1:
+			var index = target.statuses.find(matchingStatuses[0])
+			newStatus.stacks = matchingStatuses[0].stacks + 1
+			target.statuses[index] = newStatus
+		elif type.maxStacks != -2:
+			target.statuses.append(newStatus)
+		pass
+	else:
+		target.statuses.append(newStatus)
+		
+ 
+#	for status in target.statuses:
+#		if status.type == type:
+	#		if !type.stackable:
+	#			packet["log"] += "\nbut %s already has %s" % [target.instance.nickname, type.name]
+#				return
+#			if type.maxStacks == -1:
+#				var index = target.statuses.find(status)
+	#			status.stacks += 1
+	#			target.statuses[index] = status
+	#			return
+#			if type.maxStacks != -2:
+#				continue
+#	target.statuses.append(newStatus)
+
 
 #endregion
 
@@ -376,7 +414,6 @@ func skill_button_pressed(skillIndex : int):
 		print("Skill not usable")
 		return
 	
-	var skill :Skill = currentCreature.instance.skills[skillIndex]
 	if selectedSkillIndex == usableSkillsIndexes.find(skillIndex):
 		use_skill(currentTurn.creature,skillIndex,selectedTarget)
 		#turnManager.end_turn()

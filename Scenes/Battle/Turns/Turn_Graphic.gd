@@ -10,7 +10,7 @@ var targetHeight : float = 0
 
 func _process(delta: float) -> void:
 	if moving:
-		position.y = lerpf(position.y,targetHeight,0.05)
+		position.y = lerpf(position.y,targetHeight,0.01)
 		if position.y == targetHeight:
 			moving = false
 			pass

@@ -1,7 +1,7 @@
 extends RichTextLabel
 class_name BattleLog
 
-var _baseString : String = "[color=#000000] [font_size=30]"
+var _baseString : String = "[color=#000000][font_size=30]"
 
 var _queuedDialogs : Array[String] = []
 
@@ -10,14 +10,10 @@ var _dialogueSpeed : float = 0.0056
 
 var _dialogIndex : int = 0
 
-func parse_text_to_queue(rawLog : String,requests : Array[String],packet : ActionPacket):
-	var pdata = packet.generalData
+func parse_text(rawLog : String,requests : Array[String],packet : ActionPacket) -> String:
 	var formattedValues = packet.getValues(requests)
 	var formattedString = rawLog % formattedValues
-	add_text_to_queue(formattedString)
-	pass
-
-
+	return formattedString
 
 func add_text_to_queue(newLog : String):
 	_queuedDialogs.append(newLog)

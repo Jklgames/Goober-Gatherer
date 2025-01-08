@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlrnlm1c2vk4j"]
+[gd_scene load_steps=13 format=3 uid="uid://dlrnlm1c2vk4j"]
 
 [ext_resource type="Script" path="res://Creatures/Creature.gd" id="1_akqs7"]
 [ext_resource type="Texture2D" uid="uid://clhjrjcr5rxeb" path="res://icon.svg" id="2_t6lxn"]
+[ext_resource type="PackedScene" uid="uid://caa4gho5a5gdc" path="res://Scenes/Battle/hp_bar.tscn" id="3_kaq1n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5id7w"]
 atlas = ExtResource("2_t6lxn")
@@ -112,13 +113,51 @@ _data = {
 "RESET": SubResource("Animation_yovgh")
 }
 
+[sub_resource type="Animation" id="Animation_gckng"]
+resource_name = "Hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g648u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite3D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ks7a"]
+_data = {
+"Hurt": SubResource("Animation_gckng"),
+"RESET": SubResource("Animation_g648u")
+}
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_37ypx"]
 height = 0.001
 radial_segments = 6
 rings = 5
 
-[node name="BaseCreature" type="Node3D" node_paths=PackedStringArray("idleAnimationPlayer", "ActionAnimationPlayer")]
+[node name="BaseCreature" type="Node3D" node_paths=PackedStringArray("hpbar", "idleAnimationPlayer", "ActionAnimationPlayer")]
 script = ExtResource("1_akqs7")
+hpbar = NodePath("HPBar")
 idleAnimationPlayer = NodePath("IdleAnimationPlayer")
 ActionAnimationPlayer = NodePath("ActionAnimationPlayer")
 
@@ -138,7 +177,14 @@ autoplay = "Idle"
 
 [node name="ActionAnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../IdleAnimationPlayer")
+libraries = {
+"": SubResource("AnimationLibrary_5ks7a")
+}
 
 [node name="RefrenceStand" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("CylinderMesh_37ypx")
+
+[node name="HPBar" parent="." instance=ExtResource("3_kaq1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
